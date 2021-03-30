@@ -1,0 +1,16 @@
+{
+  "name": "openmmbn-web-map-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "render-map.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "canvas": "^2.7.0",
+    "easystarjs": "^0.4.4"
+  }
+}
