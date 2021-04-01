@@ -6,12 +6,12 @@
     "activeFile": "prefabs/stairs/stairs-up-left.json",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
-        "tiles",
+        ".",
+        "prefabs/small-default",
         "prefabs/template",
         "prefabs",
-        "prefabs/stairs",
-        "prefabs/small-default",
-        "."
+        "tiles",
+        "prefabs/stairs"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -31,7 +31,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 1460.75,
-                "y": 725.125
+                "y": 1100.125
             }
         },
         "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/screen.tsx": {
@@ -360,42 +360,42 @@
             }
         },
         "prefabs/small-default/small-entrance.json": {
-            "scale": 2.1015624999999996,
-            "selectedLayer": 0,
+            "scale": 1.5,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 304.29739776951675,
-                "y": 132.2825278810409
+                "x": 225.33333333333331,
+                "y": 158.66666666666669
             }
         },
         "prefabs/small-default/small-gallery.json": {
-            "scale": 2.8521205357142856,
+            "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 224.21913519859126,
-                "y": 92.21209156720798
+                "x": 279.99999999999994,
+                "y": 168.66666666666669
             }
         },
         "prefabs/small-default/small-hub.json": {
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 250.75,
-                "y": 172.5
+                "x": 305,
+                "y": 155
             }
         },
         "prefabs/small-default/small-warps.json": {
-            "scale": 2.8521205357142856,
+            "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 224.21913519859126,
-                "y": 92.21209156720798
+                "x": 229.99999999999994,
+                "y": 194.66666666666666
             }
         },
         "prefabs/small-default/template.json": {
             "scale": 0.19964843749999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3203.130502837019,
+                "x": 3205.634905106633,
                 "y": 1577.773429857171
             }
         },
@@ -475,8 +475,8 @@
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 119.83333333333334,
-                "y": 91.99999999999997
+                "x": 133.99999999999997,
+                "y": 14
             }
         },
         "prefabs/stairs/stairs-down-right.json": {
@@ -488,11 +488,11 @@
             }
         },
         "prefabs/stairs/stairs-up-left.json": {
-            "scale": 3,
-            "selectedLayer": 0,
+            "scale": 4,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 135.83333333333334,
-                "y": 47.33333333333334
+                "x": 122,
+                "y": 54.75
             }
         },
         "prefabs/stairs/stairs-up-right.json": {
@@ -586,9 +586,15 @@
         "prefabs/small-default/small-hub.json",
         "prefabs/small-default/small-warps.json",
         "prefabs/small-default/template.json",
-        "prefabs/stairs/stairs-down-right.json",
         "prefabs/stairs/stairs-up-left.json",
-        "prefabs/stairs/stairs-down-left.json"
+        "prefabs/stairs/stairs-down-left.json",
+        "tiles/forward-stairs.tsx",
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/default.tmx",
+        "tiles/connection.tsx",
+        "tiles/back-stairs.tsx",
+        "tiles/prefab_tiles.tsx",
+        "tiles/ground_feature.tsx",
+        "tiles/wall_feature.tsx"
     ],
     "project": "prefabs.tiled-project",
     "property.type": "string",
@@ -598,13 +604,13 @@
         "prefabs/small-default/small-hub.json",
         "prefabs/small-default/small-warps.json",
         "prefabs/small-default/template.json",
-        "prefabs/stairs/stairs-down-right.json",
-        "prefabs/stairs/stairs-down-left.json",
-        "prefabs/stairs/stairs-up-left.json",
-        "prefabs/stairs/stairs-up-right.json",
-        "prefabs/stairs-down-left.json",
-        "prefabs/small-warps.json",
-        "prefabs/small-hub.json"
+        "tiles/wall_feature.tsx",
+        "tiles/ground_feature.tsx",
+        "tiles/prefab_tiles.tsx",
+        "tiles/back-stairs.tsx",
+        "tiles/connection.tsx",
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/default.tmx",
+        "tiles/forward-stairs.tsx"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
