@@ -45,7 +45,7 @@ async function generateAnimation(converted_favicon_path,output_path,preview=true
         spacing:16,
     }
 
-    let animation = new FlippingAnimation(canvas,favicon,parameters)
+    let animation = new StaticAnimation(canvas,favicon,parameters)
 
     let out_canvas = createCanvas(width, height*animation.frames)
     let out_ctx = out_canvas.getContext('2d')
@@ -83,6 +83,30 @@ class StaticAnimation{
         this.xEnd = this.width+spacing
         this.yEnd = this.height+spacing
 
+        //Generate a darker verison of the favicon for the back side
+        let fav_canvas = createCanvas(this.favicon.width, this.favicon.height)
+        let fav_ctx = fav_canvas.getContext('2d')
+        fav_ctx.drawImage(this.favicon,0,0)
+        fav_ctx.globalCompositeOperation = 'source-atop';
+        fav_ctx.fillStyle = 'rgba(0,0,0,0.3)'
+        fav_ctx.fillRect(0,0,this.favicon.width,this.favicon.height)
+        this.faviconBackside = fav_canvas
+
+        //Generate icons
+        this.icons = []
+        for(let x = this.xStart; x < this.xEnd; x+=this.spacing){
+            for(let y = this.yStart; y < this.yEnd; y+=this.spacing){
+                let newIcon = {
+                    x:x,
+                    y:y,
+                    xScale:1,
+                    yScale:1,
+                    rotation:0
+                }
+                this.icons.push(newIcon)
+            }
+        }
+
         //Read middle pixel color to generate a background color
         this.getBackgroundColorFromFavicon()
 
@@ -101,12 +125,29 @@ class StaticAnimation{
         this.backgroundColor = `rgb(${rcolor(middlePixelColor.r)},${rcolor(middlePixelColor.g)},${rcolor(middlePixelColor.b)})`
     }
     animateFrame(ctx,frame){
+        TweenJs.update(frame)
         ctx.fillStyle = this.backgroundColor
         ctx.fillRect(0,0,this.width,this.height)
-        for(let x = this.xStart; x < this.xEnd; x+=this.spacing){
-            for(let y = this.yStart; y < this.yEnd; y+=this.spacing){
-                ctx.drawImage(this.favicon, x, y,this.faviconScaledSize,this.faviconScaledSize)
+        for(let icon of this.icons){
+            let width = this.faviconScaledSize*icon.xScale
+            let height = this.faviconScaledSize*icon.yScale
+            let flip = false
+            let flop = false
+            let image = this.favicon
+            if(width < 0){
+                flip = true
+                width = Math.abs(this.faviconScaledSize*icon.xScale)
             }
+            if(height < 0){
+                flop = true
+                width = Math.abs(this.faviconScaledSize*icon.xScale)
+            }
+            if(( flip && !flop ) || ( !flip && flop )){
+                //If the favicon is both flipped and flopped, it would be frontside not back
+                //If it is either flipped or flopped, it shows the front
+                image = this.favicon_flipped
+            }
+            drawImage(ctx,image,icon.x,icon.y,width,height,0,flip,flop,true)
         }
     }
 }
@@ -116,48 +157,26 @@ class FlippingAnimation extends StaticAnimation{
         super(canvas,favicon,parameters)
         this.frames = 24
 
-        this.tweenData = {width:this.faviconScaledSize}
-        
-        //Generate a darker verison of the favicon for the back side
-        let fav_canvas = createCanvas(this.favicon.width, this.favicon.height)
-        let fav_ctx = fav_canvas.getContext('2d')
-        fav_ctx.drawImage(this.favicon,0,0)
-        fav_ctx.globalCompositeOperation = 'source-atop';
-        fav_ctx.fillStyle = 'rgba(0,0,0,0.3)'
-        fav_ctx.fillRect(0,0,this.favicon.width,this.favicon.height)
-        this.darkFavicon = fav_canvas
+        let tweenTarget1 = []
+        for(let icon of this.icons){
+            let iconCopy = JSON.parse(JSON.stringify(icon))
+            iconCopy.xScale = 0
+            tweenTarget1.push(iconCopy)
+        }
+
+        let tweenTarget2 = []
+        for(let icon of this.icons){
+            let iconCopy = JSON.parse(JSON.stringify(icon))
+            iconCopy.xScale = 0
+            tweenTarget1.push(iconCopy)
+        }
 
         let easingTypes = [TweenJs.Easing.Quadratic.InOut,TweenJs.Easing.Circular.InOut,TweenJs.Easing.Exponential.InOut,TweenJs.Easing.Bounce.InOut]
 
         //Flip icon front facing
-        let tA = new TweenJs.Tween(this.tweenData).to({width:-this.faviconScaledSize},this.frames/2).easing(TweenJs.Easing.Bounce.InOut).start(0)
-        let tB = new TweenJs.Tween(this.tweenData).to({width:this.faviconScaledSize},this.frames/2).easing(TweenJs.Easing.Bounce.InOut)
+        let tA = new TweenJs.Tween(this.icons).to(tweenTarget1,this.frames/2).easing(TweenJs.Easing.Bounce.InOut).start(0)
+        let tB = new TweenJs.Tween(this.icons).to({width:this.faviconScaledSize},this.frames/2).easing(TweenJs.Easing.Bounce.InOut)
         tA.chain(tB)
-    }
-    animateFrame(ctx,frame){
-        ctx.fillStyle = this.backgroundColor
-        ctx.fillRect(0,0,this.width,this.height)
-
-        TweenJs.update(frame)
-        console.log(frame,this.tweenData)
-
-        let width = Math.abs(this.tweenData.width)
-        let secondOne = false
-        for(let x = this.xStart; x < this.xEnd; x+=this.spacing){
-            for(let y = this.yStart; y < this.yEnd; y+=this.spacing){
-                if(secondOne){
-                    let flip = this.tweenData.width < 0
-                    let favicon = this.favicon
-                    if(flip){
-                        favicon = this.darkFavicon
-                    }
-                    drawImage(ctx,favicon,x,y,width,this.faviconScaledSize,0,flip,false,true)
-                }else{
-                    drawImage(ctx,this.favicon,x,y,this.faviconScaledSize,this.faviconScaledSize,0,false,false,true)
-                }
-                secondOne = !secondOne
-            }
-        }
     }
 }
 
@@ -204,4 +223,4 @@ function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {
     ctx.drawImage(img, -width/2, -height/2, width, height);
     
     ctx.restore();
-    }
+}
