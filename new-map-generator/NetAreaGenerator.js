@@ -1,5 +1,4 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
-let {NetAreaTileType} = require('./NetAreaTileType.js')
 let {generateGrid,distance,RNG} = require('./helpers')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
