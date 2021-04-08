@@ -3,8 +3,9 @@ const path = require('path');
 const { createCanvas, loadImage } = require('canvas')
 const {downloadFavicon} = require('./downloadFavicon.js')
 const TweenJs = require('@tweenjs/tween.js')
+const hash = require('object-hash');
 
-let web_address = `https://cprewritten.net/`
+let web_address = `https://www.atari.com/`
 let converted_favicon_path = path.resolve('.',`favicon.png`)
 let output_path = path.resolve('.',`background.png`)
 
@@ -14,20 +15,20 @@ const GIFEncoder = require('gifencoder');
 main()
 
 async function main(){
-    await downloadFavicon(web_address,converted_favicon_path)
+    //await downloadFavicon(web_address,converted_favicon_path)
     await generateAnimation(converted_favicon_path,output_path)
 }
 
 async function generateAnimation(converted_favicon_path,output_path,preview=true,previewPath="preview.gif"){
     let favicon = await loadImage(converted_favicon_path)
 
-    let width = 128
+    let width = 64
     let height = 64
     let frame = 0
 
     let canvas = createCanvas(width, height)
     let ctx = canvas.getContext('2d')
-    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingEnabled = false
 
     if(preview){
         var preview_canvas = createCanvas(width*2, height*2)
@@ -37,15 +38,16 @@ async function generateAnimation(converted_favicon_path,output_path,preview=true
         encoder.createReadStream().pipe(fs.createWriteStream(previewPath));
         encoder.start();
         encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
-        encoder.setDelay(100);  // frame delay in ms
+        encoder.setDelay(32);  // frame delay in ms
         encoder.setQuality(10); // image quality. 10 is default.
     }
 
     let parameters = {
-        spacing:16,
+        spacing:0,
+        faviconScaling:1
     }
 
-    let animation = new StaticAnimation(canvas,favicon,parameters)
+    let animation = new TweenedAnimation(canvas,favicon,parameters)
 
     let out_canvas = createCanvas(width, height*animation.frames)
     let out_ctx = out_canvas.getContext('2d')
@@ -68,15 +70,16 @@ async function generateAnimation(converted_favicon_path,output_path,preview=true
 }
 
 class StaticAnimation{
-    constructor(canvas,favicon,{spacing}){
+    constructor(canvas,favicon,{spacing,faviconScaling}){
         this.frames = 1
         this.width = canvas.width
         this.height = canvas.height
         this.favicon = favicon
 
-        let faviconScaling = 1
         this.faviconScaledSize = favicon.width*faviconScaling
         this.spacing = spacing + this.faviconScaledSize
+        this.rows = (this.width/this.faviconScaledSize)+4
+        this.columns = (this.height/this.faviconScaledSize)+4
 
         this.xStart = -spacing
         this.yStart = -spacing
@@ -90,20 +93,26 @@ class StaticAnimation{
         fav_ctx.globalCompositeOperation = 'source-atop';
         fav_ctx.fillStyle = 'rgba(0,0,0,0.3)'
         fav_ctx.fillRect(0,0,this.favicon.width,this.favicon.height)
-        this.faviconBackside = fav_canvas
+        this.favicon_backside = fav_canvas
 
         //Generate icons
-        this.icons = []
-        for(let x = this.xStart; x < this.xEnd; x+=this.spacing){
-            for(let y = this.yStart; y < this.yEnd; y+=this.spacing){
+        //This data can be tweened for animations!
+        this.icons = {}
+        for(let row = -2; row < this.rows; row++){
+            let x = this.xStart + row*(this.spacing)
+            for(let column = -2; column < this.columns; column++){
+                let y = this.yStart + column*(this.spacing)
                 let newIcon = {
                     x:x,
                     y:y,
                     xScale:1,
                     yScale:1,
-                    rotation:0
+                    rotation:0,
+                    row:row,
+                    column:column
                 }
-                this.icons.push(newIcon)
+                let iconHash = hash(newIcon)
+                this.icons[iconHash] = newIcon
             }
         }
 
@@ -128,7 +137,8 @@ class StaticAnimation{
         TweenJs.update(frame)
         ctx.fillStyle = this.backgroundColor
         ctx.fillRect(0,0,this.width,this.height)
-        for(let icon of this.icons){
+        for(let iconHash in this.icons){
+            let icon = this.icons[iconHash]
             let width = this.faviconScaledSize*icon.xScale
             let height = this.faviconScaledSize*icon.yScale
             let flip = false
@@ -140,43 +150,91 @@ class StaticAnimation{
             }
             if(height < 0){
                 flop = true
-                width = Math.abs(this.faviconScaledSize*icon.xScale)
+                height = Math.abs(this.faviconScaledSize*icon.yScale)
             }
             if(( flip && !flop ) || ( !flip && flop )){
                 //If the favicon is both flipped and flopped, it would be frontside not back
                 //If it is either flipped or flopped, it shows the front
-                image = this.favicon_flipped
+                image = this.favicon_backside
             }
-            drawImage(ctx,image,icon.x,icon.y,width,height,0,flip,flop,true)
+            drawImage(ctx,image,icon.x,icon.y,width,height,icon.rotation,flip,flop,true)
         }
     }
 }
 
-class FlippingAnimation extends StaticAnimation{
+class TweenedAnimation extends StaticAnimation{
     constructor(canvas,favicon,parameters){
         super(canvas,favicon,parameters)
-        this.frames = 24
+        this.frames = 64
 
-        let tweenTarget1 = []
-        for(let icon of this.icons){
-            let iconCopy = JSON.parse(JSON.stringify(icon))
-            iconCopy.xScale = 0
-            tweenTarget1.push(iconCopy)
+        this.tweenTargets = []
+        let animationStages = 20
+
+        for(let stage = 0; stage < animationStages; stage++){
+            this.generateTweenStage()
         }
-
-        let tweenTarget2 = []
-        for(let icon of this.icons){
-            let iconCopy = JSON.parse(JSON.stringify(icon))
-            iconCopy.xScale = 0
-            tweenTarget1.push(iconCopy)
+        let lastStageHash = hash(this.tweenTargets[this.tweenTargets.length-1])
+        let firstStageHash = hash(this.icons)
+        if(lastStageHash != firstStageHash){
+            //If the last stage does not match the first, generate a final stage matching the first
+            this.tweenTargets.push(JSON.parse(JSON.stringify(this.icons)))
         }
 
         let easingTypes = [TweenJs.Easing.Quadratic.InOut,TweenJs.Easing.Circular.InOut,TweenJs.Easing.Exponential.InOut,TweenJs.Easing.Bounce.InOut]
 
-        //Flip icon front facing
-        let tA = new TweenJs.Tween(this.icons).to(tweenTarget1,this.frames/2).easing(TweenJs.Easing.Bounce.InOut).start(0)
-        let tB = new TweenJs.Tween(this.icons).to({width:this.faviconScaledSize},this.frames/2).easing(TweenJs.Easing.Bounce.InOut)
+        let tweens = []
+        let index = 0
+        for(let tweenTarget of this.tweenTargets){
+            let tweenDuration = this.frames/this.tweenTargets.length
+            let newTween = new TweenJs.Tween(this.icons).to(tweenTarget,tweenDuration).easing(TweenJs.Easing.Linear.None)
+            if(index > 0){
+                tweens[index-1].chain(newTween)
+            }else{
+                newTween.start(0)
+            }
+            tweens.push(newTween)
+            index++
+        }
+        tweens[0].start()
+        /*
+        let tA = new TweenJs.Tween(this.icons).to(tweenTarget1,this.frames/2).easing(TweenJs.Easing.Quadratic.InOut).start(0)
+        let tB = new TweenJs.Tween(this.icons).to(tweenTarget2,this.frames/2).easing(TweenJs.Easing.Quadratic.InOut)
         tA.chain(tB)
+        */
+    }
+    generateTweenStage(){
+        let horizontalAnimation = randomBool()
+        let everySecondColumn = randomBool()
+        let verticalAnimation = randomBool()
+        let everySecondRow = randomBool()
+        var tweenTargets = {}
+        for(let iconHash in this.icons){
+            let icon = this.icons[iconHash]
+            let iconCopy = JSON.parse(JSON.stringify(icon))
+            if(everySecondColumn && icon.column % 2 == 0){
+                continue
+            }
+            if(everySecondRow && icon.row % 2 == 0){
+                continue
+            }
+            if(horizontalAnimation){
+                let multi = 1
+                if(everySecondRow){
+                    multi = 2
+                }
+                iconCopy.x += this.spacing*multi
+            }
+            if(verticalAnimation){
+                let multi = 1
+                if(everySecondColumn){
+                    multi = 2
+                }
+                iconCopy.y += this.spacing*multi
+            }
+            tweenTargets[iconHash] = iconCopy
+        }
+        console.log(tweenTargets)
+        this.tweenTargets.push(tweenTargets)
     }
 }
 
@@ -206,7 +264,7 @@ function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {
         x -= width/2;
         y -= height/2;
     }
-    
+
     // Set the origin to the center of the image
     ctx.translate(x + width/2, y + height/2);
     
@@ -223,4 +281,8 @@ function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {
     ctx.drawImage(img, -width/2, -height/2, width, height);
     
     ctx.restore();
+}
+
+function randomBool(){
+    return Math.random() > 0.5
 }

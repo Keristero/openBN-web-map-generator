@@ -1,5 +1,5 @@
 ## Background Generator
-- Remove scrolling from animation, this is handled clientside.
+- ✅ Remove scrolling from animation, this is handled clientside.
 - Add some randomized variations with flipping/rotating tiles etc.
 
 ## New Map Generator
