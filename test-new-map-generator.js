@@ -1,4 +1,4 @@
-let {generateRoomPrefabs} = require('./new-map-generator/prefabs.js')
+let {generateRoomPrefabs} = require('./new-map-generator/generateRoomPrefabs.js')
 let {NetAreaGenerator} = require('./new-map-generator/NetAreaGenerator')
 let {renderMap} = require('./render-map.js')
 let fs = require('fs')
