@@ -44,25 +44,22 @@ class PrefabGenerator{
         let featureLocations = this.generateListOfValidFeatureLocations(width,height)
         let connectorLocations = this.generateListOfValidConnectorLocations(width,height)
         let prefab = this.generatePrefab(width,height,connectorLocations,featureLocations)
-        console.log(prefab)
+        //console.log(prefab)
         return prefab;
     }
-    generatePrefab(width,length,connectorLocations,featureLocations){
+    generatePrefab(width,height,connectorLocations,featureLocations){
         let prefab = {
-            grid:[],
             total:{connectors:connectorLocations.length,links:featureLocations.length},
             width:width,
-            height:length,
+            height:height,
             connectors:connectorLocations,
             links:featureLocations
         }
-        let defaultGridValue = 1
-        let newGrid = generateGrid(width,length,height,defaultGridValue)
-        prefab.grid = newGrid
-
-        for(let y = 0; y < length; y++){
+        prefab.grid = generateGrid(width,height,1)
+        
+        for(let y = 0; y < height; y++){
             for(let x = 0; x < width; x++){
-                if(x == 0 || x == width-1 || y == 0 || y == length-1){
+                if(x == 0 || x == width-1 || y == 0 || y == height-1){
                     //if the tile is on the edge, set it to a wall (2)
                     prefab.grid[y][x] = 2
                     for(let location of connectorLocations){

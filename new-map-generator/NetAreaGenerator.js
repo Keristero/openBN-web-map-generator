@@ -1,5 +1,5 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
-let {generateGrid,distance,RNG} = require('./helpers')
+let {generateGrid,distance,RNG,iterateOverGrid} = require('./helpers')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
 
@@ -30,7 +30,7 @@ class NetAreaGenerator {
 
         //Options
         this.maximumPathFindingAttempts = 1; //If pathfinding is failing, raising may help
-        this.oneUseConnectors = true; //Improves look, but increases failure rate
+        this.oneUseConnectors = false; //Improves look, but increases failure rate
     }
     async generateNetArea(startingNode){
         this.arr_queue = [startingNode]
@@ -39,30 +39,24 @@ class NetAreaGenerator {
     roomPlacementValid(room) {
         return this.areaIsClear(room.x, room.y, room.x + room.prefab.width, room.y + room.prefab.height)
     }
-    areaIsClear(px, py, endx, endy) {
-        let g = this.grid
-        for (var y = py; y < endy; y++) {
-            for (var x = px; x < endx; x++) {
-                let tileID = g[y][x]
-                if (tileID !== 0) {
-                    return false;
-                }
+    areaIsClear(startX, startY, endX, endY) {
+        const iterator = iterateOverGrid(this.grid,startX, startY, endX, endY);
+        for (const gridPos of iterator) {
+            if(gridPos.tileID !== 0){
+                return false
             }
         }
-        return true;
+        return true
     }
     burnRoomToGrid(room) {
         //Burn layout
-        let g = room.prefab.grid
-        for (var y = 0; y < g.length; y++) {
-            for (var x = 0; x < g[y].length; x++) {
-                let tileID = g[y][x]
+        const iterator = iterateOverGrid(room.prefab.grid);
+        for (let gridPos of iterator) {
+            if(gridPos.tileID != 0){
                 //make coordinates global
-                let globalX = room.x + x
-                let globalY = room.y + y
-                if (tileID != 0) {
-                    this.grid[globalY][globalX] = tileID;
-                }
+                const globalX = room.x + gridPos.x
+                const globalY = room.y + gridPos.y
+                this.grid[globalY][globalX] = gridPos.tileID;
             }
         }
         //Burn features

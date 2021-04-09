@@ -27,18 +27,28 @@ function distance(a, b) {
     return Math.abs(a - b);
 }
 
-function generateGrid(width, length, height, defaultValue=0) {
+function generateGrid(width, length, defaultValue=0) {
     let grid = [];
-    for (var z = 0; z < height; z++) {
+    for (var y = 0; y < length; y++) {
         grid.push([])
-        for (var y = 0; y < length; y++) {
-            grid[z].push([])
-            for (var x = 0; x < width; x++) {
-                grid[z][y].push(defaultValue)
-            }
+        for (var x = 0; x < width; x++) {
+            grid[y].push(defaultValue)
         }
     }
     return grid;
 }
 
-module.exports = {generateGrid,distance,RNG}
+function* iterateOverGrid(grid,startX=0,startY=0,lastX,lastY){
+    let index = 0
+    let endY = lastY || grid.length
+    for (let y = startY; y < endY; y++) {
+        let endX = lastX || grid[y].length
+        for (let x = startX; x < endX; x++) {
+            let tileID = grid[y][x]
+            yield({tileID,x,y,index})
+            index++
+        }
+    }
+}
+
+module.exports = {generateGrid,distance,RNG,iterateOverGrid}
