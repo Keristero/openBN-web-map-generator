@@ -1,31 +1,8 @@
-class RNG2{
-    constructor(startingSeed){
-        this.seed = startingSeed
-    }
-    Float() {
-        var x = Math.sin(this.seed++) * 10000;
-        return x - Math.floor(x);
-    }
-    Integer(min,max){
-        var range = max - min + 1;
-        return Math.floor(range * this.Float()) + min;
-    }
-    UnevenInteger(min,max){
-        var range = max - min + 1;
-        return (Math.floor((Math.floor(range * this.Float()) + min)/2)*2)+1;
-    }
-    RandomPositionOnCircumference(radius) {
-        var angle = this.Float() * Math.PI * 2;
-        return {
-            x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius
-        }
-    }
-}
+let {RNG, generateGrid} = require("./helpers.js")
 
 class PrefabGenerator{
     constructor(){
-        this.RNG = new RNG2(60902583)
+        this.RNG = new RNG(60902583)
     }
     /**
      * 
@@ -67,27 +44,25 @@ class PrefabGenerator{
         let featureLocations = this.generateListOfValidFeatureLocations(width,height)
         let connectorLocations = this.generateListOfValidConnectorLocations(width,height)
         let prefab = this.generatePrefab(width,height,connectorLocations,featureLocations)
+        console.log(prefab)
         return prefab;
     }
-    generatePrefab(width,height,connectorLocations,featureLocations){
+    generatePrefab(width,length,connectorLocations,featureLocations){
         let prefab = {
             grid:[],
             total:{connectors:connectorLocations.length,links:featureLocations.length},
             width:width,
-            height:height,
+            height:length,
             connectors:connectorLocations,
             links:featureLocations
         }
-        for (var y = 0; y < height; y++) {
-            prefab.grid.push([])
-            for (var x = 0; x < width; x++) {
-                //set every tile to floor (1)
-                prefab.grid[y].push(1)
-            }
-        }
-        for(let y = 0; y < height; y++){
+        let defaultGridValue = 1
+        let newGrid = generateGrid(width,length,height,defaultGridValue)
+        prefab.grid = newGrid
+
+        for(let y = 0; y < length; y++){
             for(let x = 0; x < width; x++){
-                if(x == 0 || x == width-1 || y == 0 || y == height-1){
+                if(x == 0 || x == width-1 || y == 0 || y == length-1){
                     //if the tile is on the edge, set it to a wall (2)
                     prefab.grid[y][x] = 2
                     for(let location of connectorLocations){

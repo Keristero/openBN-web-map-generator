@@ -6,15 +6,15 @@ let fs = require('fs')
 
 
 let exampleSiteData = JSON.parse(fs.readFileSync('./new-map-generator/document.json'))
-InitializeMapNodes(exampleSiteData)
+LetChildrenKnowAboutTheirParents(exampleSiteData)
 let netAreaGenerator = new NetAreaGenerator()
 
-function InitializeMapNodes(node){
+function LetChildrenKnowAboutTheirParents(node){
     let children = node?.features?.children
     if(children){
         for(let child of node?.features?.children){
             child.parent = node
-            InitializeMapNodes(child)
+            LetChildrenKnowAboutTheirParents(child)
         }
     }
 }
@@ -26,3 +26,4 @@ async function main(){
     renderMap(netAreaGenerator)
 }
 
+main()
