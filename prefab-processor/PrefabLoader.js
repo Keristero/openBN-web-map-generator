@@ -5,16 +5,19 @@ let path = require('path')
 
 class PrefabLoader {
     constructor() {
-
+        this.prefabs = []
     }
     async LoadPrefabs(prefabs_directory) {
         let files = await this.ListAllFiles(prefabs_directory)
         let prefab_paths = files.filter((item) => { return path.extname(item) == ".json" })
+        console.log(`[Prefab Loader] loading ${prefab_paths.length} prefabs`)
         let unprocessed_prefab_objects = await this.LoadJsonFiles(prefab_paths)
         //console.log(unprocessed_prefab_objects)
         for (let unprocessed_prefab of unprocessed_prefab_objects) {
             let newPrefab = Prefab.Tiled_GeneratePrefab(unprocessed_prefab)
+            this.prefabs.push(newPrefab)
         }
+        console.log("[Prefab Loader] loaded prefabs")
     }
     /**
      * 
@@ -60,6 +63,4 @@ class PrefabLoader {
     }
 }
 
-let testLoader = new PrefabLoader()
-
-testLoader.LoadPrefabs('./')
+module.exports = PrefabLoader

@@ -7,7 +7,7 @@ class NetAreaGenerator {
     constructor() {
         this.width = 1000;
         this.length = 1000;
-        this.height = 3;
+        this.height = 20;
         this.matrix = generate3dMatrix(this.width, this.length, this.height)
         this.arr_rooms = [];
         this.arr_paths = [];
@@ -15,7 +15,7 @@ class NetAreaGenerator {
         this.features = {};
         this.RNG = new RNG(60902583)
 
-        /*Setup pathfinding
+        /*Setup pathfinding (OLD INFO)
         0 = air
         1 = room
         2 = wall (invisible)
@@ -23,20 +23,32 @@ class NetAreaGenerator {
         4 = main path
         */
 
+        this.id_path = 5
+        this.id_importantPath = 6
+
         //Setup easystar
-        easystar.setAcceptableTiles([0,1,3,4]);
+        easystar.setAcceptableTiles([0,1,2,3,4,5,6]);
         easystar.setTileCost(0, 4);//Going through empty area
-        easystar.setTileCost(1, 64);//Going through rooms
-        easystar.setTileCost(3, 2);//Going along paths
-        easystar.setTileCost(4, 1);//Going along important paths
+        easystar.setTileCost(1, 128);//Going through WALLS
+        easystar.setTileCost(2, 64);//Going through rooms
+        easystar.setTileCost(3, 64);//Going through rooms
+        easystar.setTileCost(4, 64);//Going through rooms
+        easystar.setTileCost(this.id_path, 2);//Going along paths
+        easystar.setTileCost(this.id_importantPath, 1);//Going along important paths
 
         //Options
         this.maximumPathFindingAttempts = 1; //If pathfinding is failing, raising may help
         this.oneUseConnectors = false; //Improves look, but increases failure rate
     }
-    async generateNetArea(startingNode){
-        this.arr_queue = [startingNode]
-        await this.processNodeQueue();
+    async generateNetArea(startingNode,prefabs){
+        try{
+            this.prefabs = prefabs
+            this.arr_queue = [startingNode]
+            await this.processNodeQueue();
+        }catch(e){
+            console.log(e)
+            throw(e)
+        }
     }
     roomPlacementValid(room) {
         return this.areaIsClear(room.x, room.y, room.z, room.x + room.prefab.width, room.y + room.prefab.length, room.z + room.prefab.height)
@@ -53,7 +65,7 @@ class NetAreaGenerator {
     burnRoomToMatrix(room) {
         console.log('burning room to matrix')
         //Burn layout
-        const iterator = iterateOver3dMatrix(room.prefab.grid);
+        const iterator = iterateOver3dMatrix(room.prefab.matrix);
         for (let gridPos of iterator) {
             if(gridPos.tileID != 0){
                 //make coordinates global
@@ -212,8 +224,8 @@ class NetAreaGenerator {
             indexB: null
         };
         //Find the closest connector pair for connecting the rooms
-        roomA.prefab.connectors.forEach((conA,indexA) => {
-            roomB.prefab.connectors.forEach((conB,indexB) => {
+        roomA.prefab.features.connections.forEach((conA,indexA) => {
+            roomB.prefab.features.connections.forEach((conB,indexB) => {
                 let dist = distance(roomA.x + conA.x, roomB.x + conB.x) + distance(roomA.y + conA.y, roomB.y + conB.y)
                 if (dist < smallestDistance) {
                     smallestDistance = dist
@@ -232,12 +244,12 @@ class NetAreaGenerator {
     addPathToMatrix(path,important,zLayer) {
         let pathInfo = {
             important: important,
-            tileID: important ? 4 : 3,
+            tileID: important ? this.id_importantPath : this.id_path,
             locations:path,
             zLayer: zLayer
         }
         for(let loc of pathInfo.locations){
-            if(this.matrix[zLayer][loc.y][loc.x] == 0 || this.matrix[zLayer][loc.y][loc.x] == 3){
+            if(this.matrix[zLayer][loc.y][loc.x] == 0 || this.matrix[zLayer][loc.y][loc.x] == this.id_path){
                 this.matrix[zLayer][loc.y][loc.x] = pathInfo.tileID;
             }
         }

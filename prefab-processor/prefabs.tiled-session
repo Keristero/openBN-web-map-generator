@@ -381,11 +381,11 @@
             }
         },
         "prefabs/small-default/small-entrance.json": {
-            "scale": 1.5,
+            "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 303.99999999999994,
-                "y": 132
+                "x": 240.5,
+                "y": 218
             }
         },
         "prefabs/small-default/small-gallery.json": {
@@ -397,11 +397,11 @@
             }
         },
         "prefabs/small-default/small-hub.json": {
-            "scale": 2,
+            "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 304.75,
-                "y": 155
+                "x": 269.5,
+                "y": 275
             }
         },
         "prefabs/small-default/small-warps.json": {
@@ -496,24 +496,24 @@
             "scale": 3,
             "selectedLayer": 7,
             "viewCenter": {
-                "x": 133.83333333333331,
-                "y": 14
+                "x": 128.5,
+                "y": 33.66666666666666
             }
         },
         "prefabs/stairs/stairs-down-right.json": {
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 133.83333333333331,
-                "y": 14
+                "x": 132.5,
+                "y": 56.33333333333333
             }
         },
         "prefabs/stairs/stairs-up-left.json": {
-            "scale": 4,
-            "selectedLayer": 6,
+            "scale": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 127.875,
-                "y": 19.5
+                "x": 106.25,
+                "y": 76.5
             }
         },
         "prefabs/stairs/stairs-up-right.json": {

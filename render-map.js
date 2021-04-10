@@ -9,32 +9,57 @@ const tileSize = 2 //pixels
 
 async function renderMap(netAreaGenerator, tileInfo) {
     if (!tileInfo) {
-        tileInfo = [
-            {
+        let stairTile = {
+            name: "stairs",
+            draw: true,
+            rgba:{r:0,g:128,b:0,a:1}
+        }
+        tileInfo = {
+            0:{
                 name: "air",
                 draw: false
             },
-            {
-                name: "roomTile",
+            1:{
+                name: "Wall",
                 draw: true,
-                rgba:{r:0,g:255,b:0,a:1}
+                rgba:{r:50,g:50,b:50,a:1}
             },
-            {
-                name: "wallTile",
-                draw: false,
-                rgba:{r:255,g:255,b:0,a:1}
-            },
-            {
-                name: "pathTile",
+            2:{
+                name: "Ground Tile 1",
                 draw: true,
-                rgba:{r:0,g:255,b:255,a:1}
+                rgba:{r:128,g:128,b:128,a:1}
             },
-            {
-                name: "importantPathTile",
+            3:{
+                name: "Ground Tile 2",
                 draw: true,
-                rgba:{r:255,g:255,b:255,a:1}
-            }
-        ]
+                rgba:{r:128,g:200,b:128,a:1}
+            },
+            4:{
+                name: "Ground Tile 3",
+                draw: true,
+                rgba:{r:128,g:128,b:200,a:1}
+            },
+            5:{
+                name: "Path",
+                draw: true,
+                rgba:{r:200,g:200,b:0,a:1}
+            },
+            5:{
+                name: "Important Path",
+                draw: true,
+                rgba:{r:250,g:250,b:0,a:1}
+            },
+            7:stairTile,
+            8:stairTile,
+            9:stairTile,
+            10:stairTile,
+            11:stairTile,
+            12:stairTile,
+            13:stairTile,
+            14:stairTile,
+            15:stairTile,
+            16:stairTile,
+        }
     }
 
     let canvas = createCanvas(netAreaGenerator.width * tileSize, netAreaGenerator.length * tileSize)
@@ -72,9 +97,9 @@ function renderLink(ctx,link){
 }
 
 function renderRoom(ctx, room,tileInfo){
-    let grid = room.prefab.grid
+    let matrix = room.prefab.matrix
 
-    const iterator = iterateOver3dMatrix(grid);
+    const iterator = iterateOver3dMatrix(matrix);
     for (const gridPos of iterator) {
         if(gridPos.tileID !== 0){
             let tInfo = tileInfo[gridPos.tileID]
@@ -83,7 +108,7 @@ function renderRoom(ctx, room,tileInfo){
             let worldZ = room.z + gridPos.z
             if (tInfo.draw) {
                 let rgba = tInfo.rgba
-                rgba.a = 0.2
+                rgba.a = 1
                 ctx.fillStyle = rgbaToColor(rgba)
                 if (room.color != false) {
                     ctx.fillStyle = room.color

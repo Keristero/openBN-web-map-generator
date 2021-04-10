@@ -10,8 +10,8 @@ class NetAreaRoom extends Feature{
         this.features = {};
 
         this.prefabRequirements = {
-            connectors:node?.features?.children?.length,
-            links:node?.features?.links?.length
+            connectors:node?.features?.children?.length || 0,
+            links:node?.features?.links?.length || 0
         }
 
         //Set color of room based on the node's color, or on the parent node's
@@ -25,24 +25,31 @@ class NetAreaRoom extends Feature{
         this.prefab = this.pickSmallestPrefab(node);
         this.width = this.prefab.width;
         this.length = this.prefab.length;
-        this.height = this.prefab.length;
+        this.height = this.prefab.height;
         this.widthRatio = this.width/this.length
         this.lengthRatio = this.length/this.width
     }
     pickSmallestPrefab(node){
+        let prefabs = this.netAreaGenerator.prefabs
         //TODO select prefab from list of exisitng ones, rather than generating a new one each time
-        /*
-        let filtered = roomPrefabs.filter(prefab => prefab.total.connectors > node.minimumConnectors);
-        let filteredFuther = filtered.filter(prefab => prefab.total.links > node.minimumLinks);
+        //console.log(node)
+        //console.log(prefabs)
+        let requiredConnectors = node.room.prefabRequirements.connectors
+        let requiredLinks = node.room.prefabRequirements.links
+        let filtered = prefabs.filter(prefab => prefab.features.connections.length > requiredConnectors);
+        console.log(`prefabs with enough connections ${filtered.length}`)
+        let filteredFuther = filtered.filter(prefab => prefab.features.groundFeatures.length > requiredLinks);
+        console.log(`prefabs with enough links too ${filteredFuther.length}`)
         if(filteredFuther.length == 0){
-            console.warn(`node requirements not met minimumConnectors:${node.minimumConnectors} , minimumLinks:${node.minimumLinks}`)
-            return roomPrefabs[this.netAreaGenerator.RNG.Integer(0,roomPrefabs.length-1)]
+            console.warn(`node requirements not met minimumConnectors:${requiredConnectors} , minimumLinks:${requiredLinks}`)
+            return prefabs[this.netAreaGenerator.RNG.Integer(0,prefabs.length-1)]
         }else{
             return filteredFuther[0];
         }
-        */
+       /*
         let prefabGenerator = new PrefabGenerator()
         return prefabGenerator.newPrefab(this.prefabRequirements)
+        */
     }
     set x(val){
         if(val > 0 && val < (this.width+this.netAreaGenerator.width-1)){

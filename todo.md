@@ -1,12 +1,18 @@
 Next:
-1. Load prefabs, they should have this data
-- matrix
-- feature list
-    - connections
-    - ground features
-    - wall features
+1. ✅ Load prefabs, they should have this data
+- ✅ matrix
+- ✅ feature list
+    - ✅ connections
+    - ✅ ground features
+    - ✅ wall features
 
-2. Update net area generator to support new prefabs
+2. ✅ Update net area generator to support new prefabs
+
+3. Add stair generation logic 
+
+4. Make a few more prefabs
+
+5. Add prefab 
 
 
 ## Background Generator
@@ -24,7 +30,7 @@ Next:
 ## Prefab Processor
 - Generate flip variations
 - Generate rotate variations
-- Count each feature type and list locations of features
+- ✅ Count each feature type and list locations of features (not really needed aye)
 
 ## Tile texture generator
 - make it a module
@@ -34,4 +40,10 @@ Next:
 - Add generation of mugshots for screens
 
 ## TMX Exporter
-- Export required spritesheets
+- Export map data
+- Initially, just use static tilesets and textures
+- Export Warps
+- Export Prog Text
+- Export Pictures
+- Export with generated background path
+- Use generated tilesets and textures

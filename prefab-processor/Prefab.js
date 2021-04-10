@@ -11,17 +11,17 @@ let tiled_tileTypes = {
     },
     "connection": {
         subIndex: {
-            0: { type: "Feature", name: "Connection",collection: "Connections"},
+            0: { type: "Feature", name: "Connection",collection: "connections"},
         }
     },
     "ground_feature": {
         subIndex: {
-            0: { type: "Feature", name: "GroundFeature",collection: "GroundFeatures"},
+            0: { type: "Feature", name: "GroundFeature",collection: "groundFeatures"},
         }
     },
     "wall_feature": {
         subIndex: {
-            0: { type: "Feature", name: "WallFeature",collection: "WallFeatures"},
+            0: { type: "Feature", name: "WallFeature",collection: "wallFeatures"},
         }
     },
     "forward-stairs": {
@@ -47,9 +47,9 @@ let tiled_tileTypes = {
 class Prefab{
     constructor(){
         this.features = {
-            Connections:[],
-            GroundFeatures:[],
-            WallFeatures:[]
+            connections:[],
+            groundFeatures:[],
+            wallFeatures:[]
         }
         this.matrix = []
         this.properties = {
