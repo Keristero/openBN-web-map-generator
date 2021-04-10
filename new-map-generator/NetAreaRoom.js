@@ -3,7 +3,7 @@ let {Feature,LinkFeature} = require('./features.js')
 
 class NetAreaRoom extends Feature{
     constructor(node,netAreaGenerator){
-        super(500,500)
+        super(500,500,0)
         this.node = node;
         this.node.room = this
         this.netAreaGenerator = netAreaGenerator
@@ -24,11 +24,13 @@ class NetAreaRoom extends Feature{
 
         this.prefab = this.pickSmallestPrefab(node);
         this.width = this.prefab.width;
-        this.height = this.prefab.height;
-        this.widthRatio = this.width/this.height
-        this.heightRatio = this.height/this.width
+        this.length = this.prefab.length;
+        this.height = this.prefab.length;
+        this.widthRatio = this.width/this.length
+        this.lengthRatio = this.length/this.width
     }
     pickSmallestPrefab(node){
+        //TODO select prefab from list of exisitng ones, rather than generating a new one each time
         /*
         let filtered = roomPrefabs.filter(prefab => prefab.total.connectors > node.minimumConnectors);
         let filteredFuther = filtered.filter(prefab => prefab.total.links > node.minimumLinks);
@@ -48,8 +50,13 @@ class NetAreaRoom extends Feature{
         }
     }
     set y(val){
-        if(val > 0 && val < (this.height+this.netAreaGenerator.height-1)){
+        if(val > 0 && val < (this.length+this.netAreaGenerator.length-1)){
             this._y = val;
+        }
+    }
+    set z(val){
+        if(val > 0 && val < (this.length+this.netAreaGenerator.height-1)){
+            this._z = val;
         }
     }
     get x(){
@@ -57,6 +64,9 @@ class NetAreaRoom extends Feature{
     }
     get y(){
         return this._y
+    }
+    get z(){
+        return this._z
     }
 }
 

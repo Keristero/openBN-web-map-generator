@@ -1,6 +1,7 @@
 const { createCanvas, loadImage } = require('canvas')
 const fs = require('fs')
 const path = require('path')
+const {iterateOver3dMatrix} = require('./new-map-generator/helpers.js')
 
 
 const tileSize = 2 //pixels
@@ -16,36 +17,36 @@ async function renderMap(netAreaGenerator, tileInfo) {
             {
                 name: "roomTile",
                 draw: true,
-                color: "green"//is overridden by room color
+                rgba:{r:0,g:255,b:0,a:1}
             },
             {
                 name: "wallTile",
                 draw: false,
-                color: "red"
+                rgba:{r:255,g:255,b:0,a:1}
             },
             {
                 name: "pathTile",
                 draw: true,
-                color: "yellow"
+                rgba:{r:0,g:255,b:255,a:1}
             },
             {
                 name: "importantPathTile",
                 draw: true,
-                color: "orange"
+                rgba:{r:255,g:255,b:255,a:1}
             }
         ]
     }
 
-    let canvas = createCanvas(netAreaGenerator.width * tileSize, netAreaGenerator.height * tileSize)
+    let canvas = createCanvas(netAreaGenerator.width * tileSize, netAreaGenerator.length * tileSize)
     let ctx = canvas.getContext('2d')
 
-    console.log(`drawing ${netAreaGenerator.width}x${netAreaGenerator.height} map`)
+    console.log(`drawing ${netAreaGenerator.width}x${netAreaGenerator.length}x${netAreaGenerator.height} map`)
 
     //Draw paths
     for (let path of netAreaGenerator.arr_paths) {
         let tInfo = tileInfo[path.tileID]
         for (let loc of path.locations) {
-            ctx.fillStyle = tInfo.color
+            ctx.fillStyle = rgbaToColor(tInfo.rgba)
             ctx.fillRect(loc.x * tileSize, loc.y * tileSize, tileSize, tileSize)
         }
     }
@@ -62,20 +63,28 @@ async function renderMap(netAreaGenerator, tileInfo) {
     saveImageOfCanvas(canvas, path.join(".", "preview.png"))
 }
 
+function rgbaToColor(rgba){
+    return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`
+}
+
 function renderLink(ctx,link){
     console.log(link)
 }
 
 function renderRoom(ctx, room,tileInfo){
     let grid = room.prefab.grid
-    for (let y = 0; y < grid.length; y++) {
-        for (let x = 0; x < grid[0].length; x++) {
-            let tileID = grid[y][x]
-            let tInfo = tileInfo[tileID]
-            let worldX = room.x + x
-            let worldY = room.y + y
+
+    const iterator = iterateOver3dMatrix(grid);
+    for (const gridPos of iterator) {
+        if(gridPos.tileID !== 0){
+            let tInfo = tileInfo[gridPos.tileID]
+            let worldX = room.x + gridPos.x
+            let worldY = room.y + gridPos.y
+            let worldZ = room.z + gridPos.z
             if (tInfo.draw) {
-                ctx.fillStyle = tInfo.color
+                let rgba = tInfo.rgba
+                rgba.a = 0.2
+                ctx.fillStyle = rgbaToColor(rgba)
                 if (room.color != false) {
                     ctx.fillStyle = room.color
                 }

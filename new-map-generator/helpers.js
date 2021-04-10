@@ -38,6 +38,20 @@ function generateGrid(width, length, defaultValue=0) {
     return grid;
 }
 
+function generate3dMatrix(width, length, height, defaultValue=0) {
+    let matrix = [];
+    for (var z = 0; z < height; z++) {
+        matrix.push([])
+        for (var y = 0; y < length; y++) {
+            matrix[z].push([])
+            for (var x = 0; x < width; x++) {
+                matrix[z][y].push(defaultValue)
+            }
+        }
+    }
+    return matrix;
+}
+
 function* iterateOverGrid(grid,startX=0,startY=0,lastX,lastY){
     let index = 0
     let endY = lastY || grid.length
@@ -51,4 +65,20 @@ function* iterateOverGrid(grid,startX=0,startY=0,lastX,lastY){
     }
 }
 
-module.exports = {generateGrid,distance,RNG,iterateOverGrid}
+function* iterateOver3dMatrix(matrix,startX=0,startY=0,startZ=0,lastX,lastY,lastZ){
+    let index = 0
+    let endZ = lastZ || matrix.length
+    for (let z = startZ; z < endZ; z++) {
+        let endY = lastY || matrix[z].length
+        for (let y = startY; y < endY; y++) {
+            let endX = lastX || matrix[z][y].length
+            for (let x = startX; x < endX; x++) {
+                let tileID = matrix[z][y][x]
+                yield({tileID,x,y,z,index})
+                index++
+            }
+        }
+    }
+}
+
+module.exports = {generateGrid,distance,RNG,iterateOverGrid,generate3dMatrix,iterateOver3dMatrix}
