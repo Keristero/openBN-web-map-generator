@@ -6,13 +6,15 @@ Next:
     - ✅ ground features
     - ✅ wall features
 
-2. ✅ Update net area generator to support new prefabs
+1. ✅ Update net area generator to support new prefabs
 
-3. Add stair generation logic 
+1. Add basic TMX export!
 
-4. Make a few more prefabs
+1. Add stair generation logic 
 
-5. Add prefab 
+1. Make a few more prefabs
+
+1. Add prefab 
 
 
 ## Background Generator
