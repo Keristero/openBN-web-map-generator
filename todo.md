@@ -1,9 +1,20 @@
+Next:
+1. Load prefabs, they should have this data
+- matrix
+- feature list
+    - connections
+    - ground features
+    - wall features
+
+2. Update net area generator to support new prefabs
+
+
 ## Background Generator
 - ✅ Remove scrolling from animation, this is handled clientside.
-- Add some randomized variations with flipping/rotating tiles etc.
+- ✅ Add some randomized variations with flipping/rotating tiles etc.
 
 ## New Map Generator
-- Add third dimension
+- ✅ Add third dimension
 - Stair placement
 - Links
 - Images
