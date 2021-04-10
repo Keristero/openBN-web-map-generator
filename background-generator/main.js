@@ -15,7 +15,7 @@ const hashOptions = {
 const RNG = require("./RNG.js")
 const Random = new RNG(Math.random())
 
-let web_address = `https://azure.microsoft.com/en-us/services/devops/`
+let web_address = `https://keep.google.com/u/0/`
 let converted_favicon_path = path.resolve('.', `favicon.png`)
 let output_path = path.resolve('.', `background.png`)
 
@@ -179,7 +179,7 @@ class TweenedAnimation extends StaticAnimation {
         super(canvas, favicon, parameters)
 
         this.tweenTargets = []
-        let animationStages = 10//Random.Integer(1, 2)
+        let animationStages = 2//Random.Integer(1, 2)
         for (let stage = 0; stage < animationStages; stage++) {
             if (stage == 0) {
                 this.generateTweenStage(this.icons)
@@ -188,7 +188,7 @@ class TweenedAnimation extends StaticAnimation {
             }
         }
         this.generateResetTween(this.tweenTargets[this.tweenTargets.length - 1])
-        this.frames = 16 * animationStages
+        this.frames = 32 * animationStages
 
         let easingTypes = [TweenJs.Easing.Quadratic.InOut,
         TweenJs.Easing.Linear.None,
