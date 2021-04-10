@@ -1,10 +1,10 @@
 { "compressionlevel":-1,
- "height":9,
+ "height":3,
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 4, 3, 3, 3, 4, 0, 3, 3, 3, 0, 4, 3, 3, 3, 4, 0, 3, 3, 3, 0, 4, 3, 3, 3, 4, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":1,
          "name":"Tile Layer 1",
          "opacity":1,
@@ -15,8 +15,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":6,
          "name":"Features 1",
          "opacity":1,
@@ -27,8 +27,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":2,
          "name":"Tile Layer 2",
          "offsetx":0,
@@ -41,8 +41,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":7,
          "name":"Features 2",
          "offsetx":0,
@@ -55,8 +55,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":3,
          "name":"Tile Layer 3",
          "offsetx":0,
@@ -69,8 +69,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":8,
          "name":"Features 3",
          "offsetx":0,
@@ -83,8 +83,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0],
+         "height":3,
          "id":5,
          "name":"Tile Layer 4",
          "offsetx":0,
@@ -97,8 +97,8 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":9,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0],
+         "height":3,
          "id":9,
          "name":"Features 4",
          "offsetx":0,
@@ -109,8 +109,92 @@
          "width":5,
          "x":0,
          "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
+         "id":15,
+         "name":"Tile Layer 5",
+         "offsetx":0,
+         "offsety":-64,
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
+         "id":14,
+         "name":"Features 5",
+         "offsetx":0,
+         "offsety":-64,
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
+         "id":17,
+         "name":"Tile Layer 6",
+         "offsetx":0,
+         "offsety":-80,
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
+         "id":16,
+         "name":"Features 6",
+         "offsetx":0,
+         "offsety":-80,
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
+         "id":18,
+         "name":"Tile Layer 7",
+         "offsetx":0,
+         "offsety":-96,
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":3,
+         "id":19,
+         "name":"Features 7",
+         "offsetx":0,
+         "offsety":-96,
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":5,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":14,
+ "nextlayerid":20,
  "nextobjectid":1,
  "orientation":"isometric",
  "properties":[
@@ -118,6 +202,11 @@
          "name":"Autofill Walls",
          "type":"bool",
          "value":true
+        }, 
+        {
+         "name":"Direction",
+         "type":"string",
+         "value":"Down Left"
         }, 
         {
          "name":"Entrance Room",
@@ -141,6 +230,11 @@
         }, 
         {
          "name":"Shuffle Tile Variations",
+         "type":"bool",
+         "value":false
+        }, 
+        {
+         "name":"Stairs",
          "type":"bool",
          "value":true
         }, 

@@ -15,7 +15,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 7, 0, 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 0],
+         "data":[0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 9, 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0],
          "height":9,
          "id":6,
          "name":"Features 1",
@@ -162,19 +162,19 @@
          "source":"..\/..\/tiles\/forward-stairs.tsx"
         }, 
         {
-         "firstgid":7,
+         "firstgid":9,
          "source":"..\/..\/tiles\/connection.tsx"
         }, 
         {
-         "firstgid":8,
+         "firstgid":10,
          "source":"..\/..\/tiles\/back-stairs.tsx"
         }, 
         {
-         "firstgid":11,
+         "firstgid":16,
          "source":"..\/..\/tiles\/ground_feature.tsx"
         }, 
         {
-         "firstgid":12,
+         "firstgid":17,
          "source":"..\/..\/tiles\/wall_feature.tsx"
         }],
  "tilewidth":64,
