@@ -4,7 +4,8 @@ function generateRoomPrefabs(maxConnectors=1000,maxLinks=1000){
     let prefabGenerator = new PrefabGenerator()
     for(let connectors = 0; connectors < maxConnectors; connectors*=2){
         for(let links = 0; links < maxLinks; links*=2){
-            let newPrefab = prefabGenerator.newPrefab({connectors:connectors,links:links})
+            let requirements = {connectors:connectors,links:links}
+            let newPrefab = prefabGenerator.newPrefab(requirements)
             roomPrefabs.push(newPrefab)
             if(links == 0){
                 links = 0.5

@@ -27,6 +27,18 @@ function distance(a, b) {
     return Math.abs(a - b);
 }
 
+function stackArrayIntoLayers(array,width,height){
+    let grid = generateGrid(width,height)
+    let index = 0
+    for(let value of array){
+        let x = Math.floor(index % width)
+        let y = Math.floor(index / width)
+        grid[y][x] = value
+        index++
+    }
+    return grid
+}
+
 function generateGrid(width, length, defaultValue=0) {
     let grid = [];
     for (var y = 0; y < length; y++) {
@@ -81,4 +93,4 @@ function* iterateOver3dMatrix(matrix,startX=0,startY=0,startZ=0,lastX,lastY,last
     }
 }
 
-module.exports = {generateGrid,distance,RNG,iterateOverGrid,generate3dMatrix,iterateOver3dMatrix}
+module.exports = {generateGrid,distance,RNG,iterateOverGrid,generate3dMatrix,iterateOver3dMatrix,stackArrayIntoLayers}

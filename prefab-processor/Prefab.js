@@ -1,0 +1,180 @@
+let {generateGrid, iterateOverGrid, stackArrayIntoLayers } = require('../new-map-generator/helpers.js')
+
+let tiled_tileTypes = {
+    "prefab_tiles": {
+        subIndex: {
+            0: { type: "Tile", name: "Wall", id: 1 },
+            1: { type: "Tile", name: "Ground Tile 1", id: 2 },
+            2: { type: "Tile", name: "Ground Tile 2", id: 3 },
+            3: { type: "Tile", name: "Ground Tile 3", id: 4 }
+        }
+    },
+    "connection": {
+        subIndex: {
+            0: { type: "Feature", name: "Connection",collection: "Connections"},
+        }
+    },
+    "ground_feature": {
+        subIndex: {
+            0: { type: "Feature", name: "GroundFeature",collection: "GroundFeatures"},
+        }
+    },
+    "wall_feature": {
+        subIndex: {
+            0: { type: "Feature", name: "WallFeature",collection: "WallFeatures"},
+        }
+    },
+    "forward-stairs": {
+        subIndex: {
+            0: { type: "Tile", name: "Forward-Middle-Left", id: 7, flippedid:8},
+            1: { type: "Tile", name: "Forward-Middle-Right", id: 8, flippedid:7},
+            2: { type: "Tile", name: "Forward-Top-Left", id: 9, flippedid:10},
+            3: { type: "Tile", name: "Forward-Top-Right", id: 10, flippedid:9},
+        }
+    },
+    "back-stairs": {
+        subIndex: {
+            0: { type: "Tile", name: "Backward-Base-Left", id: 11, flippedid:12},
+            1: { type: "Tile", name: "Backward-Base-Right", id: 12, flippedid:11},
+            2: { type: "Tile", name: "Backward-Middle-Left", id: 13, flippedid:14},
+            3: { type: "Tile", name: "Backward-Middle-Right", id: 14, flippedid:13},
+            4: { type: "Tile", name: "Backward-Top-Left", id: 15, flippedid:16},
+            5: { type: "Tile", name: "Backward-Top-Right", id: 16, flippedid:15},
+        }
+    },
+}
+
+class Prefab{
+    constructor(){
+        this.features = {
+            Connections:[],
+            GroundFeatures:[],
+            WallFeatures:[]
+        }
+        this.matrix = []
+        this.properties = {
+            "Autofill Walls":true,//Fill air with invisible walls
+            "Entrance Room":false,//Should this be used as a map entry warp
+            "Mirror Variations":false,
+            "Random Selection Weighting":10,
+            "Rotation Variations":false,
+            "Shuffle Tile Variations":true,
+            "Theme Set":false,
+            "Stairs":false,//This prefab is a flight of stairs
+            "Direction":null,//Direction of stairs
+        }
+    }
+    get width(){
+        return this.matrix[0][0].length
+    }
+    get length(){
+        return this.matrix[0].length
+    }
+    get height(){
+        return this.matrix.length
+    }
+    static Tiled_GeneratePrefab(unprocessed_prefab) {
+        let data = unprocessed_prefab.data
+
+        //First make a mapping of tilesets in this .tmx prefab to the IDS used internally
+        //In the map generator
+        let tileMapping = this.Tiled_createTileMapping(data.tilesets,tiled_tileTypes)
+
+        let newPrefab = new Prefab()
+
+        for (let layer of data.layers) {
+            let layerZ = parseInt(layer.name[layer.name.length - 1])
+            if (layer.name.includes("Feature")) {
+                this.Tiled_process_feature_layer(layer, layerZ, tileMapping, newPrefab)
+            }
+            if (layer.name.includes("Tile")) {
+                this.Tiled_process_tile_layer(layer, layerZ, tileMapping, newPrefab)
+            }
+        }
+
+        //Override default properties
+        for(let property of data.properties){
+            let {name,value} = property
+            newPrefab.properties[name] = value
+        }
+
+        //console.log("Generated prefab from tiled",newPrefab)
+        return newPrefab
+    }
+    AddMatrixLayer(gridLayer){
+        this.matrix.push(gridLayer)
+    }
+    AddFeature(featureCollectionName,x,y,z){
+        let newFeatureData = {x,y,z}
+        this.features[featureCollectionName].push(newFeatureData)
+        //console.log("Added feature",newFeatureData,"To",featureCollectionName)
+    }
+    static Tiled_createTileMapping(prefab_tilesets,tiled_tileTypes){
+        let tileMapping = {}
+        for(let tileTypeKey in tiled_tileTypes){
+            let tileType = tiled_tileTypes[tileTypeKey]
+            for(let tileset of prefab_tilesets){
+                let tileset_firstgid = parseInt(tileset.firstgid)
+                let tileset_path = tileset.source
+                if(tileset_path.includes(tileTypeKey)){
+                    for(let relativeId in tileType.subIndex){
+                        let subTileData = tileType.subIndex[relativeId]
+                        let gid = tileset_firstgid+parseInt(relativeId)
+                        tileMapping[gid] = subTileData
+                    }
+                }
+            }
+        }
+        return tileMapping
+    }
+    static Tiled_process_tile_layer(layer,layerZ,tileMapping,prefab) {
+        let grid = stackArrayIntoLayers(layer.data, layer.width, layer.height)
+        let outputGrid = generateGrid(layer.width,layer.height)
+        let iterator = iterateOverGrid(grid)
+        for (const gridPos of iterator) {
+            if(gridPos.tileID != 0){
+                let tiled_tileInfo = this.Tiled_parse_tid(gridPos.tileID)
+                let mapped_tile_info = tileMapping[tiled_tileInfo.id]
+                if(mapped_tile_info.type == "Tile"){
+                    let {x,y} = gridPos
+                    outputGrid[y][x] = mapped_tile_info.id
+                }
+                //TODO finish this bit
+            }
+        }
+        prefab.AddMatrixLayer(outputGrid)
+    }
+    static Tiled_process_feature_layer(layer,layerZ,tileMapping,prefab) {
+        let grid = stackArrayIntoLayers(layer.data, layer.width, layer.height)
+        let iterator = iterateOverGrid(grid)
+        for (const gridPos of iterator) {
+            if(gridPos.tileID != 0){
+                let tiled_tileInfo = this.Tiled_parse_tid(gridPos.tileID)
+                let mapped_tile_info = tileMapping[tiled_tileInfo.id]
+                if(mapped_tile_info.type == "Feature"){
+                    let {x,y} = gridPos
+                    prefab.AddFeature(mapped_tile_info.collection,x,y,layerZ)
+                }
+            }
+        }
+    }
+    static Tiled_parse_tid(tid){
+        /* Tiled map editor encodes the flipping of tiles in a number using binary
+        https://doc.mapeditor.org/en/stable/reference/tmx-map-format/
+        */
+        let binary = tid.toString(2).padStart(32,"0")
+        let xFlipped = binary[0] === "1"
+        let yFlipped = binary[1] === "1"
+        let diagonallyFlipped = binary[2] === "1"
+        let id = parseInt(binary.substr(3,binary.length),2)
+        let tiledTileInfo = {
+            id,
+            xFlipped,
+            yFlipped,
+            diagonallyFlipped
+        }
+        return tiledTileInfo
+    }
+}
+
+module.exports = {Prefab,tiled_tileTypes}

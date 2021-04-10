@@ -3,15 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "prefabs/stairs/stairs-up-left.json",
+    "activeFile": "prefabs/stairs/stairs-up-right.json",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
-        ".",
-        "prefabs/small-default",
-        "prefabs/template",
-        "prefabs",
         "tiles",
-        "prefabs/stairs"
+        "prefabs/stairs",
+        "prefabs/small-default",
+        ".",
+        "prefabs/template",
+        "prefabs"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -30,9 +30,12 @@
             "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1460.75,
-                "y": 1100.125
+                "x": 1286,
+                "y": 553.375
             }
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/default.tmx#NPC": {
+            "scaleInDock": 1
         },
         "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/screen.tsx": {
             "scaleInDock": 1,
@@ -57,6 +60,24 @@
                 "x": 950.0000000000001,
                 "y": 612.1212121212122
             }
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/objects/Tombstone_exe6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/objects/coffee.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/objects/gate.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/objects/home_warp.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/objects/vendor_desk.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/objects/warp.tsx": {
+            "scaleInDock": 1
         },
         "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/assets/tiles/Darkchip13x32.tsx": {
             "scaleInDock": 1,
@@ -363,23 +384,23 @@
             "scale": 1.5,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 225.33333333333331,
-                "y": 158.66666666666669
+                "x": 303.99999999999994,
+                "y": 132
             }
         },
         "prefabs/small-default/small-gallery.json": {
             "scale": 1.5,
-            "selectedLayer": 0,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 279.99999999999994,
-                "y": 168.66666666666669
+                "x": 205,
+                "y": 189.33333333333331
             }
         },
         "prefabs/small-default/small-hub.json": {
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 305,
+                "x": 304.75,
                 "y": 155
             }
         },
@@ -387,7 +408,7 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 229.99999999999994,
+                "x": 229,
                 "y": 194.66666666666666
             }
         },
@@ -395,8 +416,8 @@
             "scale": 0.19964843749999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3205.634905106633,
-                "y": 1577.773429857171
+                "x": 3203.130502837019,
+                "y": 1577.7734298571709
             }
         },
         "prefabs/small-entrance.json": {
@@ -473,9 +494,9 @@
         },
         "prefabs/stairs/stairs-down-left.json": {
             "scale": 3,
-            "selectedLayer": 0,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 133.99999999999997,
+                "x": 133.83333333333331,
                 "y": 14
             }
         },
@@ -483,24 +504,24 @@
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 133.16666666666663,
-                "y": 56.33333333333334
+                "x": 133.83333333333331,
+                "y": 14
             }
         },
         "prefabs/stairs/stairs-up-left.json": {
             "scale": 4,
-            "selectedLayer": 2,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 122,
-                "y": 54.75
+                "x": 127.875,
+                "y": 19.5
             }
         },
         "prefabs/stairs/stairs-up-right.json": {
-            "scale": 5.5,
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 106.27272727272727,
-                "y": 19.63636363636364
+                "x": 117.25,
+                "y": 81.5
             }
         },
         "prefabs/template.json": {
@@ -581,36 +602,26 @@
     "map.tileWidth": 64,
     "map.width": 20,
     "openFiles": [
-        "prefabs/small-default/small-entrance.json",
-        "prefabs/small-default/small-gallery.json",
-        "prefabs/small-default/small-hub.json",
-        "prefabs/small-default/small-warps.json",
-        "prefabs/small-default/template.json",
         "prefabs/stairs/stairs-up-left.json",
         "prefabs/stairs/stairs-down-left.json",
-        "tiles/forward-stairs.tsx",
-        "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/default.tmx",
-        "tiles/connection.tsx",
-        "tiles/back-stairs.tsx",
-        "tiles/prefab_tiles.tsx",
-        "tiles/ground_feature.tsx",
-        "tiles/wall_feature.tsx"
+        "prefabs/stairs/stairs-down-right.json",
+        "prefabs/stairs/stairs-up-right.json"
     ],
     "project": "prefabs.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "prefabs/stairs/stairs-up-left.json",
+        "prefabs/stairs/stairs-down-left.json",
+        "prefabs/stairs/stairs-down-right.json",
+        "prefabs/stairs/stairs-up-right.json",
         "prefabs/small-default/small-entrance.json",
         "prefabs/small-default/small-gallery.json",
         "prefabs/small-default/small-hub.json",
         "prefabs/small-default/small-warps.json",
-        "prefabs/small-default/template.json",
-        "tiles/wall_feature.tsx",
-        "tiles/ground_feature.tsx",
-        "tiles/prefab_tiles.tsx",
-        "tiles/back-stairs.tsx",
         "tiles/connection.tsx",
         "C:/Users/Keris/Documents/Repos/Scriptable-OpenNetBattle-Server/areas/default.tmx",
-        "tiles/forward-stairs.tsx"
+        "tiles/forward-stairs.tsx",
+        "prefabs/small-default/template.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",

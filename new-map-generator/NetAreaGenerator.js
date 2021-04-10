@@ -7,7 +7,7 @@ class NetAreaGenerator {
     constructor() {
         this.width = 1000;
         this.length = 1000;
-        this.height = 40;
+        this.height = 3;
         this.matrix = generate3dMatrix(this.width, this.length, this.height)
         this.arr_rooms = [];
         this.arr_paths = [];

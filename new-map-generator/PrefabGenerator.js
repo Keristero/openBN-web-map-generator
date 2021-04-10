@@ -127,24 +127,4 @@ class PrefabGenerator{
     }
 }
 
-//Testing
-let testInstance = new PrefabGenerator()
-for(var i = 0; i < 20; i++){
-    let links = i
-    let connectors = 0
-    let testPrefab = testInstance.newPrefab({connectors:connectors,links:links})
-    if(testPrefab.connectors.length < connectors){
-        //console.log(`${testPrefab.connectors.length} / ${connectors} connectors`)
-        console.warn("Not enough connectors generated in prefab")
-        console.log(`${testPrefab.connectors.length} / ${connectors} connectors`)
-    }
-    if(testPrefab.links.length < links){
-        //console.log(`${testPrefab.connectors.length} / ${connectors} connectors`)
-        console.warn("Not enough links generated in prefab")
-        console.log(`${testPrefab.links.length} / ${links} links`)
-        console.log('width',testPrefab.width,'length',testPrefab.length)
-        console.log(testPrefab.grid)
-    }
-}
-
 module.exports = {PrefabGenerator}
