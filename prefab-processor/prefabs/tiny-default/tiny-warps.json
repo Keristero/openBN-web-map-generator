@@ -3,31 +3,31 @@
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":1,
          "name":"Tile Layer 1",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0],
+         "data":[0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0],
          "height":5,
          "id":6,
          "name":"Features 1",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":2,
          "name":"Tile Layer 2",
@@ -36,12 +36,12 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":7,
          "name":"Features 2",
@@ -50,12 +50,12 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":3,
          "name":"Tile Layer 3",
@@ -64,12 +64,12 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":8,
          "name":"Features 3",
@@ -78,12 +78,12 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":5,
          "name":"Tile Layer 4",
@@ -92,12 +92,12 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }, 
         {
-         "data":[0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":9,
          "name":"Features 4",
@@ -106,95 +106,11 @@
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":3,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":5,
-         "id":15,
-         "name":"Tile Layer 5",
-         "offsetx":0,
-         "offsety":-64,
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":3,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":5,
-         "id":14,
-         "name":"Features 5",
-         "offsetx":0,
-         "offsety":-64,
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":3,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":5,
-         "id":17,
-         "name":"Tile Layer 6",
-         "offsetx":0,
-         "offsety":-80,
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":3,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":5,
-         "id":16,
-         "name":"Features 6",
-         "offsetx":0,
-         "offsety":-80,
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":3,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":5,
-         "id":19,
-         "name":"Tile Layer 7",
-         "offsetx":0,
-         "offsety":-96,
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":3,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":5,
-         "id":18,
-         "name":"Features 7",
-         "offsetx":0,
-         "offsety":-96,
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":3,
+         "width":5,
          "x":0,
          "y":0
         }],
- "nextlayerid":20,
+ "nextlayerid":14,
  "nextobjectid":1,
  "orientation":"isometric",
  "properties":[
@@ -204,11 +120,6 @@
          "value":true
         }, 
         {
-         "name":"Direction",
-         "type":"string",
-         "value":"Up Right"
-        }, 
-        {
          "name":"Entrance Room",
          "type":"bool",
          "value":false
@@ -216,7 +127,7 @@
         {
          "name":"Mirror Variations",
          "type":"bool",
-         "value":true
+         "value":false
         }, 
         {
          "name":"Random Selection Weighting",
@@ -226,15 +137,10 @@
         {
          "name":"Rotation Variations",
          "type":"bool",
-         "value":false
+         "value":true
         }, 
         {
          "name":"Shuffle Tile Variations",
-         "type":"bool",
-         "value":false
-        }, 
-        {
-         "name":"Stairs",
          "type":"bool",
          "value":true
         }, 
@@ -258,9 +164,17 @@
         {
          "firstgid":9,
          "source":"..\/..\/tiles\/connection.tsx"
+        }, 
+        {
+         "firstgid":10,
+         "source":"..\/..\/tiles\/back-stairs.tsx"
+        }, 
+        {
+         "firstgid":16,
+         "source":"..\/..\/tiles\/ground_feature.tsx"
         }],
  "tilewidth":64,
  "type":"map",
  "version":1.5,
- "width":3
+ "width":5
 }

@@ -1,0 +1,3 @@
+[submodule "web-to-document-scraper"]
+	path = web-to-document-scraper
+	url = https://github.com/Keristero/web-to-document-scraper.git
