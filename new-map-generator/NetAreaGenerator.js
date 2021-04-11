@@ -23,13 +23,18 @@ class NetAreaGenerator {
         4 = main path
         */
 
+        this.id_air = 0
+        this.id_wall = 1
         this.id_path = 5
         this.id_importantPath = 6
 
+        //Tiles paths are allowed to replace
+        this.patheableTiles = [this.id_air,this.id_wall,this.id_path]
+
         //Setup easystar
-        easystar.setAcceptableTiles([0,1,2,3,4,5,6]);
-        easystar.setTileCost(0, 4);//Going through empty area
-        easystar.setTileCost(1, 128);//Going through WALLS
+        easystar.setAcceptableTiles([this.id_air,1,2,3,4,5,6]);
+        easystar.setTileCost(this.id_air, 4);//Going through empty area
+        easystar.setTileCost(this.id_wall, 128);//Going through WALLS
         easystar.setTileCost(2, 64);//Going through rooms
         easystar.setTileCost(3, 64);//Going through rooms
         easystar.setTileCost(4, 64);//Going through rooms
@@ -48,6 +53,15 @@ class NetAreaGenerator {
         }catch(e){
             console.log(e)
             throw(e)
+        }
+        this.removeAllWalls()
+    }
+    removeAllWalls(){
+        const iterator = iterateOver3dMatrix(this.matrix);
+        for (const gridPos of iterator) {
+            if(gridPos.tileID === this.id_wall){
+                this.matrix[gridPos.z][gridPos.y][gridPos.x] = this.id_air
+            }
         }
     }
     roomPlacementValid(room) {
@@ -76,21 +90,37 @@ class NetAreaGenerator {
             }
         }
         //Burn features
-        for(let locationString in room.features){
-            let feature = room.features[locationString]
-            //make coordinates global
-            feature.x+=room.x;
-            feature.y+=room.y;
-            feature.z+=room.z;
-            this.features[feature.locationString] = feature
+        for(let featureType in room.features){
+            let featuresOfType = room.features[featureType]
+            for(let locationString in featuresOfType){
+                let feature = featuresOfType[locationString]
+                this.addFeature(room,feature)
+            }
         }
         this.arr_rooms.push(room)
     }
+    addFeature(fromRoom,newFeature){
+        let x = fromRoom.x+newFeature.x
+        let y = fromRoom.y+newFeature.y
+        let z = fromRoom.z+newFeature.z
+        if(!this.features[z]){
+            this.features[z] = {}
+        }
+        if(!this.features[z][y]){
+            this.features[z][y] = {}
+        }
+        this.features[z][y][x] = newFeature
+    }
     async processNodeQueue() {
-        while(this.arr_queue.length > 0){
-            let currentNode = this.arr_queue.shift()
-            this.addNodesChildrenToQueue(currentNode)
-            await this.generateLayout(currentNode)
+        try{
+            while(this.arr_queue.length > 0){
+                let currentNode = this.arr_queue.shift()
+                this.addNodesChildrenToQueue(currentNode)
+                await this.generateLayout(currentNode)
+            }
+        }catch(e){
+            console.log(e)
+            throw(e)
         }
     }
     addNodesChildrenToQueue(node) {
@@ -134,11 +164,14 @@ class NetAreaGenerator {
         //TODO let rooms be placed on different z layers
         let parentNode = room.node.parent;
         let parentRoom = parentNode.room;
-        let radius = attempts*2
+        let radius = attempts*1.5
         let pos = this.RNG.RandomPositionOnCircumference(radius)
         pos.x = Math.floor(parentRoom.x+parentRoom.width/2 + pos.x*Math.min(parentRoom.widthRatio,1))
         pos.y = Math.floor(parentRoom.y+parentRoom.length/2 + pos.y*Math.min(parentRoom.lengthRatio,1))
         pos.z = parentRoom.z
+        if(parentRoom.isStairs){
+            pos.z = parentRoom.z+parentRoom.getHighestConnectorZ()
+        }
         return pos;
     }
     setRoomLocation(room, attempts) {
@@ -148,11 +181,12 @@ class NetAreaGenerator {
         room.z = pos.z
     }
     async findPathBetweenRooms(roomA, roomB) {
+        /*
         if(roomA.z != roomB.z){
-            throw("Cant find a path between Z layers!")
+            throw(`Cant find a path between Z layers! ${roomA.z} != ${roomB.z}`)
         }
+        */
         let zLayer = roomA.z
-        console.log('easystar using',zLayer,'zLayer!')
         easystar.setGrid(this.matrix[zLayer]);
 
         let attempts = 0;
@@ -223,9 +257,17 @@ class NetAreaGenerator {
             indexA: null,
             indexB: null
         };
+        let roomBConnections = roomB.connectionsOnZ(roomA.z-roomB.z)
+        if(roomBConnections.length == 0){
+            throw("no connections on room b")
+        }
+        let roomAConnections = roomA.connectionsOnZ(0)
+        if(roomAConnections.length == 0){
+            throw("no connections on room a")
+        }
         //Find the closest connector pair for connecting the rooms
-        roomA.prefab.features.connections.forEach((conA,indexA) => {
-            roomB.prefab.features.connections.forEach((conB,indexB) => {
+        roomAConnections.forEach((conA,indexA) => {
+            roomBConnections.forEach((conB,indexB) => {
                 let dist = distance(roomA.x + conA.x, roomB.x + conB.x) + distance(roomA.y + conA.y, roomB.y + conB.y)
                 if (dist < smallestDistance) {
                     smallestDistance = dist
@@ -237,7 +279,7 @@ class NetAreaGenerator {
             })
         })
         if(con.a == null || con.b == null){
-            throw("Unable to connect rooms, not enough connections",roomA.prefab,roomB.prefab)
+            throw("Unable to connect rooms, not enough connections")
         }
         return con
     }
@@ -249,7 +291,8 @@ class NetAreaGenerator {
             zLayer: zLayer
         }
         for(let loc of pathInfo.locations){
-            if(this.matrix[zLayer][loc.y][loc.x] == 0 || this.matrix[zLayer][loc.y][loc.x] == this.id_path){
+            let existingTileID = this.matrix[zLayer][loc.y][loc.x]
+            if(this.patheableTiles.includes(existingTileID)){
                 this.matrix[zLayer][loc.y][loc.x] = pathInfo.tileID;
             }
         }

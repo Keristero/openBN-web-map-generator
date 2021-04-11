@@ -9,13 +9,22 @@ class Feature{
     }
 }
 
-class LinkFeature extends Feature{
-    constructor(x,y,z,link){
-        super(x,y,z)
-        this.href = link.info.href
-        this.title = link.info.text ? link.info.text : link.info.href
-        this.color = link.info.color
+class LinkFeature{
+    constructor(x,y,z,feature){
+        this.x = x
+        this.y = y
+        this.z = z
         this.type = "link"
+        this.gid = 100,
+        this.width = 64
+        this.height = 32
+        this.properties = {
+            "link":feature.link || "",
+            "text":feature.text || ""
+        }
+    }
+    get locationString(){
+        return `${this.x},${this.y},${this.z}`
     }
 }
 

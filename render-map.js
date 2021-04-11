@@ -7,7 +7,7 @@ const {iterateOver3dMatrix} = require('./new-map-generator/helpers.js')
 const tileSize = 2 //pixels
 
 
-async function renderMap(netAreaGenerator, tileInfo) {
+function renderMap(netAreaGenerator, file_path,tileInfo) {
     if (!tileInfo) {
         let stairTile = {
             name: "stairs",
@@ -68,9 +68,9 @@ async function renderMap(netAreaGenerator, tileInfo) {
     console.log(`drawing ${netAreaGenerator.width}x${netAreaGenerator.length}x${netAreaGenerator.height} map`)
 
     //Draw paths
-    for (let path of netAreaGenerator.arr_paths) {
-        let tInfo = tileInfo[path.tileID]
-        for (let loc of path.locations) {
+    for (let map_path of netAreaGenerator.arr_paths) {
+        let tInfo = tileInfo[map_path.tileID]
+        for (let loc of map_path.locations) {
             ctx.fillStyle = rgbaToColor(tInfo.rgba)
             ctx.fillRect(loc.x * tileSize, loc.y * tileSize, tileSize, tileSize)
         }
@@ -85,7 +85,7 @@ async function renderMap(netAreaGenerator, tileInfo) {
         console.log(feature)
     }
 
-    saveImageOfCanvas(canvas, path.join(".", "preview.png"))
+    saveImageOfCanvas(canvas, path.join(".", file_path))
 }
 
 function rgbaToColor(rgba){

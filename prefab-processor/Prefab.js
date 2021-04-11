@@ -57,6 +57,7 @@ class Prefab{
             groundFeatures:[],
             wallFeatures:[]
         }
+        this.totalFeatures = 0
         this.matrix = []
         this.properties = {
             "Autofill Walls":true,//Fill air with invisible walls
@@ -89,7 +90,7 @@ class Prefab{
         let newPrefab = new Prefab()
 
         for (let layer of data.layers) {
-            let layerZ = parseInt(layer.name[layer.name.length - 1])
+            let layerZ = parseInt(layer.name[layer.name.length - 1])-1
             if (layer.name.includes("Feature")) {
                 this.Tiled_process_feature_layer(layer, layerZ, tileMapping, newPrefab)
             }
@@ -113,6 +114,7 @@ class Prefab{
     AddFeature(featureCollectionName,x,y,z){
         let newFeatureData = {x,y,z}
         this.features[featureCollectionName].push(newFeatureData)
+        this.totalFeatures++
         //console.log("Added feature",newFeatureData,"To",featureCollectionName)
     }
     static Tiled_createTileMapping(prefab_tilesets,tiled_tileTypes){
@@ -135,7 +137,7 @@ class Prefab{
     }
     static Tiled_process_tile_layer(layer,layerZ,tileMapping,prefab) {
         let grid = stackArrayIntoLayers(layer.data, layer.width, layer.height)
-        let outputGrid = generateGrid(layer.width,layer.height)
+        let outputGrid = generateGrid(layer.width,layer.height,1)
         let iterator = iterateOverGrid(grid)
         for (const gridPos of iterator) {
             if(gridPos.tileID != 0){

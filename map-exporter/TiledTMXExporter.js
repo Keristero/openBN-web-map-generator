@@ -8,9 +8,14 @@ class TiledTMXExporter {
         this.width = NetArea.width
         this.length = NetArea.length
         this.height = NetArea.height
+        this.tileHeight = 32
+        this.tileWidth = 64
+        this.tileHalfHeight = this.tileHeight/2
+        this.tileHalfWidth = this.tileWidth/2
         this.totalObjects = this.CountFeatures(NetArea)
         this.nextTileGID = 1
         this.nextLayerID = 1
+        this.nextObjectID = 1
         console.log(`counted ${this.totalObjects} features`)
 
         this.tileLayers = []
@@ -69,6 +74,10 @@ class TiledTMXExporter {
             }
         }
 
+        //Add defined tilesets, check features for the gids
+        let linkGID = 100
+        this.AddTileset(1,`./tiles/ground_feature.tsx`,100)
+
         //Create properties
         for(let propertyName in properties){
             let propertyValue = properties[propertyName]
@@ -85,7 +94,46 @@ class TiledTMXExporter {
             let objectLayerIndex = this.objectLayers.length+1
             this.AddObjectLayer(objectLayerIndex)
         }
-        
+
+        //Create objects
+        for(let z in NetArea.features){
+            for(let y in NetArea.features[z]){
+                for(let x in NetArea.features[z][y]){
+                    this.AddObject(x,y,z,NetArea.features[z][y][x])
+                }
+            }
+        }
+    }
+    OrthoToIsoCoordinates(x,y){
+        let IsoPos = {
+            x:(x*this.tileHeight)+this.tileHeight,
+            y:(y*this.tileHeight)+this.tileHeight
+        }
+        return IsoPos
+    }
+    AddObject(x,y,z,feature){
+        let collection = this.objectLayers[z].objectgroup.object
+        let isoCoords = this.OrthoToIsoCoordinates(x,y)
+        let newObject = {
+            "@id":this.nextObjectID,
+            "@type":feature.type,
+            "@gid":feature.gid,
+            "@x":isoCoords.x,
+            "@y":isoCoords.y,
+            "@width":feature.width,
+            "@height":feature.height,
+            "properties":{
+                "property":[]
+            }
+        }
+        for(let propertyName in feature.properties){
+            newObject.properties.property.push({
+                "@name":propertyName,
+                "@value":`${feature.properties[propertyName]}`
+            })
+        }
+        collection.push(newObject)
+        this.nextObjectID++
     }
     AddProperty(propertyName,propertyValue){
         let propertyArray =  this.xmlJSON.map['#'][0].properties.property
