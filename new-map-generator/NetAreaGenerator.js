@@ -207,7 +207,7 @@ class NetAreaGenerator {
             
             if(path !== null){
                 //Add the path to the map
-                let pathImportant = false
+                let pathImportant = path.length > 20
                 this.addPathToMatrix(path,pathImportant,zLayer)
                 if(this.oneUseConnectors){
                     if(roomA.prefab.connectors > 1){

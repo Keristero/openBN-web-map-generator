@@ -206,11 +206,11 @@
             "scaleInDock": 1
         },
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/test-output/output.tmx": {
-            "scale": 1,
-            "selectedLayer": 13,
+            "scale": 0.5,
+            "selectedLayer": 7,
             "viewCenter": {
-                "x": 30041.5,
-                "y": 17809.5
+                "x": 30795,
+                "y": 16532
             }
         },
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/test-output/tiles/back-stairs.tsx": {
@@ -514,6 +514,14 @@
                 "y": 91.62674373367423
             }
         },
+        "prefabs/small-default/small-links.json": {
+            "scale": 2.928459821428571,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 224.17927512481424,
+                "y": 92.1986356187355
+            }
+        },
         "prefabs/small-default/small-warps.json": {
             "scale": 1.5,
             "selectedLayer": 0,
@@ -677,7 +685,7 @@
             "scale": 2.8118303571428567,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 158.79336349924586,
+                "x": 158.79336349924588,
                 "y": 91.75517980471543
             }
         },
@@ -685,7 +693,7 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 179.83333333333331,
+                "x": 179.83333333333334,
                 "y": 88.99999999999997
             }
         },
@@ -693,7 +701,7 @@
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 192.16666666666666,
+                "x": 192.16666666666663,
                 "y": 65.66666666666666
             }
         },
@@ -701,8 +709,8 @@
             "scale": 2.03359375,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 224.47944679216286,
-                "y": 92.44717633499806
+                "x": 188.33653476757584,
+                "y": 106.21590472531693
             }
         },
         "prefabs/untitled.tmx": {

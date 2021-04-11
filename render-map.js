@@ -44,7 +44,7 @@ function renderMap(netAreaGenerator, file_path,tileInfo) {
                 draw: true,
                 rgba:{r:200,g:200,b:0,a:1}
             },
-            5:{
+            6:{
                 name: "Important Path",
                 draw: true,
                 rgba:{r:250,g:250,b:0,a:1}

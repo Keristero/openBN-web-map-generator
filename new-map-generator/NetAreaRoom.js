@@ -54,9 +54,6 @@ class NetAreaRoom extends Feature {
         this.lengthRatio = this.length / this.width
         this.placeFeatures()
     }
-    addFeature(collectionName,feature){
-        this.features[collectionName]
-    }
     placeFeatures(){
         let groundFeatures = this.prefab.features.groundFeatures
         for(let featureCollectionName in this.node.features){
@@ -65,6 +62,7 @@ class NetAreaRoom extends Feature {
                     let {x,y,z} = groundFeatures[this.nextGroundFeatureIndex]
                     let newLink = new LinkFeature(x,y,z,feature)
                     this.features.links[newLink.locationString] = newLink
+                    this.nextGroundFeatureIndex++
                 }
             }
         }
