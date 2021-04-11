@@ -9,6 +9,12 @@ let tiled_tileTypes = {
             3: { type: "Tile", name: "Ground Tile 3", id: 4 }
         }
     },
+    "path-tiles": {
+        subIndex: {
+            0: { type: "Tile", name: "Normal Path", id: 5 },
+            1: { type: "Tile", name: "Important Path", id: 6 },
+        }
+    },
     "connection": {
         subIndex: {
             0: { type: "Feature", name: "Connection",collection: "connections"},

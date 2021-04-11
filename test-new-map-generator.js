@@ -12,7 +12,7 @@ let exampleSiteData = JSON.parse(fs.readFileSync('./new-map-generator/document.j
 let exampleSiteProperties = {
     "Name":"Exampleland"
 }
-let exportMapPath = "./output.tmx"
+let exportMapPath = "./test-output/output.tmx"
 
 LetChildrenKnowAboutTheirParents(exampleSiteData)
 let netAreaGenerator = new NetAreaGenerator()

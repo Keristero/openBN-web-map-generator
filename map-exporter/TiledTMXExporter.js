@@ -1,5 +1,6 @@
 const { create, convert } = require('xmlbuilder2');
 const {unstackLayersIntoArray} = require('../new-map-generator/helpers.js')
+const {tiled_tileTypes} = require('../prefab-processor/Prefab')
 let { writeFile } = require('fs/promises')
 
 class TiledTMXExporter {
@@ -27,13 +28,6 @@ class TiledTMXExporter {
         }
         //Copy and overwrite defaults
         Object.assign(properties,p_properties)
-
-        let tilesets = [
-            {
-                sourcePath:``,
-                tileCount:1
-            }
-        ]
 
         this.xmlJSON = {
             map: {
@@ -65,8 +59,14 @@ class TiledTMXExporter {
         }
 
         //Create tilesets
-        for(let tileset of tilesets){
-            this.AddTileset(tileset.tileCount,tileset.sourcePath)
+        for(let filename in tiled_tileTypes){
+            let tileTypeData = tiled_tileTypes[filename]
+            let firstGID = tileTypeData?.subIndex[0]?.id
+            if(firstGID){
+                let tileCount = Object.keys(tileTypeData.subIndex).length
+                let sourcePath = `./tiles/${filename}.tsx`
+                this.AddTileset(tileCount,sourcePath,firstGID)
+            }
         }
 
         //Create properties
@@ -95,13 +95,13 @@ class TiledTMXExporter {
         }
         propertyArray.push(newProp)
     }
-    AddTileset(tileCount,sourcePath){
+    AddTileset(tileCount,sourcePath,firstgid=this.nextTileGID){
         let tilesetArray = this.xmlJSON.map['#'][1].tileset
         let newTilesetData = {
-            "@firstgid":`${this.nextTileGID}`,
+            "@firstgid":`${firstgid}`,
             "@source":`${sourcePath}`
         }
-        this.nextTileGID+=tileCount
+        this.nextTileGID = firstgid+tileCount
         tilesetArray.push(newTilesetData)
     }
     AddObjectLayer(layerIndex){
@@ -110,6 +110,8 @@ class TiledTMXExporter {
             objectgroup:{
                 "@id":`${this.nextLayerID}`,
                 "@name":`Objects ${layerIndex}`,
+                "@offsetx":`0`,
+                "@offsety":`${-((layerIndex-1)*16)}`,
                 "object":[]//We can add the objects here later
             }
         }
@@ -125,6 +127,8 @@ class TiledTMXExporter {
                 "@name":`Tiles ${layerIndex}`,
                 "@width":this.width,
                 "@height":this.length,
+                "@offsetx":`0`,
+                "@offsety":`${-((layerIndex-1)*16)}`,
                 "data":{
                    "@encoding":"csv",
                    "#":csvData
