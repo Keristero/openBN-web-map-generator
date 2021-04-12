@@ -32,7 +32,7 @@ function LetChildrenKnowAboutTheirParents(node){
 
 async function main(){
     console.log(`scraping ${testURL}`)
-    await scrape(testURL,scrapedDocumentPath,true,false)
+    await scrape(testURL,scrapedDocumentPath,true)
 
     console.log(`loading prefabs`)
     await prefabLoader.LoadPrefabs('./prefab-processor/prefabs')

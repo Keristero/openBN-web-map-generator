@@ -13,22 +13,16 @@
     ],
     "images": [
       {
-        "link": "file:///home/jn1mm0cool/repos/openBN-web-map-generator/secretFile.png",
+        "link": "file:///C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/secretFile.png",
         "text": "the secret image"
       }
     ],
     "children": [
       {
         "features": {
-          "children": [
+          "text": [
             {
-              "features": {
-                "text": [
-                  {
-                    "text": "I'm up the stairs, if trimming is disabled..."
-                  }
-                ]
-              }
+              "text": "I'm up the stairs, if trimming is disabled..."
             }
           ]
         }

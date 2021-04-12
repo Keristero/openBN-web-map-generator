@@ -22,30 +22,34 @@ let tiled_tileTypes = {
     },
     "ground_feature": {
         subIndex: {
-            0: { type: "Feature", name: "GroundFeature",collection: "groundFeatures"},
+            0: { type: "Feature", name: "GroundFeature",collection: "groundFeatures", Direction:"Up Left"},
+            1: { type: "Feature", name: "GroundFeature",collection: "groundFeatures", Direction:"Up Right"},
+            2: { type: "Feature", name: "GroundFeature",collection: "groundFeatures", Direction:"Down Right"},
+            3: { type: "Feature", name: "GroundFeature",collection: "groundFeatures", Direction:"Down Left"},
         }
     },
     "wall_feature": {
         subIndex: {
-            0: { type: "Feature", name: "WallFeature",collection: "wallFeatures"},
+            0: { type: "Feature", name: "WallFeature",collection: "wallFeatures",Direction:"Down Right"},
+            1: { type: "Feature", name: "WallFeature",collection: "wallFeatures",Direction:"Down Left"},
         }
     },
     "forward-stairs": {
         subIndex: {
-            0: { type: "Tile", name: "Forward-Middle-Left", id: 7, flippedid:8},
-            1: { type: "Tile", name: "Forward-Middle-Right", id: 8, flippedid:7},
-            2: { type: "Tile", name: "Forward-Top-Left", id: 9, flippedid:10},
-            3: { type: "Tile", name: "Forward-Top-Right", id: 10, flippedid:9},
+            0: { type: "Tile", name: "Forward-Middle-Left", id: 7, flippedid:8,Direction:"Up Left"},
+            1: { type: "Tile", name: "Forward-Middle-Right", id: 8, flippedid:7,Direction:"Up Right"},
+            2: { type: "Tile", name: "Forward-Top-Left", id: 9, flippedid:10,Direction:"Up Left"},
+            3: { type: "Tile", name: "Forward-Top-Right", id: 10, flippedid:9,Direction:"Up Right"},
         }
     },
     "back-stairs": {
         subIndex: {
-            0: { type: "Tile", name: "Backward-Base-Left", id: 11, flippedid:12},
-            1: { type: "Tile", name: "Backward-Base-Right", id: 12, flippedid:11},
-            2: { type: "Tile", name: "Backward-Middle-Left", id: 13, flippedid:14},
-            3: { type: "Tile", name: "Backward-Middle-Right", id: 14, flippedid:13},
-            4: { type: "Tile", name: "Backward-Top-Left", id: 15, flippedid:16},
-            5: { type: "Tile", name: "Backward-Top-Right", id: 16, flippedid:15},
+            0: { type: "Tile", name: "Backward-Base-Left", id: 11},
+            1: { type: "Tile", name: "Backward-Base-Right", id: 12},
+            2: { type: "Tile", name: "Backward-Middle-Left", id: 13},
+            3: { type: "Tile", name: "Backward-Middle-Right", id: 14},
+            4: { type: "Tile", name: "Backward-Top-Left", id: 15},
+            5: { type: "Tile", name: "Backward-Top-Right", id: 16},
         }
     },
 }
@@ -111,8 +115,8 @@ class Prefab{
     AddMatrixLayer(gridLayer){
         this.matrix.push(gridLayer)
     }
-    AddFeature(featureCollectionName,x,y,z){
-        let newFeatureData = {x,y,z}
+    AddFeature(featureCollectionName,x,y,z,properties){
+        let newFeatureData = {x,y,z,properties}
         this.features[featureCollectionName].push(newFeatureData)
         this.totalFeatures++
         //console.log("Added feature",newFeatureData,"To",featureCollectionName)
@@ -161,7 +165,11 @@ class Prefab{
                 let mapped_tile_info = tileMapping[tiled_tileInfo.id]
                 if(mapped_tile_info.type == "Feature"){
                     let {x,y} = gridPos
-                    prefab.AddFeature(mapped_tile_info.collection,x,y,layerZ)
+                    let tileProperties = {}
+                    if(mapped_tile_info.Direction){
+                        tileProperties.Direction = mapped_tile_info.Direction
+                    }
+                    prefab.AddFeature(mapped_tile_info.collection,x,y,layerZ,tileProperties)
                 }
             }
         }

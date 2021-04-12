@@ -143,8 +143,8 @@ class NetAreaRoom{
                         //console.log('placing a wall feature on location',this.nextWallFeatureIndex,'/', this.prefab.features[category].length)
                     }
                     let featureData = nodeFeaturesOfType[n_featureKey]
-                    let {x,y,z} = newPlacementPosition
-                    let newFeature = new featureMapping.className(x,y,z,featureData)
+                    let {x,y,z,properties} = newPlacementPosition
+                    let newFeature = new featureMapping.className(x,y,z,featureData,properties)
                     this.features[featureName][newFeature.locationString] = newFeature
                 }
             }
