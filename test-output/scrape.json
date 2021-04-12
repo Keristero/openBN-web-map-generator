@@ -3,6 +3,9 @@
     "text": [
       {
         "text": "Entry Room"
+      },
+      {
+        "text": "This is a sample homepage"
       }
     ],
     "links": [
@@ -20,9 +23,24 @@
     "children": [
       {
         "features": {
+          "children": [
+            {
+              "features": {
+                "text": [
+                  {
+                    "text": "I'm up the stairs, if trimming is disabled..."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "features": {
           "text": [
             {
-              "text": "I'm up the stairs, if trimming is disabled..."
+              "text": "this text should show up in a room connected to the main one"
             }
           ]
         }

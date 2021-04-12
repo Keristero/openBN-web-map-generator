@@ -5,10 +5,10 @@ let testScraper = new Web2DocScraper()
 async function scrape(url,outputPath,fromFile=false,trim=true) {
     //Set up attributes to scrape from page
     let required = true
-    let attr_requiredTextContent = new AttributeType("textContent","text",true)
+    let attr_requiredTextContent = new AttributeType("textContent","text",required)
     let attr_optionalTextContent = new AttributeType("textContent","text")
     let attr_altText = new AttributeType("alt","text")
-    let attr_requiredHref = new AttributeType("href","link",true)
+    let attr_requiredHref = new AttributeType("href","link",required)
     let attr_href = new AttributeType("href","link")
     let attr_src = new AttributeType("src","link")
     let attr_color = new AttributeType(undefined,"color",false,"color")

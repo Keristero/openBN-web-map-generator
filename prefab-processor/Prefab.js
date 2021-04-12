@@ -28,6 +28,14 @@ let tiled_tileTypes = {
             3: { type: "Feature", name: "GroundFeature",collection: "groundFeatures", Direction:"Down Left"},
         }
     },
+    "home_warp": {
+        subIndex: {
+            0: { type: "Feature", name: "HomeWarp",collection: "groundFeatures", Direction:"Up Left"},
+            1: { type: "Feature", name: "HomeWarp",collection: "groundFeatures", Direction:"Up Right"},
+            2: { type: "Feature", name: "HomeWarp",collection: "groundFeatures", Direction:"Down Right"},
+            3: { type: "Feature", name: "HomeWarp",collection: "groundFeatures", Direction:"Down Left"},
+        }
+    },
     "wall_feature": {
         subIndex: {
             0: { type: "Feature", name: "WallFeature",collection: "wallFeatures",Direction:"Down Right"},
@@ -119,7 +127,7 @@ class Prefab{
         let newFeatureData = {x,y,z,properties}
         this.features[featureCollectionName].push(newFeatureData)
         this.totalFeatures++
-        //console.log("Added feature",newFeatureData,"To",featureCollectionName)
+        console.log("Added feature",newFeatureData,"To",featureCollectionName)
     }
     static Tiled_createTileMapping(prefab_tilesets,tiled_tileTypes){
         let tileMapping = {}

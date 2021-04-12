@@ -27,6 +27,15 @@ class LinkFeature extends Feature{
     }
 }
 
+class HomeWarpFeature extends Feature{
+    constructor(x,y,z,feature,properties){
+        super(x,y,z,properties)
+        //Add directionality for warp exit
+        this.type = "Home Warp"
+        this.gid = 120
+    }
+}
+
 class TextFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
@@ -55,4 +64,4 @@ class ImageFeature extends Feature{
     }
 }
 
-module.exports = {Feature,LinkFeature,TextFeature,ImageFeature}
+module.exports = {Feature,LinkFeature,TextFeature,ImageFeature,HomeWarpFeature}

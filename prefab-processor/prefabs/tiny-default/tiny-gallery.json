@@ -155,27 +155,27 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"..\/..\/tiles\/prefab_tiles.tsx"
+         "source":"..\/..\/assets\/tiles\/prefab_tiles.tsx"
         }, 
         {
          "firstgid":5,
-         "source":"..\/..\/tiles\/forward-stairs.tsx"
+         "source":"..\/..\/assets\/tiles\/forward-stairs.tsx"
         }, 
         {
          "firstgid":9,
-         "source":"..\/..\/tiles\/connection.tsx"
+         "source":"..\/..\/assets\/tiles\/connection.tsx"
         }, 
         {
          "firstgid":10,
-         "source":"..\/..\/tiles\/back-stairs.tsx"
+         "source":"..\/..\/assets\/tiles\/back-stairs.tsx"
         }, 
         {
          "firstgid":16,
-         "source":"..\/..\/tiles\/ground_feature.tsx"
+         "source":"..\/..\/assets\/tiles\/ground_feature.tsx"
         }, 
         {
          "firstgid":17,
-         "source":"..\/..\/tiles\/wall_feature.tsx"
+         "source":"..\/..\/assets\/tiles\/wall_feature.tsx"
         }],
  "tilewidth":64,
  "type":"map",

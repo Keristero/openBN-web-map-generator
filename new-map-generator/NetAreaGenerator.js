@@ -5,9 +5,9 @@ let easystar = new EasyStar.js()
 
 class NetAreaGenerator {
     constructor() {
-        this.width = 500;
-        this.length = 500;
-        this.height = 20;
+        this.width = 100;
+        this.length = 100;
+        this.height = 10;
         this.matrix = generate3dMatrix(this.width, this.length, this.height)
         this.arr_rooms = [];
         this.arr_paths = [];
@@ -44,16 +44,13 @@ class NetAreaGenerator {
         //Options
         this.maximumPathFindingAttempts = 1; //If pathfinding is failing, raising may help
         this.oneUseConnectors = false; //Improves look, but increases failure rate
+        this.allowLayerGeneration = true; //Allow generation to add new layers as required, can be a bit crazy...
     }
     async generateNetArea(startingNode,prefabs){
-        try{
-            this.prefabs = prefabs
-            this.arr_queue = [startingNode]
-            await this.processNodeQueue();
-        }catch(e){
-            console.log(e)
-            throw(e)
-        }
+        this.prefabs = prefabs
+        startingNode.isFirstNode = true
+        this.arr_queue = [startingNode]
+        await this.processNodeQueue();
         this.removeAllWalls()
     }
     removeAllWalls(){
@@ -99,6 +96,13 @@ class NetAreaGenerator {
         }
         this.arr_rooms.push(room)
     }
+    addLayers(amount){
+        for(let i = 0; i < amount; i++){
+            let newLayer = generateGrid(this.width, this.length)
+            this.matrix.push(newLayer)
+        }
+        this.height+= amount
+    }
     addFeature(fromRoom,newFeature){
         let x = fromRoom.x+newFeature.x
         let y = fromRoom.y+newFeature.y
@@ -113,15 +117,10 @@ class NetAreaGenerator {
         this.features[z][y][x] = newFeature
     }
     async processNodeQueue() {
-        try{
-            while(this.arr_queue.length > 0){
-                let currentNode = this.arr_queue.shift()
-                this.addNodesChildrenToQueue(currentNode)
-                await this.generateLayout(currentNode)
-            }
-        }catch(e){
-            console.log(e)
-            throw(e)
+        while(this.arr_queue.length > 0){
+            let currentNode = this.arr_queue.shift()
+            this.addNodesChildrenToQueue(currentNode)
+            await this.generateLayout(currentNode)
         }
     }
     addNodesChildrenToQueue(node) {

@@ -67,7 +67,7 @@ class TiledTMXExporter {
             let firstGID = tileTypeData?.subIndex[0]?.id
             if(firstGID){
                 let tileCount = Object.keys(tileTypeData.subIndex).length
-                let sourcePath = `./tiles/${filename}.tsx`
+                let sourcePath = `../assets/tiles/${filename}.tsx`
                 this.AddTileset(tileCount,sourcePath,firstGID)
             }
         }
@@ -75,9 +75,11 @@ class TiledTMXExporter {
         //Add defined tilesets, check features for the gids
         //TODO dont hardcode these
         let linkGID = 100
-        this.AddTileset(2,`./tiles/ground_feature.tsx`,linkGID)
+        this.AddTileset(2,`../assets/tiles/ground_feature.tsx`,linkGID)
         let wallFeatureGID = 110
-        this.AddTileset(2,`./tiles/wall_feature.tsx`,wallFeatureGID)
+        this.AddTileset(2,`../assets/tiles/wall_feature.tsx`,wallFeatureGID)
+        let homeWarpGID = 120
+        this.AddTileset(4,`../assets/tiles/home_warp.tsx`,homeWarpGID)
 
         //Create properties
         for(let propertyName in properties){

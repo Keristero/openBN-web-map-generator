@@ -1,5 +1,5 @@
 let { PrefabGenerator } = require('./PrefabGenerator.js')
-let { Feature, LinkFeature,TextFeature,ImageFeature} = require('./features.js')
+let { Feature, LinkFeature,TextFeature,ImageFeature,HomeWarpFeature} = require('./features.js')
 
 //This list is a mapping of features on a node to features on a prefab
 let featureCategories = {
@@ -15,6 +15,11 @@ let featureCategories = {
             scrapedName:"links",
             extraRequirements:0,
             className:LinkFeature
+        },
+        "homeWarps":{
+            scrapedName:"homeWarps",//Does not exist really
+            extraRequirements:0,
+            className:HomeWarpFeature
         },
         "text":{
             scrapedName:"text",
@@ -45,7 +50,8 @@ class NetAreaRoom{
         this.features = {
             "links":{},
             "text":{},
-            "images":{}
+            "images":{},
+            "homeWarps":{}
         };
         this.nextGroundFeatureIndex = 0
         this.nextWallFeatureIndex = 0
@@ -56,15 +62,19 @@ class NetAreaRoom{
 
         //If all a room has is 2 connections, use it as a flight of stairs
         this.isStairs = true
-        for (let requirementName in this.prefabRequirements) {
-            let req = this.prefabRequirements[requirementName]
-            if (requirementName == "connections") {
-                if (req != 2) {
-                    this.isStairs = false
-                }
-            } else {
-                if (req > 0) {
-                    this.isStairs = false
+        if(!this.prefabRequirements["connections"]){
+            this.isStairs = false
+        }else{
+            for (let requirementName in this.prefabRequirements) {
+                let req = this.prefabRequirements[requirementName]
+                if (requirementName == "connections") {
+                    if (req != 2) {
+                        this.isStairs = false
+                    }
+                } else {
+                    if (req > 0) {
+                        this.isStairs = false
+                    }
                 }
             }
         }
@@ -129,6 +139,10 @@ class NetAreaRoom{
             for(let featureName in featureTypes){
                 //Loop through each feature subtype
                 let featureMapping = featureTypes[featureName]
+                //Skip if this node does not have any features of this type
+                if(!this.node?.features || !this.node.features[featureMapping.scrapedName]){
+                    continue
+                }
                 let nodeFeaturesOfType = this.node.features[featureMapping.scrapedName]
                 for(let n_featureKey in nodeFeaturesOfType){
                     let newPlacementPosition;
@@ -149,38 +163,6 @@ class NetAreaRoom{
                 }
             }
         }
-        /*
-        //Place ground features
-        let groundFeatures = this.prefab.features.groundFeatures
-        let wallFeatures = this.prefab.features.wallFeatures
-        for(let featureCollectionName in this.node.features){
-            for(let feature of this.node.features[featureCollectionName]){
-                if(featureCollectionName == "children"){
-                    continue
-                }
-                //Ground Features
-                let {x,y,z} = groundFeatures[this.nextGroundFeatureIndex]
-                if(featureCollectionName == "links"){
-                    let newFeature = new LinkFeature(x,y,z,feature)
-                    this.features.links[newFeature.locationString] = newFeature
-                    this.nextGroundFeatureIndex++
-                }
-                if(featureCollectionName == "text"){
-                    let newFeature = new TextFeature(x,y,z,feature)
-                    this.features.text[newFeature.locationString] = newFeature
-                    console.log(newFeature.locationString,newFeature)
-                    this.nextGroundFeatureIndex++
-                }
-
-                //Wall Features
-                if(featureCollectionName == "images"){
-                    let newFeature = new ImageFeature(x,y,z,feature)
-                    this.features.links[newFeature.locationString] = newFeature
-                    this.nextWallFeatureIndex++
-                }
-            }
-        }
-        */
     }
     connectionsOnZ(targetZ){
         let connections = this.prefab.features.connections.filter(connection => connection.z == targetZ);
@@ -212,17 +194,27 @@ class NetAreaRoom{
         let prefabs = this.netAreaGenerator.prefabs
         //TODO select prefab from list of exisitng ones, rather than generating a new one each time
 
+        let filtered = prefabs
+
+        if(this.node.isFirstNode){
+            filtered = filtered.filter(prefab => prefab?.properties?.["Entrance Room"]);
+            this.totalRequired.homeWarps = 1
+            this.node.features.homeWarps = [{}]
+            console.log("im the entrance!")
+            this.isStairs = false
+        }else{
+            filtered = filtered.filter(prefab => !prefab?.properties?.["Entrance Room"]);
+        }
+
         let requiredConnections = node?.room?.prefabRequirements?.connections || 0
         let requiredGroundFeatures = this.totalRequired.groundFeatures
         let requiredWallFeatures = this.totalRequired.wallFeatures
 
-        let filtered = []
-
         if(this.isStairs){
-            filtered = prefabs.filter(prefab => prefab?.properties?.Stairs);
+            filtered = filtered.filter(prefab => prefab?.properties?.Stairs);
             //console.log(`prefabs that are stairs (${filtered.length})`)
         }else{
-            filtered = prefabs.filter(prefab => !prefab?.properties?.Stairs);
+            filtered = filtered.filter(prefab => !prefab?.properties?.Stairs);
             //console.log(`prefabs that are not stairs (${filtered.length})`)
         }
 
@@ -249,18 +241,29 @@ class NetAreaRoom{
          */
     }
     set x(val) {
-        if (val > 0 && val < (this.width + this.netAreaGenerator.width - 1)) {
+        if (val > 0 && val + this.width < (this.netAreaGenerator.width - 1)) {
             this._x = val;
         }
     }
     set y(val) {
-        if (val > 0 && val < (this.length + this.netAreaGenerator.length - 1)) {
+        if (val > 0 && val+this.length < (this.netAreaGenerator.length - 1)) {
             this._y = val;
         }
     }
     set z(val) {
-        if (val > 0 && val < (this.length + this.netAreaGenerator.height - 1)) {
+        if (val >= 0 && val+this.height < (this.netAreaGenerator.height - 1)) {
             this._z = val;
+        }else{
+            //TODO remove this prob, it is a bit crazy
+            if(this.allowLayerGeneration){
+                if(val+this.height >= (this.netAreaGenerator.height - 1)){
+                    let heightNeeded = ((val+this.height)-(this.netAreaGenerator.height - 1))+1
+                    console.log(val+this.height, ">=",(this.netAreaGenerator.height - 1))
+                    console.log('adding layers',heightNeeded)
+                    this.netAreaGenerator.addLayers(heightNeeded)
+                    this._z = val
+                }
+            }
         }
     }
     get x() {
