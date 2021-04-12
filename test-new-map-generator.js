@@ -13,7 +13,7 @@ let exampleSiteProperties = {
     "Name":"Exampleland"
 }
 
-let testURL = "https://www.google.com/sheets/about/"
+let testURL = "https://docs.memfault.com/docs/embedded/esp32-guide/"
 let scrapedDocumentPath = "./test-output/scrape.json"
 let exportMapPath = "./test-output/output.tmx"
 let testRenderPath = "./test-output/render.png"
@@ -31,8 +31,10 @@ function LetChildrenKnowAboutTheirParents(node){
 }
 
 async function main(){
+    /*
     console.log(`scraping ${testURL}`)
     await scrape(testURL,scrapedDocumentPath)
+    */
 
     console.log(`loading prefabs`)
     await prefabLoader.LoadPrefabs('./prefab-processor/prefabs')

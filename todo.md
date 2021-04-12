@@ -8,13 +8,13 @@ Next:
 
 1. ✅ Update net area generator to support new prefabs
 
-1. Add basic TMX export!
+1. ✅ Add basic TMX export!
 
-1. Add stair generation logic 
+1. ✅ Add stair generation logic 
 
-1. Make a few more prefabs
+1. ✅ Make a few more prefabs
 
-1. Add prefab 
+1. Automatically extend height of map when required
 
 
 ## Background Generator
@@ -23,10 +23,10 @@ Next:
 
 ## New Map Generator
 - ✅ Add third dimension
-- Stair placement
-- Links
-- Images
-- Text
+- ✅ Stair placement
+- ✅ Links
+- ✅ Images
+- ✅ Text
 - Generate new colored tiles when required
 
 ## Prefab Processor
@@ -42,10 +42,10 @@ Next:
 - Add generation of mugshots for screens
 
 ## TMX Exporter
-- Export map data
-- Initially, just use static tilesets and textures
-- Export Warps
-- Export Prog Text
-- Export Pictures
+- ✅ Export map data
+- ✅ Initially, just use static tilesets and textures
+- ✅ Export Warps
+- ✅ Export Prog Text
+- ✅ Export Pictures
 - Export with generated background path
 - Use generated tilesets and textures

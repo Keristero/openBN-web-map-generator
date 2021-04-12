@@ -1,31 +1,52 @@
 class Feature{
     constructor(x,y,z){
-        this._x = x;
-        this._y = y;
-        this._z = z;
-    }
-    get locationString(){
-        return `${this._x},${this._y},${this._z}`
-    }
-}
-
-class LinkFeature{
-    constructor(x,y,z,feature){
-        this.x = x
-        this.y = y
-        this.z = z
-        this.type = "link"
-        this.gid = 100,
+        this.x = x;
+        this.y = y;
+        this.z = z;
         this.width = 64
         this.height = 32
-        this.properties = {
-            "link":feature.link || "",
-            "text":feature.text || ""
-        }
     }
     get locationString(){
         return `${this.x},${this.y},${this.z}`
     }
 }
 
-module.exports = {Feature,LinkFeature}
+class LinkFeature extends Feature{
+    constructor(x,y,z,feature){
+        super(x,y,z)
+        //Add directionality for warp exit
+        this.type = "link"
+        this.gid = 100,
+        this.properties = {
+            "link":feature.link || "",
+            "text":feature.text || ""
+        }
+    }
+}
+
+class TextFeature extends Feature{
+    constructor(x,y,z,feature){
+        super(x,y,z)
+        //Add directionality for npc facing
+        this.type = "NPC"
+        this.gid = 101,
+        this.properties = {
+            "default_response":feature.text.toUpperCase(),
+        }
+    }
+}
+
+class ImageFeature extends Feature{
+    constructor(x,y,z,feature){
+        super(x,y,z)
+        //TODO download the image
+        this.type = "image"
+        this.gid = 110,
+        this.properties = {
+            "src":feature.link || "",
+            "text":feature.text || ""
+        }
+    }
+}
+
+module.exports = {Feature,LinkFeature,TextFeature,ImageFeature}

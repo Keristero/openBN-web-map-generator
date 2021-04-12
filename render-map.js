@@ -82,7 +82,6 @@ function renderMap(netAreaGenerator, file_path,tileInfo) {
     //Draw links
     for (let featureKey in netAreaGenerator.features){
         let feature = netAreaGenerator.features[featureKey]
-        console.log(feature)
     }
 
     saveImageOfCanvas(canvas, path.join(".", file_path))
@@ -90,10 +89,6 @@ function renderMap(netAreaGenerator, file_path,tileInfo) {
 
 function rgbaToColor(rgba){
     return `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a})`
-}
-
-function renderLink(ctx,link){
-    console.log(link)
 }
 
 function renderRoom(ctx, room,tileInfo){
