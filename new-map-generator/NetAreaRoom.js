@@ -255,7 +255,7 @@ class NetAreaRoom{
             this._z = val;
         }else{
             //TODO remove this prob, it is a bit crazy
-            if(this.allowLayerGeneration){
+            if(this.netAreaGenerator.allowLayerGeneration){
                 if(val+this.height >= (this.netAreaGenerator.height - 1)){
                     let heightNeeded = ((val+this.height)-(this.netAreaGenerator.height - 1))+1
                     console.log(val+this.height, ">=",(this.netAreaGenerator.height - 1))

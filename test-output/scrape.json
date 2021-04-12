@@ -1,46 +1,1355 @@
 {
   "features": {
-    "text": [
-      {
-        "text": "Entry Room"
-      },
-      {
-        "text": "This is a sample homepage"
-      }
-    ],
-    "links": [
-      {
-        "text": "Example",
-        "link": "http://example.com/"
-      }
-    ],
-    "images": [
-      {
-        "link": "file:///C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/secretFile.png",
-        "text": "the secret image"
-      }
-    ],
     "children": [
       {
         "features": {
           "children": [
             {
               "features": {
-                "text": [
+                "children": [
                   {
-                    "text": "I'm up the stairs, if trimming is disabled..."
+                    "features": {
+                      "children": [
+                        {
+                          "features": {
+                            "links": [
+                              {
+                                "text": "Log In",
+                                "link": "https://www.reddit.com/login/?dest=https%3A%2F%2Fwww.reddit.com%2F"
+                              },
+                              {
+                                "text": "Sign Up",
+                                "link": "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2F"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
                   }
                 ]
               }
-            }
-          ]
-        }
-      },
-      {
-        "features": {
-          "text": [
+            },
             {
-              "text": "this text should show up in a room connected to the main one"
+              "features": {
+                "children": [
+                  {
+                    "features": {
+                      "children": [
+                        {
+                          "features": {
+                            "children": [
+                              {
+                                "features": {
+                                  "children": [
+                                    {
+                                      "features": {
+                                        "links": [
+                                          {
+                                            "text": "HotHot",
+                                            "link": "https://www.reddit.com/hot/"
+                                          },
+                                          {
+                                            "text": "New",
+                                            "link": "https://www.reddit.com/new/"
+                                          },
+                                          {
+                                            "text": "Top",
+                                            "link": "https://www.reddit.com/top/"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "links": [
+                                          {
+                                            "text": "HotHot",
+                                            "link": "https://www.reddit.com/hot/"
+                                          },
+                                          {
+                                            "text": "New",
+                                            "link": "https://www.reddit.com/new/"
+                                          },
+                                          {
+                                            "text": "Top",
+                                            "link": "https://www.reddit.com/top/"
+                                          },
+                                          {
+                                            "text": "Rising",
+                                            "link": "https://www.reddit.com/rising/"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "links": [
+                                          {
+                                            "text": "Rising",
+                                            "link": "https://www.reddit.com/rising/"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "features": {
+                                  "children": [
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "children": [
+                                                            {
+                                                              "features": {
+                                                                "links": [
+                                                                  {
+                                                                    "text": "15 hours ago",
+                                                                    "link": "https://www.reddit.com/r/AskReddit/comments/mowu0z/what_is_an_adult_problem_that_nobody_prepared_you/"
+                                                                  }
+                                                                ],
+                                                                "children": [
+                                                                  {
+                                                                    "color": "rgb(120, 124, 126)"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/vu6om0xnb7e41_This.png?width=32&height=32&crop=smart&auto=webp&s=28ab000ce7ffd383ede645836f56309b2de9b119",
+                                                                          "text": "This"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/klvxk1wggfd41_Helpful.png?width=32&height=32&crop=smart&auto=webp&s=e50908c50d797edd935ba8b5d9f0fb1372ff0bae",
+                                                                          "text": "Helpful"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/5izbv4fn0md41_Wholesome.png?width=32&height=32&crop=smart&auto=webp&s=b3267c9d510c7b06dda6ec7d53cb587b9e822e44",
+                                                                          "text": "Wholesome"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/Faith_in_Humanity_Restored_32.png",
+                                                                          "text": "Faith In Humanity Restored"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "What is an adult problem that nobody prepared you for?",
+                                                              "link": "https://www.reddit.com/r/AskReddit/comments/mowu0z/what_is_an_adult_problem_that_nobody_prepared_you/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "images": [
+                                                            {
+                                                              "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "19.1k comments",
+                                                              "link": "https://www.reddit.com/r/AskReddit/comments/mowu0z/what_is_an_adult_problem_that_nobody_prepared_you/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "Does socialism work? Is capitalism evil? is taxation theft? should we tax the rich more? Questions YOU can answer in Democracy 4, on steam right now (Early Access)",
+                                                              "link": "https://alb.reddit.com/cr?z=gAAAAABgdCAW0HXLsmQkGt5to88sjedTYqrCRL74-oBehAQ_l-VGEiD9LGwOtkx_dQ-gGA-2UsczAAVP3e7ptx7woa37W837FpZZ5UHlmLzB1zfUoRWcR3F06G86UQYQ5woo2LAvxZKrcfh99zNchwbDK6IT2Ylv9dYSXEdz867HN1yhK254IwAI7OK_3LhS3O0Jc6r8pRCNsxd2EhXg2b7S3bwDtOJmW4jev2hJuywP6s1WGqhFDcBe_w2z2xNm77LSgnbJsUcZDKBofwMBn3OtdUMFrI8o05z9TL30qh4-JLzQx4bo3PHOppY6EKQrANJV1WFuOqiRrwxzeq9Pkh6P5MSUYr3OojHwUcz5yHzSWtlnbTk4oWOT9MFNkn3o_8lHy49dJEnBql0fxzVyZlrjxTx6H3K_bqpBC3bbIhhgf64gpa2X69OtYvsfysHjc7cOOXJJUYlXE-UtCzSJQOcKPjLGGYvoBzx8OE4I1g9g0YhskWcML47GmTdNZ9lPmhsm-suuWur9qxzXNlD1b-MbYdjPwD29yILpp49-U8hAgCfdiykKOwodTLyXnXvnIA1kj-BTVEq_zdQRiyCGPaLTbpLrguX3eQHByTdkJImyaMPifNswiXzJB14Rv_OLC2KuCwTBvXDsyGC1vU7I6ObpuDrrhyAhlkr6QgLV26ZYPt_vL2P7kVbMTZvUpULChbOs0lfwP3BE2-UYJmO31tvbQV95s9D3sVfStR7LlB2Ofbzlq2iQHrK53Y7qUiQ8-Og-chk69XWa-6RW1usfVemXxM5EVW3aMCRJtO068H033iXy4bROpqfIPY8CYeyk3xfN6r0L1zcfR8inx0K_0D3J2MmHEc0Zt0gY1XfGGTlMmJrPNtF0OqYFWLoqt51sW3KWOevZNk8KOYGvKcZXfg32WdfJCSKoTajq_E-MDwopp4xqy69D6IN7iqwy-MpzjtF8BLQ9YOoUniReqPaZTZjiA24dTxUS-8YG-0hGGC19kYFWBbD90gk6rzeOmwl3vAITm-b_j0XsmEyvz30OJPGKy7gZOLZxDA=="
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "images": [
+                                                            {
+                                                              "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "0 comments",
+                                                              "link": "https://www.reddit.com/user/cliffski/comments/mpabs9/does_socialism_work_is_capitalism_evil_is/?instanceId=t3_z%3DgAAAAABgdCAWHwL3JCVfNhrK6il3TUrAsi31gvx-G9WqVNNxrJ04r5zsFEXaQpkvrGqwqHEoWil8rkU3DlFHLwI6gKQyg_w2qd1RrZ3PUCfun5wap460TmteQZLyhIRgJbbg02P21w-s5zxzU0bmMbgCG1PT9NV1E-cYROKZEdvT6yhULHMczkuf8C2abzK4240LLMIfFgF3u_J1KONdXTmHtIFnfs3WolFzLZb0KCjzKJOy2_NkOGIZpXPNFfFk589Oy7yjmbvw7Pswb8pPWSKAb2kpqt8iM-w2xWzKqtJ8jO1hddi7XJ9VBrqtDSRMzzyKTGCjH2IExJ-Aa-3zH40TJbNQzB7DP9QnHY1lv13H5cIDnPOwaLDQNnR6E1dD4fzMf56TbHD7SOqnihIQ6QmZlDFvVP86KyCgP6vSlRXG5zikolyeYH5NdMKfrtKgUKkwEGeTYL7s_LYn4rH6kcPx8K6hzEIC3vnUeVWBzc-uBUAzV2aQfNuoUN9CthP8V2_R9kehhhtoDXVQWynuWSYHvTPztcbl9IpeY7dn2dlM0TpvplWc37RNOw6y1hGWDJ--zFhusUqK3b4cR4kLtCjsktkNgNAFfl0dWUerTLdZJG7mz-1Euc0K2lhAbmEhG_UjgmJKkEOAdkhU19FA8XsIT_j_zoNZ0kqJpoA5JJhBxcAp2vfgDPwYOuSM1uVIEpuctt7FV8wLFKaR-8PH7sKh1tPHGl8SthjBKmj7HzUaIiuxTGUd_Ii-k4RNVRvMw0An7z6k2RU-AgqoLGO_aSCit0CA0yHVn8EbNbb8Mp9KtY4NPVQsZ-MpDA-X0nrAd0VTHmmjKaZAAqOqaKI30irwU8NqPOH3fA%3D%3D"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "https://store.steampowered.com/app/14...",
+                                                        "link": "https://alb.reddit.com/cr?z=gAAAAABgdCAW0HXLsmQkGt5to88sjedTYqrCRL74-oBehAQ_l-VGEiD9LGwOtkx_dQ-gGA-2UsczAAVP3e7ptx7woa37W837FpZZ5UHlmLzB1zfUoRWcR3F06G86UQYQ5woo2LAvxZKrcfh99zNchwbDK6IT2Ylv9dYSXEdz867HN1yhK254IwAI7OK_3LhS3O0Jc6r8pRCNsxd2EhXg2b7S3bwDtOJmW4jev2hJuywP6s1WGqhFDcBe_w2z2xNm77LSgnbJsUcZDKBofwMBn3OtdUMFrI8o05z9TL30qh4-JLzQx4bo3PHOppY6EKQrANJV1WFuOqiRrwxzeq9Pkh6P5MSUYr3OojHwUcz5yHzSWtlnbTk4oWOT9MFNkn3o_8lHy49dJEnBql0fxzVyZlrjxTx6H3K_bqpBC3bbIhhgf64gpa2X69OtYvsfysHjc7cOOXJJUYlXE-UtCzSJQOcKPjLGGYvoBzx8OE4I1g9g0YhskWcML47GmTdNZ9lPmhsm-suuWur9qxzXNlD1b-MbYdjPwD29yILpp49-U8hAgCfdiykKOwodTLyXnXvnIA1kj-BTVEq_zdQRiyCGPaLTbpLrguX3eQHByTdkJImyaMPifNswiXzJB14Rv_OLC2KuCwTBvXDsyGC1vU7I6ObpuDrrhyAhlkr6QgLV26ZYPt_vL2P7kVbMTZvUpULChbOs0lfwP3BE2-UYJmO31tvbQV95s9D3sVfStR7LlB2Ofbzlq2iQHrK53Y7qUiQ8-Og-chk69XWa-6RW1usfVemXxM5EVW3aMCRJtO068H033iXy4bROpqfIPY8CYeyk3xfN6r0L1zcfR8inx0K_0D3J2MmHEc0Zt0gY1XfGGTlMmJrPNtF0OqYFWLoqt51sW3KWOevZNk8KOYGvKcZXfg32WdfJCSKoTajq_E-MDwopp4xqy69D6IN7iqwy-MpzjtF8BLQ9YOoUniReqPaZTZjiA24dTxUS-8YG-0hGGC19kYFWBbD90gk6rzeOmwl3vAITm-b_j0XsmEyvz30OJPGKy7gZOLZxDA=="
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "54 minutes ago",
+                                                        "link": "https://www.reddit.com/user/cliffski/comments/mpabs9/does_socialism_work_is_capitalism_evil_is/?instanceId=t3_z%3DgAAAAABgdCAWHwL3JCVfNhrK6il3TUrAsi31gvx-G9WqVNNxrJ04r5zsFEXaQpkvrGqwqHEoWil8rkU3DlFHLwI6gKQyg_w2qd1RrZ3PUCfun5wap460TmteQZLyhIRgJbbg02P21w-s5zxzU0bmMbgCG1PT9NV1E-cYROKZEdvT6yhULHMczkuf8C2abzK4240LLMIfFgF3u_J1KONdXTmHtIFnfs3WolFzLZb0KCjzKJOy2_NkOGIZpXPNFfFk589Oy7yjmbvw7Pswb8pPWSKAb2kpqt8iM-w2xWzKqtJ8jO1hddi7XJ9VBrqtDSRMzzyKTGCjH2IExJ-Aa-3zH40TJbNQzB7DP9QnHY1lv13H5cIDnPOwaLDQNnR6E1dD4fzMf56TbHD7SOqnihIQ6QmZlDFvVP86KyCgP6vSlRXG5zikolyeYH5NdMKfrtKgUKkwEGeTYL7s_LYn4rH6kcPx8K6hzEIC3vnUeVWBzc-uBUAzV2aQfNuoUN9CthP8V2_R9kehhhtoDXVQWynuWSYHvTPztcbl9IpeY7dn2dlM0TpvplWc37RNOw6y1hGWDJ--zFhusUqK3b4cR4kLtCjsktkNgNAFfl0dWUerTLdZJG7mz-1Euc0K2lhAbmEhG_UjgmJKkEOAdkhU19FA8XsIT_j_zoNZ0kqJpoA5JJhBxcAp2vfgDPwYOuSM1uVIEpuctt7FV8wLFKaR-8PH7sKh1tPHGl8SthjBKmj7HzUaIiuxTGUd_Ii-k4RNVRvMw0An7z6k2RU-AgqoLGO_aSCit0CA0yHVn8EbNbb8Mp9KtY4NPVQsZ-MpDA-X0nrAd0VTHmmjKaZAAqOqaKI30irwU8NqPOH3fA%3D%3D"
+                                                      }
+                                                    ],
+                                                    "children": [
+                                                      {
+                                                        "color": "rgb(120, 124, 126)"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "children": [
+                                                            {
+                                                              "features": {
+                                                                "links": [
+                                                                  {
+                                                                    "text": "8 hours ago",
+                                                                    "link": "https://www.reddit.com/r/leagueoflegends/comments/mp4qvl/cloud9_vs_team_liquid_lcs_2021_midseason_showdown/"
+                                                                  }
+                                                                ],
+                                                                "children": [
+                                                                  {
+                                                                    "color": "rgb(120, 124, 126)"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/gold_32.png",
+                                                                          "text": "Gold"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/Updoot_32.png",
+                                                                          "text": "Doot 🎵 Doot"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/SnooClapping_32.png",
+                                                                          "text": "Bravo!"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/klvxk1wggfd41_Helpful.png?width=32&height=32&crop=smart&auto=webp&s=e50908c50d797edd935ba8b5d9f0fb1372ff0bae",
+                                                                          "text": "Helpful"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "Cloud9 vs. Team Liquid / LCS 2021 Mid-Season Showdown - Grand Final / Post-Match Discussion",
+                                                              "link": "https://www.reddit.com/r/leagueoflegends/comments/mp4qvl/cloud9_vs_team_liquid_lcs_2021_midseason_showdown/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "images": [
+                                                            {
+                                                              "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(164, 167, 168)"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "2.4k comments",
+                                                              "link": "https://www.reddit.com/r/leagueoflegends/comments/mp4qvl/cloud9_vs_team_liquid_lcs_2021_midseason_showdown/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "children": [
+                                                            {
+                                                              "features": {
+                                                                "links": [
+                                                                  {
+                                                                    "text": "10 hours ago",
+                                                                    "link": "https://www.reddit.com/r/MMA/comments/mp2qls/dustin_poirier_reveals_that_he_didnt_received_the/"
+                                                                  }
+                                                                ],
+                                                                "children": [
+                                                                  {
+                                                                    "color": "rgb(120, 124, 126)"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/klvxk1wggfd41_Helpful.png?width=32&height=32&crop=smart&auto=webp&s=e50908c50d797edd935ba8b5d9f0fb1372ff0bae",
+                                                                          "text": "Helpful"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/5izbv4fn0md41_Wholesome.png?width=32&height=32&crop=smart&auto=webp&s=b3267c9d510c7b06dda6ec7d53cb587b9e822e44",
+                                                                          "text": "Wholesome"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/silver_32.png",
+                                                                          "text": "Silver"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_q0gj4/ks45ij6w05f61_oldHugz.png?width=32&height=32&crop=smart&auto=webp&s=fe84dfd3b09cbf43e7161d04fd0f15b69b54010f",
+                                                                          "text": "Hugz"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "Dustin Poirier reveals that he didn't received the Notorious donation to his charity after the fight.",
+                                                              "link": "https://www.reddit.com/r/MMA/comments/mp2qls/dustin_poirier_reveals_that_he_didnt_received_the/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "images": [
+                                                            {
+                                                              "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "Social media 🐄",
+                                                              "link": "https://www.reddit.com/r/MMA/?f=flair_name%3A%22Social%20media%20%F0%9F%90%84%22"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "i.imgur.com/IPHSZZ...",
+                                                        "link": "https://i.imgur.com/IPHSZZF.png"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "1.4k comments",
+                                                              "link": "https://www.reddit.com/r/MMA/comments/mp2qls/dustin_poirier_reveals_that_he_didnt_received_the/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "children": [
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "children": [
+                                                                        {
+                                                                          "features": {
+                                                                            "links": [
+                                                                              {
+                                                                                "text": "8 hours ago",
+                                                                                "link": "https://www.reddit.com/r/news/comments/mp4qz5/officer_accused_of_force_in_stop_of_black_army/"
+                                                                              }
+                                                                            ],
+                                                                            "children": [
+                                                                              {
+                                                                                "color": "rgb(120, 124, 126)"
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "features": {
+                                                                            "children": [
+                                                                              {
+                                                                                "features": {
+                                                                                  "images": [
+                                                                                    {
+                                                                                      "link": "https://www.redditstatic.com/gold/awards/icon/TableSlap_32.png",
+                                                                                      "text": "Table Slap"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "features": {
+                                                                                  "images": [
+                                                                                    {
+                                                                                      "link": "https://preview.redd.it/award_images/t5_q0gj4/35d17tf5e5f61_oldrocketlike.png?width=32&height=32&crop=smart&auto=webp&s=1e2178cc0b2b52a6ae3bdeb43288ab2a58bb1111",
+                                                                                      "text": "Rocket Like"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "features": {
+                                                                                  "images": [
+                                                                                    {
+                                                                                      "link": "https://preview.redd.it/award_images/t5_22cerq/klvxk1wggfd41_Helpful.png?width=32&height=32&crop=smart&auto=webp&s=e50908c50d797edd935ba8b5d9f0fb1372ff0bae",
+                                                                                      "text": "Helpful"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "features": {
+                                                                                  "images": [
+                                                                                    {
+                                                                                      "link": "https://preview.redd.it/award_images/t5_22cerq/5izbv4fn0md41_Wholesome.png?width=32&height=32&crop=smart&auto=webp&s=b3267c9d510c7b06dda6ec7d53cb587b9e822e44",
+                                                                                      "text": "Wholesome"
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "links": [
+                                                                        {
+                                                                          "text": "Officer accused of force in stop of Black Army officer fired",
+                                                                          "link": "https://www.reddit.com/r/news/comments/mp4qz5/officer_accused_of_force_in_stop_of_black_army/"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "links": [
+                                                                  {
+                                                                    "text": "apnews.com/articl...",
+                                                                    "link": "https://apnews.com/article/ralph-northam-lawsuits-virginia-richmond-e3dea15f20e74cfc8664e0906ea7181e"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "2.3k comments",
+                                                              "link": "https://www.reddit.com/r/news/comments/mp4qz5/officer_accused_of_force_in_stop_of_black_army/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "children": [
+                                                            {
+                                                              "features": {
+                                                                "links": [
+                                                                  {
+                                                                    "text": "4 hours ago",
+                                                                    "link": "https://www.reddit.com/r/AskReddit/comments/mp8188/redditors_of_reddit_why_do_all_reddit_redditors/"
+                                                                  }
+                                                                ],
+                                                                "children": [
+                                                                  {
+                                                                    "color": "rgb(120, 124, 126)"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/gold_32.png",
+                                                                          "text": "Gold"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/klvxk1wggfd41_Helpful.png?width=32&height=32&crop=smart&auto=webp&s=e50908c50d797edd935ba8b5d9f0fb1372ff0bae",
+                                                                          "text": "Helpful"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/5izbv4fn0md41_Wholesome.png?width=32&height=32&crop=smart&auto=webp&s=b3267c9d510c7b06dda6ec7d53cb587b9e822e44",
+                                                                          "text": "Wholesome"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/silver_32.png",
+                                                                          "text": "Silver"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "Redditors of Reddit, why do all Reddit redditors in AskReddit ask redditors for “redditors of Reddit” if all on Reddit are redditors?",
+                                                              "link": "https://www.reddit.com/r/AskReddit/comments/mp8188/redditors_of_reddit_why_do_all_reddit_redditors/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "images": [
+                                                            {
+                                                              "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "453 comments",
+                                                              "link": "https://www.reddit.com/r/AskReddit/comments/mp8188/redditors_of_reddit_why_do_all_reddit_redditors/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "background-color": "rgb(255, 255, 255)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "children": [
+                                                            {
+                                                              "features": {
+                                                                "links": [
+                                                                  {
+                                                                    "text": "4 hours ago",
+                                                                    "link": "https://www.reddit.com/r/Superstonk/comments/mp7xl3/diamantenh%C3%A4nde_german_market_is_open/"
+                                                                  }
+                                                                ],
+                                                                "children": [
+                                                                  {
+                                                                    "color": "rgb(120, 124, 126)"
+                                                                  }
+                                                                ]
+                                                              }
+                                                            },
+                                                            {
+                                                              "features": {
+                                                                "children": [
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/gold_32.png",
+                                                                          "text": "Gold"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://preview.redd.it/award_images/t5_22cerq/vu6om0xnb7e41_This.png?width=32&height=32&crop=smart&auto=webp&s=28ab000ce7ffd383ede645836f56309b2de9b119",
+                                                                          "text": "This"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/CrabRave_32.png",
+                                                                          "text": "Crab Rave"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "features": {
+                                                                      "images": [
+                                                                        {
+                                                                          "link": "https://www.redditstatic.com/gold/awards/icon/Timeless_512.png",
+                                                                          "text": "Timeless Beauty"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "Diamantenhände 👐💎 German market is open 🇩🇪",
+                                                              "link": "https://www.reddit.com/r/Superstonk/comments/mp7xl3/diamantenh%C3%A4nde_german_market_is_open/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "images": [
+                                                            {
+                                                              "link": "https://www.redditstatic.com/desktop2x/img/renderTimingPixel.png"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "HODL 💎🙌",
+                                                              "link": "https://www.reddit.com/r/Superstonk/?f=flair_name%3A%22HODL%20%F0%9F%92%8E%F0%9F%99%8C%22"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "565 comments",
+                                                              "link": "https://www.reddit.com/r/Superstonk/comments/mp7xl3/diamantenh%C3%A4nde_german_market_is_open/"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      {
+                                                        "color": "rgb(26, 26, 27)"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "color": "rgb(26, 26, 27)",
+                                                  "features": {
+                                                    "children": [
+                                                      {
+                                                        "features": {
+                                                          "links": [
+                                                            {
+                                                              "text": "https://www.ls-tc.de/de/aktie/gamestop-aktie",
+                                                              "link": "https://www.ls-tc.de/de/aktie/gamestop-aktie"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "color": "rgb(26, 26, 27)"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "background-color": "rgb(255, 255, 255)",
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "features": {
+                                              "text": [
+                                                {
+                                                  "text": "Top broadcast"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "background-color": "rgb(0, 0, 0)",
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "background-color": "rgb(0, 0, 0)"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "features": {
+                                  "children": [
+                                    {
+                                      "background-color": "rgba(0, 0, 0, 0.15)"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "features": {
+                            "children": [
+                              {
+                                "features": {
+                                  "children": [
+                                    {
+                                      "features": {
+                                        "text": [
+                                          {
+                                            "text": "Trending Communities"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "images": [
+                                                      {
+                                                        "link": "https://b.thumbs.redditmedia.com/t622Aw3Yrn8EWLcC5tECrHEV-pvBAZDTJBFVBBFqUaI.png"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "r/nottheonion",
+                                                        "link": "https://www.reddit.com/r/nottheonion/"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "images": [
+                                                      {
+                                                        "link": "https://b.thumbs.redditmedia.com/xuVeCo6UD6XvAiZUjBxG3OTi7NC2EL-VEZzZeM7_fdg.png"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "r/SquaredCircle",
+                                                        "link": "https://www.reddit.com/r/SquaredCircle/"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "images": [
+                                                      {
+                                                        "link": "https://b.thumbs.redditmedia.com/NojkQWzGBAau2dP3q0NTY5uJisbRx_q3ithIT5iLypE.png"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "r/soccer",
+                                                        "link": "https://www.reddit.com/r/soccer/"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "images": [
+                                                      {
+                                                        "link": "https://b.thumbs.redditmedia.com/3yVFF-DsWBV-P3MeLPP3eTDZSv8IKONdF7_U7UU6FfY.png"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "r/pcgaming",
+                                                        "link": "https://www.reddit.com/r/pcgaming/"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "features": {
+                                              "children": [
+                                                {
+                                                  "features": {
+                                                    "images": [
+                                                      {
+                                                        "link": "https://b.thumbs.redditmedia.com/uzAOgdCtLKNxNqirjgcwrJkpWHtTDzIr7L3vnhOMF2o.png"
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                {
+                                                  "features": {
+                                                    "links": [
+                                                      {
+                                                        "text": "r/videos",
+                                                        "link": "https://www.reddit.com/r/videos/"
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "features": {
+                                  "children": [
+                                    {
+                                      "features": {
+                                        "children": [
+                                          {
+                                            "features": {
+                                              "links": [
+                                                {
+                                                  "text": "help",
+                                                  "link": "https://www.reddithelp.com/"
+                                                },
+                                                {
+                                                  "text": "Reddit App",
+                                                  "link": "https://www.reddit.com/mobile/download"
+                                                },
+                                                {
+                                                  "text": "Reddit coins",
+                                                  "link": "https://www.reddit.com/coins"
+                                                },
+                                                {
+                                                  "text": "Reddit premium",
+                                                  "link": "https://www.reddit.com/premium"
+                                                },
+                                                {
+                                                  "text": "Reddit gifts",
+                                                  "link": "https://redditgifts.com/"
+                                                },
+                                                {
+                                                  "text": "Communities",
+                                                  "link": "https://www.reddit.com/subreddits/a-1/"
+                                                },
+                                                {
+                                                  "text": "Rereddit",
+                                                  "link": "https://www.reddit.com/posts/2020/"
+                                                },
+                                                {
+                                                  "text": "Topics",
+                                                  "link": "https://www.reddit.com/topics/a-1/"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "features": {
+                                              "links": [
+                                                {
+                                                  "text": "about",
+                                                  "link": "https://about.reddit.com/"
+                                                },
+                                                {
+                                                  "text": "careers",
+                                                  "link": "https://about.reddit.com/careers/"
+                                                },
+                                                {
+                                                  "text": "press",
+                                                  "link": "https://about.reddit.com/press/"
+                                                },
+                                                {
+                                                  "text": "advertise",
+                                                  "link": "https://www.redditinc.com/advertising"
+                                                },
+                                                {
+                                                  "text": "blog",
+                                                  "link": "http://www.redditblog.com/"
+                                                },
+                                                {
+                                                  "text": "Terms",
+                                                  "link": "https://www.redditinc.com/policies/user-agreement"
+                                                },
+                                                {
+                                                  "text": "Content policy",
+                                                  "link": "https://www.redditinc.com/policies/content-policy"
+                                                },
+                                                {
+                                                  "text": "Privacy policy",
+                                                  "link": "https://www.reddit.com/help/privacypolicy"
+                                                },
+                                                {
+                                                  "text": "Mod policy",
+                                                  "link": "https://www.reddit.com/help/healthycommunities/"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "background-color": "rgb(0, 121, 211)"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "background-color": "transparent",
+                    "features": {}
+                  }
+                ]
+              }
             }
           ]
         }

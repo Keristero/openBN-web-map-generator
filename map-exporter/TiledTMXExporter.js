@@ -27,7 +27,7 @@ class TiledTMXExporter {
             "Background Vel X":0.3,
             "Background Vel Y":0.3,
             "Name":"??? Area",
-            "Song":"/resources/loops/undernet.ogg",
+            "Song":"resources/loops/undernet.ogg",
         }
         //Copy and overwrite defaults
         Object.assign(properties,p_properties)
@@ -154,6 +154,7 @@ class TiledTMXExporter {
         }
         this.nextTileGID = firstgid+tileCount
         tilesetArray.push(newTilesetData)
+        console.log(`[TMXExporter] added tileset ${newTilesetData["@source"]}`)
     }
     AddObjectLayer(layerIndex){
         let layerArray = this.xmlJSON.map['#']

@@ -15,12 +15,12 @@
    <property name="Direction" value="Down Right"/>
   </properties>
  </tile>
- <tile id="2">
+ <tile id="2" type="Stairs">
   <properties>
    <property name="Direction" value="Down Left"/>
   </properties>
  </tile>
- <tile id="3">
+ <tile id="3" type="Stairs">
   <properties>
    <property name="Direction" value="Down Right"/>
   </properties>

@@ -13,9 +13,9 @@ let exampleSiteProperties = {
     "Name":"Exampleland"
 }
 
-let testURL = "./sample-site.html"
+let testURL = "https://www.reddit.com/"
 let scrapedDocumentPath = "./test-output/scrape.json"
-let exportMapPath = "./test-output/areas/default.tmx"
+let exportMapPath = "./prefab-processor/areas/default.tmx"
 let testRenderPath = "./test-output/render.png"
 
 let netAreaGenerator = new NetAreaGenerator()
@@ -32,7 +32,7 @@ function LetChildrenKnowAboutTheirParents(node){
 
 async function main(){
     console.log(`scraping ${testURL}`)
-    await scrape(testURL,scrapedDocumentPath,true,false)
+    await scrape(testURL,scrapedDocumentPath,false,true)
 
     console.log(`loading prefabs`)
     await prefabLoader.LoadPrefabs('./prefab-processor/prefabs')
