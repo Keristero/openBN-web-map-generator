@@ -42,6 +42,7 @@ class ImageFeature extends Feature{
         //TODO download the image
         this.type = "image"
         this.gid = 110,
+        this.height = 64
         this.properties = {
             "src":feature.link || "",
             "text":feature.text || ""

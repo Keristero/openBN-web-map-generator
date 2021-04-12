@@ -50,7 +50,9 @@ class NetAreaRoom{
         this.nextGroundFeatureIndex = 0
         this.nextWallFeatureIndex = 0
 
-        this.determineFeatureRequirementsFromNode(this.node)
+        let {prefabRequirements,totalRequired} = this.determineFeatureRequirementsFromNode(this.node)
+        this.prefabRequirements = prefabRequirements
+        this.totalRequired = totalRequired
 
         //If all a room has is 2 connections, use it as a flight of stairs
         this.isStairs = true
@@ -88,20 +90,28 @@ class NetAreaRoom{
             Count how many features of each type we will need in the prefab
             for all the features of this node to be placed on
         */
-        this.prefabRequirements = {}
+        let prefabRequirements = {}
+        let totalRequired = {
+            "groundFeatures":0,
+            "wallFeatures":0
+        }
 
-        for(let featureType in featureCategories){
-            let featuresOfType = featureCategories[featureType]
-            for(let featureName in featuresOfType){
-                let feature = featuresOfType[featureName]
+        for(let featureCategory in featureCategories){
+            let category = featureCategories[featureCategory]
+            for(let featureName in category){
+                let feature = category[featureName]
                 let requiredCount = feature.extraRequirements
-                let nodeCollection = node?.features[feature.scrapedName]
-                if(nodeCollection){
-                    requiredCount+=nodeCollection.length
+                if(node && node?.features){
+                    let nodeCollection = node?.features[feature.scrapedName]
+                    if(nodeCollection){
+                        requiredCount+=nodeCollection.length
+                    }
+                    totalRequired[featureCategory] += requiredCount
+                    prefabRequirements[featureName] = requiredCount
                 }
-                this.prefabRequirements[featureName] = requiredCount
             }
         }
+        return {prefabRequirements,totalRequired}
     }
     placeFeatures(){
         console.log('placing features for room')
@@ -202,10 +212,9 @@ class NetAreaRoom{
         let prefabs = this.netAreaGenerator.prefabs
         //TODO select prefab from list of exisitng ones, rather than generating a new one each time
 
-        let requiredConnections = node.room.prefabRequirements.connections
-        let requiredLinks = node.room.prefabRequirements.links
-        let requiredText = node.room.prefabRequirements.text
-        let requiredGroundFeatures = requiredLinks+requiredText
+        let requiredConnections = node?.room?.prefabRequirements?.connections || 0
+        let requiredGroundFeatures = this.totalRequired.groundFeatures
+        let requiredWallFeatures = this.totalRequired.wallFeatures
 
         let filtered = []
 
@@ -224,9 +233,11 @@ class NetAreaRoom{
         filtered = filtered.filter(prefab => prefab.features.groundFeatures.length >= requiredGroundFeatures);
         //console.log(`prefabs with ${requiredLinks} or more links (${filtered.length})`)
 
+        filtered = filtered.filter(prefab => prefab.features.wallFeatures.length >= requiredWallFeatures);
+
 
         if (filtered.length == 0) {
-            throw(`node requirements not met requiredConnections:${requiredConnections} , requiredGroundFeatures:${requiredGroundFeatures}`)
+            throw(`node requirements not met ${JSON.stringify({requiredConnections,requiredGroundFeatures,requiredWallFeatures})}`)
             //return prefabs[this.netAreaGenerator.RNG.Integer(0, prefabs.length - 1)]
         }
 

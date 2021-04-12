@@ -16,6 +16,8 @@ Next:
 
 1. Automatically extend height of map when required
 
+1. Refine scraping so that it only returns exactly the elements we want...
+
 
 ## Background Generator
 - ✅ Remove scrolling from animation, this is handled clientside.

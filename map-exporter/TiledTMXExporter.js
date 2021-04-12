@@ -12,11 +12,9 @@ class TiledTMXExporter {
         this.tileWidth = 64
         this.tileHalfHeight = this.tileHeight/2
         this.tileHalfWidth = this.tileWidth/2
-        this.totalObjects = this.CountFeatures(NetArea)
         this.nextTileGID = 1
         this.nextLayerID = 1
         this.nextObjectID = 1
-        console.log(`counted ${this.totalObjects} features`)
 
         this.tileLayers = []
         this.objectLayers = []
@@ -75,8 +73,11 @@ class TiledTMXExporter {
         }
 
         //Add defined tilesets, check features for the gids
+        //TODO dont hardcode these
         let linkGID = 100
-        this.AddTileset(1,`./tiles/ground_feature.tsx`,100)
+        this.AddTileset(2,`./tiles/ground_feature.tsx`,linkGID)
+        let wallFeatureGID = 110
+        this.AddTileset(2,`./tiles/wall_feature.tsx`,wallFeatureGID)
 
         //Create properties
         for(let propertyName in properties){
@@ -186,13 +187,6 @@ class TiledTMXExporter {
         this.nextLayerID++
         this.tileLayers.push(newTileLayer)
         layerArray.push(newTileLayer)
-    }
-    CountFeatures(NetArea) {
-        let sum = 0
-        for (let collectionName in NetArea.features) {
-            sum += NetArea.features[collectionName].length
-        }
-        return sum
     }
     async ExportTMX(path) {
         const doc = create({ version: '1.0' }, this.xmlJSON).end({ prettyPrint: true });

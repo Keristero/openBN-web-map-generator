@@ -6,15 +6,15 @@
     "activeFile": "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/output.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
-        "prefabs/tiny-default",
-        "prefabs/large-default",
         "prefabs/stairs",
-        "prefabs/medium-default",
-        "prefabs/small-default",
-        "tiles",
         "prefabs",
+        "tiles",
         ".",
-        "prefabs/template"
+        "prefabs/small-default",
+        "prefabs/large-default",
+        "prefabs/template",
+        "prefabs/medium-default",
+        "prefabs/tiny-default"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -22,11 +22,11 @@
             "scaleInDock": 1
         },
         "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/output.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 7,
+            "scale": 1,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 18321.333333333332,
-                "y": 8822
+                "x": 15975,
+                "y": 8203
             }
         },
         "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/tiles/back-stairs.tsx": {
@@ -42,6 +42,9 @@
             "scaleInDock": 1
         },
         "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/tiles/prefab_tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/tiles/wall_feature.tsx": {
             "scaleInDock": 1
         },
         "C:/Users/Keris/Desktop/Latest ONB Release/Release/resources/ow/maps/homepage.tmx": {
@@ -469,7 +472,7 @@
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 671.3333333333333,
+                "x": 672,
                 "y": 316
             }
         },
@@ -477,7 +480,7 @@
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 671.3333333333333,
+                "x": 672,
                 "y": 316
             }
         },
@@ -485,7 +488,7 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 479.66666666666663,
+                "x": 480,
                 "y": 219.99999999999997
             }
         },
@@ -493,7 +496,7 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 415.5,
+                "x": 416,
                 "y": 188
             }
         },
@@ -501,7 +504,7 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 415.5,
+                "x": 416,
                 "y": 188
             }
         },
@@ -517,15 +520,23 @@
             "scale": 1,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 303.5,
+                "x": 304,
                 "y": 132
+            }
+        },
+        "prefabs/small-default/small-gallery-and-links.json": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 295.6666666666667,
+                "y": 163.33333333333334
             }
         },
         "prefabs/small-default/small-gallery.json": {
             "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 223.75,
+                "x": 224,
                 "y": 92
             }
         },
@@ -533,7 +544,7 @@
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 287.5,
+                "x": 288,
                 "y": 124
             }
         },
@@ -541,16 +552,16 @@
             "scale": 2.008147321428571,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 223.83815928416612,
-                "y": 92.12471516700943
+                "x": 223.09120213416332,
+                "y": 92.12471516700941
             }
         },
         "prefabs/small-default/small-links.json": {
             "scale": 2.928459821428571,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 223.8377986965967,
-                "y": 92.1986356187355
+                "x": 223.49632226837915,
+                "y": 92.54011204695301
             }
         },
         "prefabs/small-default/small-warps.json": {
@@ -799,34 +810,23 @@
     "map.tileWidth": 64,
     "map.width": 20,
     "openFiles": [
-        "prefabs/medium-default/medium-links.json",
-        "prefabs/medium-default/medium-links-cramped.json",
-        "prefabs/large-default/large-links.json",
-        "prefabs/large-default/large-hybrid.json",
-        "prefabs/medium-default/medium-hub.json",
-        "prefabs/small-default/small-entrance.json",
-        "prefabs/small-default/small-gallery.json",
-        "prefabs/small-default/small-hub.json",
-        "prefabs/small-default/small-hybrid.json",
-        "prefabs/small-default/small-links.json",
-        "prefabs/stairs/stairs-down-left.json",
         "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/output.tmx"
     ],
     "project": "prefabs.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/output.tmx",
         "prefabs/medium-default/medium-links.json",
         "prefabs/medium-default/medium-links-cramped.json",
         "prefabs/large-default/large-links.json",
         "prefabs/large-default/large-hybrid.json",
         "prefabs/medium-default/medium-hub.json",
         "prefabs/small-default/small-entrance.json",
-        "prefabs/small-default/small-gallery.json",
         "prefabs/small-default/small-hub.json",
+        "prefabs/small-default/small-gallery.json",
         "prefabs/small-default/small-hybrid.json",
         "prefabs/small-default/small-links.json",
-        "prefabs/stairs/stairs-down-left.json",
-        "//wsl$/Ubuntu-20.04/home/jn1mm0cool/repos/openBN-web-map-generator/test-output/output.tmx"
+        "prefabs/stairs/stairs-down-left.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
