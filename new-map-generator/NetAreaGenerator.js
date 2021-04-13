@@ -1,5 +1,5 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
-let {generateGrid,distance,RNG,iterateOverGrid,generate3dMatrix,iterateOver3dMatrix} = require('./helpers')
+let {generateGrid,distance,RNG,generate3dMatrix,iterateOver3dMatrix} = require('../helpers')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
 

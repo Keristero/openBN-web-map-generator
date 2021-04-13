@@ -1,6 +1,11 @@
+const url = require('url');
+
 class RNG {
     constructor(startingSeed) {
         this.seed = startingSeed
+    }
+    Bool(){
+        return Math.random() < 0.501
     }
     Float() {
         var x = Math.sin(this.seed++) * 10000;
@@ -124,6 +129,11 @@ function* iterateOver3dMatrix(matrix, startX = 0, startY = 0, startZ = 0, lastX,
     }
 }
 
+function parseDomainName(linkToWebsite){
+    let addr = url.parse(linkToWebsite)
+    return addr.host
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -132,5 +142,6 @@ module.exports = {
     generate3dMatrix,
     iterateOver3dMatrix,
     stackArrayIntoLayers,
-    unstackLayersIntoArray
+    unstackLayersIntoArray,
+    parseDomainName
 }
