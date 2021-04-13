@@ -1,4 +1,4 @@
-let {generateGrid, iterateOverGrid, stackArrayIntoLayers } = require('../new-map-generator/helpers.js')
+let {generateGrid, iterateOverGrid, stackArrayIntoLayers } = require('../helpers.js')
 
 let tiled_tileTypes = {
     "prefab_tiles": {

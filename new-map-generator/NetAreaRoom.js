@@ -1,4 +1,3 @@
-let { PrefabGenerator } = require('./PrefabGenerator.js')
 let { Feature, LinkFeature,TextFeature,ImageFeature,HomeWarpFeature} = require('./features.js')
 
 //This list is a mapping of features on a node to features on a prefab

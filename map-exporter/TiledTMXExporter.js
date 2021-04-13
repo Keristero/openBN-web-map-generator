@@ -1,5 +1,5 @@
 const { create, convert } = require('xmlbuilder2');
-const {unstackLayersIntoArray} = require('../new-map-generator/helpers.js')
+const {unstackLayersIntoArray} = require('../helpers.js')
 const {tiled_tileTypes} = require('../prefab-processor/Prefab')
 let { writeFile } = require('fs/promises')
 
@@ -21,9 +21,9 @@ class TiledTMXExporter {
 
         //Default properties
         let properties = {
-            "Background":`undernet`,
-            "Background Animation":``,
-            "Background Texture":``,
+            "Background":`custom`,
+            "Background Animation":`/server/assets/background.animation`,
+            "Background Texture":`/server/assets/background.png`,
             "Background Vel X":0.3,
             "Background Vel Y":0.3,
             "Name":"??? Area",

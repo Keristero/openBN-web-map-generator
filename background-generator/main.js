@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require('path');
 const { createCanvas, loadImage } = require('canvas')
 const { downloadFavicon } = require('./downloadFavicon.js')
+const { RNG, parseDomainName } = require('../helpers.js')
 const TweenJs = require('@tweenjs/tween.js')
 const hash = require('object-hash');
 const hashOptions = {
@@ -12,24 +13,31 @@ const hashOptions = {
         return false
     }
 }
-const RNG = require("./RNG.js")
-const Random = new RNG(Math.random())
-
-let web_address = `https://keep.google.com/u/0/`
-let converted_favicon_path = path.resolve('.', `favicon.png`)
-let output_path = path.resolve('.', `background.png`)
-
+const Random = new RNG(60902583)
 //For preview
 const GIFEncoder = require('gifencoder');
 
-main()
+async function generateBackgroundForWebsite(url,outputName,outputPath){
+    let converted_favicon_path = path.resolve(outputPath, `favicon.png`)
+    let output_filename = `${outputName}.png`
+    let output_path = path.resolve(outputPath,output_filename)
+    let output_animation_filename = `${outputName}.animation`
+    let output_animation_path = path.resolve(outputPath,output_animation_filename)
 
-async function main() {
-    await downloadFavicon(web_address,converted_favicon_path)
-    await generateAnimation(converted_favicon_path, output_path)
+    await downloadFavicon(url,converted_favicon_path)
+    let animation = await generateAnimationPNG(converted_favicon_path, output_path)
+    generateAnimationFile(output_filename,output_animation_path,animation.width,animation.height,animation.frames)
 }
 
-async function generateAnimation(converted_favicon_path, output_path, preview = true, previewPath = "preview.gif") {
+async function generateAnimationFile(PNGname,outputPath,width,height,frames){
+    let outputString = `imagePath="${PNGname}"\nanimation state="BG"\n`
+    for(let i = 0; i < frames; i++){
+        outputString += `frame duration="0.041" x="0" y="${i*height}" w="${width}" h="${height}" originx="0" originy="0"\n`
+    }
+    fs.writeFileSync(outputPath,outputString)
+}
+
+async function generateAnimationPNG(converted_favicon_path, output_path, preview = false, previewPath = "preview.gif") {
     let favicon = await loadImage(converted_favicon_path)
 
     let width = 64
@@ -39,6 +47,7 @@ async function generateAnimation(converted_favicon_path, output_path, preview = 
     let canvas = createCanvas(width, height)
     let ctx = canvas.getContext('2d')
     ctx.imageSmoothingEnabled = true
+
 
     if (preview) {
         var preview_canvas = createCanvas(width * 2, height * 2)
@@ -77,6 +86,7 @@ async function generateAnimation(converted_favicon_path, output_path, preview = 
 
     //Save
     out_canvas.createPNGStream().pipe(fs.createWriteStream(output_path))
+    return animation
 }
 
 class StaticAnimation {
@@ -349,3 +359,5 @@ function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {
 
     ctx.restore();
 }
+
+module.exports = generateBackgroundForWebsite

@@ -1,7 +1,7 @@
 const { createCanvas, loadImage } = require('canvas')
 const fs = require('fs')
 const path = require('path')
-const {iterateOver3dMatrix} = require('./new-map-generator/helpers.js')
+const {iterateOver3dMatrix} = require('./helpers.js')
 
 
 const tileSize = 2 //pixels
