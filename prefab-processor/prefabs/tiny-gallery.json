@@ -15,7 +15,7 @@
          "y":0
         }, 
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 17, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
          "height":5,
          "id":6,
          "name":"Features 1",
@@ -115,16 +115,6 @@
  "orientation":"isometric",
  "properties":[
         {
-         "name":"Autofill Walls",
-         "type":"bool",
-         "value":true
-        }, 
-        {
-         "name":"Entrance Room",
-         "type":"bool",
-         "value":false
-        }, 
-        {
          "name":"Mirror Variations",
          "type":"bool",
          "value":true
@@ -174,7 +164,7 @@
          "source":"..\/assets\/tiles\/ground_feature.tsx"
         }, 
         {
-         "firstgid":17,
+         "firstgid":20,
          "source":"..\/assets\/tiles\/wall_feature.tsx"
         }],
  "tilewidth":64,

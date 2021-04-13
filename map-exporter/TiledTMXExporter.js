@@ -107,16 +107,16 @@ class TiledTMXExporter {
             }
         }
     }
-    OrthoToIsoCoordinates(x,y){
+    GridCoordsToWorldCoords(x,y){
         let IsoPos = {
-            x:(x*this.tileHeight)+this.tileHeight,
-            y:(y*this.tileHeight)+this.tileHeight
+            x:(x*this.tileHeight),
+            y:(y*this.tileHeight)
         }
         return IsoPos
     }
     AddObject(x,y,z,feature){
         let collection = this.objectLayers[z].objectgroup.object
-        let isoCoords = this.OrthoToIsoCoordinates(x,y)
+        let isoCoords = this.GridCoordsToWorldCoords(x,y)
         let newObject = {
             "@id":this.nextObjectID,
             "@type":feature.type,

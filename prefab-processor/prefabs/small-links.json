@@ -120,11 +120,6 @@
          "value":true
         }, 
         {
-         "name":"Entrance Room",
-         "type":"bool",
-         "value":false
-        }, 
-        {
          "name":"Mirror Variations",
          "type":"bool",
          "value":true

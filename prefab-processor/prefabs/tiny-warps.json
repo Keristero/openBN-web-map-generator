@@ -115,16 +115,6 @@
  "orientation":"isometric",
  "properties":[
         {
-         "name":"Autofill Walls",
-         "type":"bool",
-         "value":true
-        }, 
-        {
-         "name":"Entrance Room",
-         "type":"bool",
-         "value":false
-        }, 
-        {
          "name":"Mirror Variations",
          "type":"bool",
          "value":false

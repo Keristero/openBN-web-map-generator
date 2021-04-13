@@ -1,40 +1,4 @@
-let { Feature, LinkFeature,TextFeature,ImageFeature,HomeWarpFeature} = require('./features.js')
-
-//This list is a mapping of features on a node to features on a prefab
-let featureCategories = {
-    unplaced:{
-        "connections":{
-            scrapedName:"children",
-            extraRequirements:1,
-            className:null
-        }
-    },
-    groundFeatures:{
-        "links":{
-            scrapedName:"links",
-            extraRequirements:0,
-            className:LinkFeature
-        },
-        "homeWarps":{
-            scrapedName:"homeWarps",//Does not exist really
-            extraRequirements:0,
-            className:HomeWarpFeature
-        },
-        "text":{
-            scrapedName:"text",
-            extraRequirements:0,
-            className:TextFeature
-        }
-    },
-    wallFeatures:{
-        "images":{
-            scrapedName:"images",
-            extraRequirements:0,
-            className:ImageFeature
-        }
-    }
-}
-
+let {featureCategories, LinkFeature,TextFeature,ImageFeature,HomeWarpFeature} = require('./features.js')
 class NetAreaRoom{
     constructor(node, netAreaGenerator) {
         let defaultX = parseInt(netAreaGenerator.width/2)
@@ -196,13 +160,10 @@ class NetAreaRoom{
         let filtered = prefabs
 
         if(this.node.isFirstNode){
-            filtered = filtered.filter(prefab => prefab?.properties?.["Entrance Room"]);
             this.totalRequired.homeWarps = 1
+            this.totalRequired.groundFeatures += 1
             this.node.features.homeWarps = [{}]
-            console.log("im the entrance!")
             this.isStairs = false
-        }else{
-            filtered = filtered.filter(prefab => !prefab?.properties?.["Entrance Room"]);
         }
 
         let requiredConnections = node?.room?.prefabRequirements?.connections || 0
@@ -218,8 +179,10 @@ class NetAreaRoom{
         }
 
 
+        /* TODO maybe remove this?
         filtered = filtered.filter(prefab => prefab.features.connections.length >= requiredConnections);
         //console.log(`prefabs with ${requiredConnections} or more connections (${filtered.length})`)
+        */
 
         filtered = filtered.filter(prefab => prefab.features.groundFeatures.length >= requiredGroundFeatures);
         //console.log(`prefabs with ${requiredLinks} or more links (${filtered.length})`)

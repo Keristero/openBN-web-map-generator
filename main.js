@@ -1,23 +1,21 @@
 let {NetAreaGenerator} = require('./new-map-generator/NetAreaGenerator.js')
 let TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
-let {renderMap} = require('./render-map.js')
+let {renderMap} = require('./test-render-map.js')
 let PrefabLoader = require('./prefab-processor/PrefabLoader.js')
 let scrape = require('./scrape.js')
+let {parseDomainName} = require('./helpers.js')
 let generateBackgroundForWebsite = require('./background-generator/main.js')
 let prefabLoader = new PrefabLoader()
 let fs = require('fs')
 
-
-
+let testURL = "https://en.wikipedia.org/wiki/Main_Page"
 
 let exampleSiteProperties = {
-    "Name":"Exampleland"
+    "Name":parseDomainName(testURL)
 }
 
-let testURL = "https://keep.google.com/u/0/"
 let scrapedDocumentPath = "./test-output/scrape.json"
 let exportMapPath = "./prefab-processor/areas/default.tmx"
-let testRenderPath = "./test-output/render.png"
 
 let netAreaGenerator = new NetAreaGenerator()
 
@@ -51,6 +49,7 @@ async function main(){
 
     /*
     console.log('drawing map...')
+    let testRenderPath = "./test-output/render.png"
     renderMap(netAreaGenerator,testRenderPath)
     */
 
