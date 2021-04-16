@@ -2,7 +2,7 @@ const url = require('url');
 
 class RNG {
     constructor(startingSeed) {
-        this.seed = startingSeed
+        this.seed = startingSeed || Math.random()
     }
     Bool(){
         return Math.random() < 0.501
@@ -26,6 +26,17 @@ class RNG {
             y: Math.sin(angle) * radius
         }
     }
+    RGBA(mincolor,maxcolor){
+        let r = this.Integer(mincolor.r,maxcolor.r)
+        let g = this.Integer(mincolor.g,maxcolor.g)
+        let b = this.Integer(mincolor.b,maxcolor.b)
+        let a = this.Integer(mincolor.a,maxcolor.a)
+        return {r,g,b,a}
+    }
+}
+
+function RGBAtoString(color){
+    return `rgba(${color.r},${color.b},${color.g},${color.a})`
 }
 
 function distance(a, b) {
@@ -143,5 +154,6 @@ module.exports = {
     iterateOver3dMatrix,
     stackArrayIntoLayers,
     unstackLayersIntoArray,
-    parseDomainName
+    parseDomainName,
+    RGBAtoString
 }
