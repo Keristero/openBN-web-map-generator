@@ -12,6 +12,8 @@
   "dependencies": {
     "canvas": "^2.7.0",
     "easystarjs": "^0.4.4",
+    "express": "^4.17.1",
+    "sanitize-filename": "^1.6.3",
     "xmlbuilder2": "^2.4.1"
   }
 }

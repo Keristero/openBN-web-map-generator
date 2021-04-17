@@ -5,8 +5,8 @@ let easystar = new EasyStar.js()
 
 class NetAreaGenerator {
     constructor() {
-        this.width = 250;
-        this.length = 250;
+        this.width = 200;
+        this.length = 200;
         this.height = 10;
         this.matrix = generate3dMatrix(this.width, this.length, this.height)
         this.arr_rooms = [];

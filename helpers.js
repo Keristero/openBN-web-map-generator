@@ -145,6 +145,10 @@ function parseDomainName(linkToWebsite){
     return addr.host
 }
 
+function replaceBackslashes(string){
+    return string.replace(/\\/gm,'/')
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -155,5 +159,6 @@ module.exports = {
     stackArrayIntoLayers,
     unstackLayersIntoArray,
     parseDomainName,
-    RGBAtoString
+    RGBAtoString,
+    replaceBackslashes
 }

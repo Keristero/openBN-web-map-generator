@@ -2,46 +2,33 @@ const { createCanvas, loadImage } = require('canvas')
 const fs = require('fs')
 const { RNG, RGBAtoString } = require('../helpers.js')
 
-function generateRandomTile(width=64,length=32,line_width=3){
+function generateRandomTile(width=64,length=32,tile_height=8,line_width=3){
     let rng = new RNG()
-
-    let tile_height = rng.Integer(8,32)
-    width = rng.Integer(32,128)
-    length = width/2
-    line_width = rng.Integer(1,5)
-
-    let canvasWidth = width + line_width
-    let canvasHeight = length + tile_height + line_width
-    let canvas = createCanvas(canvasWidth, canvasHeight)
-    let ctx = canvas.getContext('2d')
     let minColor = { r: 0, g: 0, b: 0, a: 0.2 }
     let maxColor = { r: 255, g: 255, b: 255, a: 1 }
     let baseColor = RGBAtoString(rng.RGBA(minColor, maxColor))
     let sideColor = RGBAtoString(rng.RGBA(minColor, maxColor))
     let color = RGBAtoString(rng.RGBA(minColor, maxColor))
-    console.log(baseColor)
-    drawTile(ctx, 0, 0, width, length, tile_height, line_width, baseColor, sideColor, color)
-    return canvas
-}
-let canvas = createCanvas(1000,1000)
-let ctx = canvas.getContext('2d')
-let everySecond = false
-for(let x = 0; x < 1000; x+=66){
-    for(let y = 0; y < 1000; y+=35){
-        if(everySecond){
-            let tile = generateRandomTile()
-            ctx.drawImage(tile,x,y)
-        }
-        everySecond = !everySecond
-    }
+    return drawTile(width, length, tile_height,line_width,baseColor,sideColor,color)
 }
 
+function drawTile(width,length,tile_height,line_width,baseColor,sideColor,color){
+    let canvasWidth = width + line_width
+    let canvasHeight = length + tile_height + line_width
+    let canvas = createCanvas(canvasWidth, canvasHeight)
+    let ctx = canvas.getContext('2d')
+    console.log(baseColor)
+    renderTile(ctx, 0, 0, width, length, tile_height, line_width, baseColor, sideColor, color)
+    return canvas
+}
+
+let canvas = generateRandomTile()
 let out = fs.createWriteStream('./test.png')
 let stream = canvas.createPNGStream()
 stream.pipe(out)
 out.on('finish', () => console.log('The PNG file was created.'))
 
-function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideColor, topColor) {
+function renderTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideColor, topColor) {
     let x = (px + xSize / 2) + (lineWidth / 2)
     let y = py + (lineWidth / 2)
     let drawAndFillPath = function (points) {
@@ -112,3 +99,5 @@ function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideCo
     }
     drawReflection(5)
 }
+
+module.exports = drawTile

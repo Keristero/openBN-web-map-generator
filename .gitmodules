@@ -1,3 +1,6 @@
 [submodule "web-to-document-scraper"]
 	path = web-to-document-scraper
 	url = https://github.com/Keristero/web-to-document-scraper.git
+[submodule "Scriptable-OpenNetBattle-Server"]
+	path = Scriptable-OpenNetBattle-Server
+	url = https://github.com/ArthurCose/Scriptable-OpenNetBattle-Server

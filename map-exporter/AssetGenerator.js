@@ -1,0 +1,6 @@
+class AssetGenerator{
+    constructor(){}
+    generateBasicTiles(){
+        
+    }
+}

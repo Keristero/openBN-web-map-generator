@@ -3,22 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "areas/default.tmx",
+    "activeFile": "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
+        "prefabs/gigantic-default",
+        "areas",
+        "prefabs/small-default",
+        "prefabs/template",
+        "prefabs/medium-default",
+        "assets",
         "prefabs/large-default",
+        "prefabs/stairs",
         "prefabs",
+        "prefabs/tiny-default",
         "tiles",
         ".",
-        "assets/tiles",
-        "prefabs/medium-default",
-        "prefabs/template",
-        "prefabs/tiny-default",
-        "prefabs/small-default",
-        "assets",
-        "prefabs/stairs",
-        "prefabs/gigantic-default",
-        "areas"
+        "assets/tiles"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -350,6 +350,35 @@
             "scaleInDock": 1
         },
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/assets/tiles/tree.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx": {
+            "scale": 0.125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 5984,
+                "y": 3824
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/back-stairs.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/forward-stairs.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/ground_feature.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/home_warp.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/path-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/prefab_tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/wall_feature.tsx": {
             "scaleInDock": 1
         },
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/output.tmx": {
@@ -719,16 +748,16 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 671.6666666666666,
-                "y": 315.99999999999994
+                "x": 701.3333333333333,
+                "y": 364.33333333333337
             }
         },
         "prefabs/large-links.json": {
             "scale": 0.7697544642857143,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 670.9931854429462,
-                "y": 316.98419602725824
+                "x": 671.6427432216905,
+                "y": 312.4372915760476
             }
         },
         "prefabs/medium-default/medium-entrance.json": {
@@ -767,24 +796,24 @@
             "scale": 1.2434495192307693,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 415.37673384563334,
-                "y": 188.18616789908654
+                "x": 415.778841041999,
+                "y": 185.37141752452757
             }
         },
         "prefabs/medium-hub.json": {
             "scale": 1.0776562499999998,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 479.28084674496165,
-                "y": 220.84964477308978
+                "x": 479.74481658692196,
+                "y": 216.67391619544736
             }
         },
         "prefabs/medium-links-cramped.json": {
             "scale": 1.2434495192307693,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 415.37673384563334,
-                "y": 188.18616789908654
+                "x": 415.778841041999,
+                "y": 185.37141752452757
             }
         },
         "prefabs/medium-links.json": {
@@ -792,7 +821,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 415.37673384563334,
-                "y": 188.18616789908654
+                "y": 184.56720313179648
             }
         },
         "prefabs/prefab-0.json": {
@@ -879,48 +908,48 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 303.66666666666663,
-                "y": 131.99999999999997
+                "x": 304,
+                "y": 128.33333333333331
             }
         },
         "prefabs/small-gallery-and-links.json": {
             "scale": 1.7960937499999998,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 287.56850804697694,
-                "y": 124.15832970856894
+                "x": 287.84688995215316,
+                "y": 120.53936494127885
             }
         },
         "prefabs/small-gallery.json": {
             "scale": 3,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 223.83333333333331,
-                "y": 91.99999999999999
+                "x": 224,
+                "y": 88.16666666666666
             }
         },
         "prefabs/small-hub.json": {
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 287.75,
-                "y": 124
+                "x": 288,
+                "y": 120.25
             }
         },
         "prefabs/small-hybrid.json": {
             "scale": 2.309263392857143,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 223.66439514764872,
-                "y": 92.23720458170217
+                "x": 223.88091440723016,
+                "y": 88.12333864965444
             }
         },
         "prefabs/small-links.json": {
             "scale": 2.309263392857143,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 223.66439514764872,
-                "y": 92.23720458170217
+                "x": 223.88091440723016,
+                "y": 88.12333864965444
             }
         },
         "prefabs/small-warps.json": {
@@ -935,24 +964,24 @@
             "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 133.75,
-                "y": 14
+                "x": 128,
+                "y": 16.25
             }
         },
         "prefabs/stairs-down-right.json": {
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 133.83333333333331,
-                "y": 14
+                "x": 128,
+                "y": 16.166666666666657
             }
         },
         "prefabs/stairs-up-left.json": {
             "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 127.83333333333333,
-                "y": 19.666666666666657
+                "x": 128,
+                "y": 16.166666666666657
             }
         },
         "prefabs/stairs-up-left.tmx": {
@@ -1070,16 +1099,16 @@
             "scale": 2.309263392857143,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 223.66439514764872,
-                "y": 92.23720458170217
+                "x": 223.88091440723016,
+                "y": 88.12333864965444
             }
         },
         "prefabs/tiny-gallery.json": {
             "scale": 3.23296875,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 159.76028224832055,
-                "y": 60.00676622686194
+                "x": 159.9149388623073,
+                "y": 56.449664105166505
             }
         },
         "prefabs/tiny-hub.json": {
@@ -1087,23 +1116,23 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 159.76028224832055,
-                "y": 60.00676622686194
+                "y": 56.140350877193
             }
         },
         "prefabs/tiny-hybrid.json": {
             "scale": 2.6941406249999997,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 191.71233869798465,
-                "y": 76.09105408148471
+                "x": 191.89792663476874,
+                "y": 72.19370740901843
             }
         },
         "prefabs/tiny-warps.json": {
             "scale": 3.23296875,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 159.76028224832055,
-                "y": 60.00676622686194
+                "x": 159.9149388623073,
+                "y": 56.449664105166505
             }
         },
         "prefabs/untitled.tmx": {
@@ -1167,27 +1196,8 @@
     "map.tileWidth": 64,
     "map.width": 20,
     "openFiles": [
-        "areas/default.tmx",
-        "assets/tiles/back-stairs.tsx",
-        "assets/tiles/connection.tsx",
-        "assets/tiles/forward-stairs.tsx",
-        "assets/tiles/ground_feature.tsx",
-        "assets/tiles/home_warp.tsx",
-        "assets/tiles/path-tiles.tsx",
-        "assets/tiles/prefab_tiles.tsx",
-        "assets/tiles/wall_feature.tsx",
         "prefabs/large-hybrid.json",
         "prefabs/medium-links.json",
-        "prefabs/small-hub.json",
-        "prefabs/small-gallery.json",
-        "prefabs/small-entrance.json",
-        "prefabs/stairs-down-right.json",
-        "prefabs/tiny-hybrid.json",
-        "prefabs/large-links.json",
-        "prefabs/medium-entrance.json",
-        "prefabs/medium-hub.json",
-        "prefabs/medium-links-cramped.json",
-        "prefabs/small-gallery-and-links.json",
         "prefabs/small-hybrid.json",
         "prefabs/small-links.json",
         "prefabs/stairs-down-left.json",
@@ -1195,23 +1205,24 @@
         "prefabs/tiny-entrance.json",
         "prefabs/tiny-gallery.json",
         "prefabs/tiny-hub.json",
-        "prefabs/tiny-warps.json"
+        "prefabs/tiny-warps.json",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx"
     ],
     "project": "prefabs.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx",
+        "prefabs/stairs-down-right.json",
+        "prefabs/stairs-down-left.json",
         "prefabs/tiny-warps.json",
         "prefabs/tiny-hub.json",
         "prefabs/tiny-gallery.json",
         "prefabs/tiny-entrance.json",
         "prefabs/stairs-up-left.json",
-        "prefabs/stairs-down-left.json",
         "prefabs/small-links.json",
         "prefabs/small-hybrid.json",
-        "prefabs/small-gallery-and-links.json",
-        "prefabs/medium-links-cramped.json",
-        "prefabs/medium-hub.json",
-        "prefabs/medium-entrance.json"
+        "prefabs/medium-links.json",
+        "prefabs/large-hybrid.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
