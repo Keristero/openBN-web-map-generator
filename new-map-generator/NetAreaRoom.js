@@ -87,7 +87,6 @@ class NetAreaRoom{
         return {prefabRequirements,totalRequired}
     }
     placeFeatures(){
-        console.log('placing features for room')
         for(let category in featureCategories){
             //Loop through each feature category
             if(category == "unplaced"){

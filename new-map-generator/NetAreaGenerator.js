@@ -74,7 +74,6 @@ class NetAreaGenerator {
         return true
     }
     burnRoomToMatrix(room) {
-        console.log('burning room to matrix')
         //Burn layout
         const iterator = iterateOver3dMatrix(room.prefab.matrix);
         for (let gridPos of iterator) {
