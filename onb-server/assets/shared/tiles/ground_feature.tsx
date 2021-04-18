@@ -8,6 +8,11 @@
   <properties>
    <property name="Direction" value="Up Left"/>
   </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="2" x="16" y="16">
+    <polygon points="0,0 16,8 32,0 16,-8 0,0"/>
+   </object>
+  </objectgroup>
  </tile>
  <tile id="1">
   <properties>
