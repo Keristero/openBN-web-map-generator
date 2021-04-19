@@ -14,7 +14,12 @@ Next:
 
 1. ✅ Make a few more prefabs
 
-1. Replace home warp generation with "Back" warp generation (site entry + back to last site warp)
+1. ✅ Replace home warp generation with "Back" warp generation (site entry + back to last site warp)
+    1. except for first home (net square)
+
+1. when warping "Back", go back to warp used previously to get to this area (if possible)
+
+
 
 1. Automatically extend height of map when required
 

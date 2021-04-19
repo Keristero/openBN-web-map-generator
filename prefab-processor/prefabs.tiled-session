@@ -3,22 +3,22 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx",
+    "activeFile": "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/httpswww.mediawiki.orgwikiSpecialMyLanguageMediaWiki_testimonials.tmx",
     "automapping.whileDrawing": false,
     "expandedProjectPaths": [
-        "prefabs",
-        ".",
-        "assets",
-        "assets/tiles",
         "prefabs/stairs",
         "prefabs/template",
         "areas",
-        "prefabs/gigantic-default",
-        "prefabs/large-default",
         "tiles",
-        "prefabs/tiny-default",
         "prefabs/medium-default",
-        "prefabs/small-default"
+        ".",
+        "prefabs/small-default",
+        "prefabs/gigantic-default",
+        "assets/tiles",
+        "prefabs/large-default",
+        "prefabs/tiny-default",
+        "prefabs",
+        "assets"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -353,12 +353,46 @@
             "scaleInDock": 1
         },
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx": {
-            "scale": 0.33,
+            "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 6143.939393939394,
-                "y": 4190.909090909091
+                "x": 6378,
+                "y": 3260
             }
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/httpsen.wikipedia.orgwikiMain_Page.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 6549.333333333333,
+                "y": 3486.6666666666665
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/httpswww.mediawiki.orgwikiSpecialMyLanguageMediaWiki_testimonials.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 6357,
+                "y": 3330
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/server/assets/shared/objects/link.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/back_link.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/home_warp.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/link.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/placeholder_npc.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 8
         },
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/back-stairs.tsx": {
             "scaleInDock": 1
@@ -1187,7 +1221,7 @@
     "frame.defaultDuration": 100,
     "last.exportedFilePath": "C:/Users/Keris/Documents/tmx-parser",
     "last.externalTilesetPath": "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/prefab-processor/tiles",
-    "last.imagePath": "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/prefab-processor/tiles",
+    "last.imagePath": "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects",
     "map.fixedSize": true,
     "map.height": 20,
     "map.lastUsedExportFilter": "JSON map files (*.json)",
@@ -1197,23 +1231,25 @@
     "map.tileWidth": 64,
     "map.width": 20,
     "openFiles": [
-        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx"
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/placeholder_npc.tsx",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/httpswww.mediawiki.orgwikiSpecialMyLanguageMediaWiki_testimonials.tmx"
     ],
     "project": "prefabs.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/httpsen.wikipedia.orgwikiMain_Page.tmx",
         "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/back_link.tsx",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/link.tsx",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/placeholder_npc.tsx",
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/httpswww.mediawiki.orgwikiSpecialMyLanguageMediaWiki_testimonials.tmx",
         "prefabs/small-hub.json",
         "prefabs/small-gallery.json",
         "prefabs/small-entrance.json",
         "prefabs/medium-links-cramped.json",
         "prefabs/small-gallery-and-links.json",
-        "prefabs/small-hybrid.json",
-        "prefabs/stairs-down-left.json",
-        "prefabs/small-links.json",
-        "prefabs/stairs-down-right.json",
-        "prefabs/stairs-up-left.json",
-        "prefabs/tiny-entrance.json"
+        "prefabs/small-hybrid.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
@@ -1221,8 +1257,8 @@
     "tileset.margin": 0,
     "tileset.spacing": 0,
     "tileset.tileSize": {
-        "height": 40,
-        "width": 92
+        "height": 33,
+        "width": 15
     },
     "tileset.transparentColor": "#ff00ff",
     "tileset.type": 0,
