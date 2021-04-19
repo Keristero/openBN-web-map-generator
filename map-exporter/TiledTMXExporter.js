@@ -28,6 +28,7 @@ class TiledTMXExporter {
             "Background Vel Y":0.3,
             "Name":"??? Area",
             "Song":"resources/loops/undernet.ogg",
+            "Generation Date":`${Date.now()}`
         }
         //Copy and overwrite defaults
         Object.assign(properties,p_properties)
@@ -75,11 +76,15 @@ class TiledTMXExporter {
         //Add defined tilesets, check features for the gids
         //TODO dont hardcode these
         let linkGID = 100
-        this.AddTileset(2,`../assets/shared/tiles/ground_feature.tsx`,linkGID)
+        this.AddTileset(2,`../assets/shared/objects/link.tsx`,linkGID)
+        let back_linkGID = 102
+        this.AddTileset(2,`../assets/shared/objects/back_link.tsx`,back_linkGID)
+        let placeholder_npcGID = 104
+        this.AddTileset(1,`../assets/shared/objects/placeholder_npc.tsx`,placeholder_npcGID)
         let wallFeatureGID = 110
         this.AddTileset(2,`../assets/shared/tiles/wall_feature.tsx`,wallFeatureGID)
         let homeWarpGID = 120
-        this.AddTileset(4,`../assets/shared/tiles/home_warp.tsx`,homeWarpGID)
+        this.AddTileset(5,`../assets/shared/objects/home_warp.tsx`,homeWarpGID)
 
         //Create properties
         for(let propertyName in properties){
@@ -121,8 +126,8 @@ class TiledTMXExporter {
             "@id":this.nextObjectID,
             "@type":feature.type,
             "@gid":feature.gid,
-            "@x":isoCoords.x,
-            "@y":isoCoords.y,
+            "@x":isoCoords.x+feature.x_spawn_offset,
+            "@y":isoCoords.y+feature.y_spawn_offset,
             "@width":feature.width,
             "@height":feature.height,
             "properties":{
@@ -134,6 +139,9 @@ class TiledTMXExporter {
                 "@name":propertyName,
                 "@value":`${feature.properties[propertyName]}`
             })
+        }
+        if(feature.onExport){
+            feature.onExport(this,x,y,z)
         }
         collection.push(newObject)
         this.nextObjectID++

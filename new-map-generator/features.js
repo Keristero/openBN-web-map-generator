@@ -3,6 +3,8 @@ class Feature{
         this.x = x;
         this.y = y;
         this.z = z;
+        this.x_spawn_offset = 0
+        this.y_spawn_offset = 0
         this.width = 64
         this.height = 32
         this.properties = {}
@@ -29,16 +31,23 @@ class LinkFeature extends Feature{
 class HomeWarpFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
-        this.type = "backlink"
+        this.type = "Home Warp"
         this.gid = 120
+    }
+    onExport(tiledTMXExporter,x,y,z){
+        //Called by tmx exporter when this feature is exported
+        tiledTMXExporter.AddProperty("entryX",x)//+0.5 so that players appear in the middle of the tile
+        tiledTMXExporter.AddProperty("entryY",y)
+        tiledTMXExporter.AddProperty("entryZ",z)
+        tiledTMXExporter.AddProperty("entryDirection",this.properties.Direction)
     }
 }
 
-class BackLinkFeature extends Feature{
+class BackLinkFeature extends HomeWarpFeature{
     constructor(x,y,z,feature,properties){
-        super(x,y,z,properties)
-        this.type = "backlink"
-        this.gid = 120
+        super(x,y,z,feature,properties)
+        this.type = "back_link"
+        this.gid = 102
     }
 }
 
@@ -46,7 +55,9 @@ class TextFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
         this.type = "NPC"
-        this.gid = 101
+        this.gid = 104
+        this.y_spawn_offset = -16
+        this.x_spawn_offset = -16
         let newProperties = {
             "default_response":feature.text.toUpperCase(),
         }
@@ -83,13 +94,13 @@ let featureCategories = {
             extraRequirements:0,
             className:LinkFeature
         },
-        "homeWarps":{
-            scrapedName:"homeWarps",//Does not exist really
+        "home_warps":{
+            scrapedName:"home_warps",//Does not exist really
             extraRequirements:0,
             className:HomeWarpFeature
         },
-        "backLinks":{
-            scrapedName:"backLinks",//Does not exist really
+        "back_links":{
+            scrapedName:"back_links",//Does not exist really
             extraRequirements:0,
             className:BackLinkFeature
         },

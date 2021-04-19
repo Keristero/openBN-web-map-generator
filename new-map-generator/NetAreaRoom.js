@@ -12,9 +12,10 @@ class NetAreaRoom{
         this.netAreaGenerator = netAreaGenerator
         this.features = {
             "links":{},
+            "back_links":{},
             "text":{},
             "images":{},
-            "homeWarps":{}
+            "home_warps":{}
         };
         this.nextGroundFeatureIndex = 0
         this.nextWallFeatureIndex = 0
@@ -160,13 +161,13 @@ class NetAreaRoom{
 
         if(this.node.isFirstNode){
             if(this.netAreaGenerator.isHomePage){
-                this.totalRequired.homeWarps = 1
+                this.totalRequired.home_warps = 1
                 this.totalRequired.groundFeatures += 1
-                this.node.features.homeWarps = [{}]
+                this.node.features.home_warps = [{}]
             }else{
-                this.totalRequired.backWarps = 1
+                this.totalRequired.back_links = 1
                 this.totalRequired.groundFeatures += 1
-                this.node.features.backWarps = [{}]
+                this.node.features.back_links = [{}]
             }
             this.isStairs = false
         }
