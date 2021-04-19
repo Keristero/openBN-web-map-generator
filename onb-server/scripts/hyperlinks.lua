@@ -5,56 +5,74 @@ local player_last_area_url = {}
 
 function handle_object_interaction(player_id, object_id)
     local area_id = Net.get_player_area(player_id)
+    local area_properties = Net.get_area_custom_properties(area_id)
     local object = Net.get_object_by_id(area_id, object_id)
     --Only check 'link' interactions
-    if object.type ~= "link" and object.type ~= "backlink" then
+    if object.type ~= "link" and object.type ~= "back_link" then
         return
     end
 
     local web_link = object.custom_properties.link
 
     --TODO insert check here to see if the map is already loaded
-    if currently_generating[web_link] then
+    if currently_generating[object_id] then
         print("[hyperlinks] already generating this area....")
         return
     end
+    currently_generating[object_id] = true
 
     --get link details
     local link = object.custom_properties.link
     local text = object.custom_properties.text
 
-    if object.type == "backlink" then
-        --If the player has not been anywhere before here
-        if ~player_last_area_url[player_id] then
-            return
-        end
+    if object.type == "back_link" then
         --TODO get area URL from tiled map player_metadata 
         link = player_last_area_url[player_id]
+        print("back_link:"..link)
     end
 
     --Generate a map
     local generate_map_promise = generate_linked_map(player_id, link, text)
     generate_map_promise.and_then(function (area_info)
+        print('map generated')
+        currently_generating[object_id] = nil
+        print('got this far!')
 
-        --Read new generated map file
-        local read_file_promise = Async.read_file(area_info.area_path)
-        read_file_promise.and_then(function (area_data)
+        if area_info.fresh == true then
+            --If the map was just generated
 
-            currently_generating[web_link] = nil
-
-            --Add area to server
-            Net.update_area(area_info.area_id, area_data)
-            print("[hyperlinks] added area "..area_info.area_id)
-
-            --Transfer player there
-            Net.transfer_player(player_id, area_info.area_id)
-            --Record the last area the player was in
-            --TODO get area URL from tiled map custom_properties (once konst adds this feature)
-            player_last_area_url[player_id] = nil
-        end)
-
+            --Read new generated map file
+            local read_file_promise = Async.read_file(area_info.area_path)
+            read_file_promise.and_then(function (area_data)
+                --Add area to server
+                Net.update_area(area_info.area_id, area_data)
+                print("[hyperlinks] added area "..area_info.area_id)
+                transfer_player(player_id,area_info.area_id)
+            end)
+        else
+            transfer_player(player_id,area_info.area_id)
+        end
     end)
 
+end
+
+function transfer_player(player_id,new_area_id)
+    local current_area_id = Net.get_player_area(player_id)
+    print("transfering player from "..current_area_id.." to "..new_area_id)
+    local c_area_properties = Net.get_area_custom_properties(current_area_id)
+    print('curentareaprops',c_area_properties)
+    local n_area_properties = Net.get_area_custom_properties(new_area_id)
+    print('nextareaprops',n_area_properties)
+
+    print("entryX",n_area_properties.entryX)
+    print("entryY",n_area_properties.entryY)
+    print("entryZ",n_area_properties.entryZ)
+    print("entryDirection",n_area_properties.entryDirection)
+    
+    --Record the last area the player was in
+    player_last_area_url[player_id] = c_area_properties.URL
+    --Transfer player there
+    Net.transfer_player(player_id, new_area_id,true,n_area_properties.entryX,n_area_properties.entryY,n_area_properties.entryZ,n_area_properties.entryDirection)
 end
 
 function generate_linked_map(player_id, link, text)
@@ -81,9 +99,6 @@ function generate_linked_map(player_id, link, text)
         print('got response')
         print(response.body)
         local data = json.decode(response.body)
-        if response.status ~= 200 then
-            return nil
-        end
         return data
     end)
     return Async.promisify(co)
