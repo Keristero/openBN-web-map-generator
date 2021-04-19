@@ -8,13 +8,15 @@ let PrefabLoader = require('./prefab-processor/PrefabLoader.js')
 let scrape = require('./scrape.js')
 let {parseDomainName, replaceBackslashes} = require('./helpers.js')
 let generateBackgroundForWebsite = require('./background-generator/main.js')
+const crypto = require('crypto')
 let prefabLoader = new PrefabLoader()
 
 
 async function generate(url,isHomePage = false){
     //URL of website to scrape
-    let santizedURL = sanitize(url)
+    let santizedURL = crypto.createHash('sha256').update(url, 'utf8').digest('hex');
     let domainName = parseDomainName(url)
+
     if(isHomePage){
         santizedURL = "default"
         domainName = "Net_Square"
@@ -49,8 +51,10 @@ async function generate(url,isHomePage = false){
     console.log(`scraping ${url}`)
     await scrape(url,path_scraped_document,false,true)
 
-    console.log(`generating background animation`)
-    await generateBackgroundForWebsite(url,"background",path_background_output)
+    if(!isHomePage){
+        console.log(`generating background animation`)
+        await generateBackgroundForWebsite(url,"background",path_background_output)
+    }
 
     console.log(`loading prefabs`)
     await prefabLoader.LoadPrefabs('./prefab-processor/prefabs')
