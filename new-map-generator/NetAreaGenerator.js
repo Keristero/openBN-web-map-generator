@@ -46,7 +46,8 @@ class NetAreaGenerator {
         this.oneUseConnectors = false; //Improves look, but increases failure rate
         this.allowLayerGeneration = true; //Allow generation to add new layers as required, can be a bit crazy...
     }
-    async generateNetArea(startingNode,prefabs){
+    async generateNetArea(startingNode,prefabs,isHomePage=false){
+        this.isHomePage = isHomePage
         this.prefabs = prefabs
         startingNode.isFirstNode = true
         this.arr_queue = [startingNode]

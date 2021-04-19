@@ -11,10 +11,14 @@ let generateBackgroundForWebsite = require('./background-generator/main.js')
 let prefabLoader = new PrefabLoader()
 
 
-async function generate(url){
+async function generate(url,isHomePage = false){
     //URL of website to scrape
     let santizedURL = sanitize(url)
     let domainName = parseDomainName(url)
+    if(isHomePage){
+        santizedURL = "default"
+        domainName = "Net_Square"
+    }
 
     //Paths for temporary files
     let path_output = path.join(".","output")
@@ -35,6 +39,7 @@ async function generate(url){
     let server_domain_asset_path = replaceBackslashes(path_domain_assets)
     let exampleSiteProperties = {
         "Name":domainName,
+        "URL":url,
         "Background Animation":`/server/${server_domain_asset_path}/background.animation`,
         "Background Texture":`/server/${server_domain_asset_path}/background.png`,
     }
@@ -56,7 +61,7 @@ async function generate(url){
     LetChildrenKnowAboutTheirParents(exampleSiteData)
 
     console.log(`generating map...`)
-    await netAreaGenerator.generateNetArea(exampleSiteData,prefabs)
+    await netAreaGenerator.generateNetArea(exampleSiteData,prefabs,isHomePage)
 
     console.log('exporting map TMX...')
     let mapExporter = new TiledTMXExporter(netAreaGenerator,exampleSiteProperties)
@@ -70,7 +75,7 @@ async function generate(url){
 
     let result = {
         area_path:relativeServerMapPath,
-        area_id:santizedURL
+        area_id:santizedURL,
     }
     return result
 }

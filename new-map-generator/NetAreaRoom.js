@@ -159,9 +159,15 @@ class NetAreaRoom{
         let filtered = prefabs
 
         if(this.node.isFirstNode){
-            this.totalRequired.homeWarps = 1
-            this.totalRequired.groundFeatures += 1
-            this.node.features.homeWarps = [{}]
+            if(this.netAreaGenerator.isHomePage){
+                this.totalRequired.homeWarps = 1
+                this.totalRequired.groundFeatures += 1
+                this.node.features.homeWarps = [{}]
+            }else{
+                this.totalRequired.backWarps = 1
+                this.totalRequired.groundFeatures += 1
+                this.node.features.backWarps = [{}]
+            }
             this.isStairs = false
         }
 

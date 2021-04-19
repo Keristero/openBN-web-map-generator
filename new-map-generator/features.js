@@ -16,7 +16,6 @@ class Feature{
 class LinkFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
-        //Add directionality for warp exit
         this.type = "link"
         this.gid = 100
         let newProperties = {
@@ -30,8 +29,15 @@ class LinkFeature extends Feature{
 class HomeWarpFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
-        //Add directionality for warp exit
-        this.type = "Home Warp"
+        this.type = "backlink"
+        this.gid = 120
+    }
+}
+
+class BackLinkFeature extends Feature{
+    constructor(x,y,z,feature,properties){
+        super(x,y,z,properties)
+        this.type = "backlink"
         this.gid = 120
     }
 }
@@ -39,7 +45,6 @@ class HomeWarpFeature extends Feature{
 class TextFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
-        //Add directionality for npc facing
         this.type = "NPC"
         this.gid = 101
         let newProperties = {
@@ -82,6 +87,11 @@ let featureCategories = {
             scrapedName:"homeWarps",//Does not exist really
             extraRequirements:0,
             className:HomeWarpFeature
+        },
+        "backLinks":{
+            scrapedName:"backLinks",//Does not exist really
+            extraRequirements:0,
+            className:BackLinkFeature
         },
         "text":{
             scrapedName:"text",
