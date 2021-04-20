@@ -1,4 +1,5 @@
 const url = require('url');
+const { createCanvas, loadImage } = require('canvas')
 
 class RNG {
     constructor(startingSeed) {
@@ -160,6 +161,16 @@ function returnObjectFromArrayWithKeyValue(array,key,value){
     return null
 }
 
+function getPixelColorInImage(image,x,y) {
+    //Read middle pixel color to generate a background color
+    let canvas = createCanvas(image.width, image.height)
+    let ctx = canvas.getContext('2d')
+    ctx.drawImage(image, 0, 0)
+    let pixelData = ctx.getImageData(x,y,1,1).data
+    let pixelRGB = { r: middlePixel[0], g: middlePixel[1], b: middlePixel[2] }
+    return pixelRGB
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -172,5 +183,6 @@ module.exports = {
     parseDomainName,
     RGBAtoString,
     replaceBackslashes,
-    returnObjectFromArrayWithKeyValue
+    returnObjectFromArrayWithKeyValue,
+    getPixelColorInImage
 }

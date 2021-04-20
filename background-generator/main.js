@@ -2,17 +2,9 @@ const fs = require("fs");
 const path = require('path');
 const { createCanvas, loadImage } = require('canvas')
 const { downloadFavicon } = require('./downloadFavicon.js')
-const { RNG, parseDomainName } = require('../helpers.js')
+const { RNG,getPixelColorInImage } = require('../helpers.js')
 const TweenJs = require('@tweenjs/tween.js')
 const hash = require('object-hash');
-const hashOptions = {
-    excludeKeys: (key) => {
-        if (key === "x" || key === "y") {
-            return true
-        }
-        return false
-    }
-}
 const Random = new RNG(60902583)
 //For preview
 const GIFEncoder = require('gifencoder');
@@ -131,7 +123,14 @@ class StaticAnimation {
                     row: row,
                     column: column
                 }
-                let iconHash = hash(newIcon, hashOptions)
+                let iconHash = hash(newIcon,{
+                    excludeKeys: (key) => {
+                        if (key === "x" || key === "y") {
+                            return true
+                        }
+                        return false
+                    }
+                })
                 this.icons[iconHash] = newIcon
             }
         }
@@ -144,16 +143,14 @@ class StaticAnimation {
     }
     getBackgroundColorFromFavicon() {
         //Read middle pixel color to generate a background color
-        let fav_canvas = createCanvas(this.favicon.width, this.favicon.height)
-        let fav_ctx = fav_canvas.getContext('2d')
-        fav_ctx.drawImage(this.favicon, 0, 0)
-        let middlePixel = fav_ctx.getImageData(this.favicon.width / 2, this.favicon.height / 2, 1, 1).data
-        let middlePixelColor = { r: middlePixel[0], g: middlePixel[1], b: middlePixel[2] }
+        this.pixelColor1 = getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 2)
+        this.pixelColor2 = getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 4)
+        this.pixelColor3 = getPixelColorInImage(this.favicon,this.favicon.width / 4,this.favicon.height / 2)
         let backgroundColorIntensity = 0.3
         function rcolor(val) {
             return Math.floor(val * backgroundColorIntensity)
         }
-        this.backgroundColor = `rgb(${rcolor(middlePixelColor.r)},${rcolor(middlePixelColor.g)},${rcolor(middlePixelColor.b)})`
+        this.backgroundColor = `rgb(${rcolor(this.pixelColor1.r)},${rcolor(this.pixelColor1.g)},${rcolor(this.pixelColor1.b)})`
     }
     animateFrame(ctx, frame) {
         TweenJs.update(frame)
