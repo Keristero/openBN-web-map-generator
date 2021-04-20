@@ -1,6 +1,7 @@
 const { create, convert } = require('xmlbuilder2');
-const {unstackLayersIntoArray} = require('../helpers.js')
+const {unstackLayersIntoArray,returnObjectFromArrayWithKeyValue} = require('../helpers.js')
 const {tiled_tileTypes} = require('../prefab-processor/Prefab')
+const {featureCategories} = require('../new-map-generator/features')
 let { writeFile } = require('fs/promises')
 
 class TiledTMXExporter {
@@ -73,18 +74,23 @@ class TiledTMXExporter {
             }
         }
 
-        //Add defined tilesets, check features for the gids
-        //TODO dont hardcode these
-        let linkGID = 100
-        this.AddTileset(2,`../assets/shared/objects/link.tsx`,linkGID)
-        let back_linkGID = 102
-        this.AddTileset(2,`../assets/shared/objects/back_link.tsx`,back_linkGID)
-        let placeholder_npcGID = 104
-        this.AddTileset(1,`../assets/shared/objects/placeholder_npc.tsx`,placeholder_npcGID)
-        let wallFeatureGID = 110
-        this.AddTileset(2,`../assets/shared/tiles/wall_feature.tsx`,wallFeatureGID)
-        let homeWarpGID = 120
-        this.AddTileset(5,`../assets/shared/objects/home_warp.tsx`,homeWarpGID)
+        //Create tilesets from features
+        for(let featureCategoryName in featureCategories){
+
+            if(featureCategoryName === "unplaced"){
+                continue
+            }
+
+            let featureCategory = featureCategories[featureCategoryName]
+            for(let featureName in featureCategory){
+                let feature = featureCategory[featureName]
+                let featureClass = feature.className
+                let tsxTileCount = featureClass.tsxTileCount
+                let tilesetGID = this.AddTileset(tsxTileCount,featureClass.tsxPath)
+                featureClass.tilesetGID = tilesetGID
+            }
+
+        }
 
         //Create properties
         for(let propertyName in properties){
@@ -122,10 +128,11 @@ class TiledTMXExporter {
     AddObject(x,y,z,feature){
         let collection = this.objectLayers[z].objectgroup.object
         let isoCoords = this.GridCoordsToWorldCoords(x,y)
+        console.log(`feature gid = ${feature.tilesetGID}, lid=${feature.tid}`)
         let newObject = {
             "@id":this.nextObjectID,
             "@type":feature.type,
-            "@gid":feature.gid,
+            "@gid":feature.tilesetGID+feature.tid,
             "@x":isoCoords.x+feature.x_spawn_offset,
             "@y":isoCoords.y+feature.y_spawn_offset,
             "@width":feature.width,
@@ -156,13 +163,19 @@ class TiledTMXExporter {
     }
     AddTileset(tileCount,sourcePath,firstgid=this.nextTileGID){
         let tilesetArray = this.xmlJSON.map['#'][1].tileset
-        let newTilesetData = {
-            "@firstgid":`${firstgid}`,
-            "@source":`${sourcePath}`
+        let preexistingTileset = returnObjectFromArrayWithKeyValue(tilesetArray,"@source",sourcePath)
+        if(!preexistingTileset){
+            let newTilesetData = {
+                "@firstgid":`${firstgid}`,
+                "@source":`${sourcePath}`
+            }
+            this.nextTileGID = firstgid+tileCount
+            tilesetArray.push(newTilesetData)
+            console.log(`[TMXExporter] added tileset ${newTilesetData["@source"]}`)
+        }else{
+            firstgid = preexistingTileset["@firstgid"]
         }
-        this.nextTileGID = firstgid+tileCount
-        tilesetArray.push(newTilesetData)
-        console.log(`[TMXExporter] added tileset ${newTilesetData["@source"]}`)
+        return firstgid
     }
     AddObjectLayer(layerIndex){
         let layerArray = this.xmlJSON.map['#']

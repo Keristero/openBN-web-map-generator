@@ -149,6 +149,17 @@ function replaceBackslashes(string){
     return string.replace(/\\/gm,'/')
 }
 
+function returnObjectFromArrayWithKeyValue(array,key,value){
+    for(let obj of array){
+        if(obj.hasOwnProperty(key)){
+            if(obj[key] === value){
+                return obj
+            }
+        }
+    }
+    return null
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -160,5 +171,6 @@ module.exports = {
     unstackLayersIntoArray,
     parseDomainName,
     RGBAtoString,
-    replaceBackslashes
+    replaceBackslashes,
+    returnObjectFromArrayWithKeyValue
 }

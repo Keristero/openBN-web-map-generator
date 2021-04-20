@@ -1,4 +1,6 @@
 class Feature{
+    static tilesetGID = null
+    static tsxPath = null
     constructor(x,y,z,properties){
         this.x = x;
         this.y = y;
@@ -7,19 +9,27 @@ class Feature{
         this.y_spawn_offset = 0
         this.width = 64
         this.height = 32
+        this.tid = 0
         this.properties = {}
         Object.assign(this.properties,properties)
     }
     get locationString(){
         return `${this.x},${this.y},${this.z}`
     }
+    get tilesetGID(){
+        return this.constructor.tilesetGID
+    }
+    get tsxPath(){
+        return this.constructor.tsxPath
+    }
 }
 
 class LinkFeature extends Feature{
+    static tsxPath = `../assets/shared/objects/link.tsx`
+    static tsxTileCount = 6
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
         this.type = "link"
-        this.gid = 100
         let newProperties = {
             "link":feature.link || "",
             "text":feature.text || ""
@@ -27,12 +37,12 @@ class LinkFeature extends Feature{
         Object.assign(this.properties,newProperties)
     }
 }
-
 class HomeWarpFeature extends Feature{
+    static tsxPath = `../assets/shared/objects/home_warp.tsx`
+    static tsxTileCount = 5
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
         this.type = "Home Warp"
-        this.gid = 120
     }
     onExport(tiledTMXExporter,x,y,z){
         //Called by tmx exporter when this feature is exported
@@ -44,18 +54,20 @@ class HomeWarpFeature extends Feature{
 }
 
 class BackLinkFeature extends HomeWarpFeature{
+    static tsxPath = `../assets/shared/objects/back_link.tsx`
+    static tsxTileCount = 6
     constructor(x,y,z,feature,properties){
         super(x,y,z,feature,properties)
         this.type = "back_link"
-        this.gid = 102
     }
 }
 
 class TextFeature extends Feature{
+    static tsxPath = `../assets/shared/objects/placeholder_npc.tsx`
+    static tsxTileCount = 1
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
         this.type = "NPC"
-        this.gid = 104
         this.y_spawn_offset = -16
         this.x_spawn_offset = -16
         let newProperties = {
@@ -66,11 +78,12 @@ class TextFeature extends Feature{
 }
 
 class ImageFeature extends Feature{
+    static tsxPath = `../assets/shared/objects/wall_feature.tsx`
+    static tsxTileCount = 1
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
         //TODO download the image
         this.type = "image"
-        this.gid = 110
         this.height = 64
         let newProperties = {
             "src":feature.link || "",
