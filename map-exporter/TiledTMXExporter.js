@@ -6,9 +6,9 @@ let { writeFile } = require('fs/promises')
 
 class TiledTMXExporter {
     constructor(NetArea, p_properties) {
-        this.width = NetArea.width
-        this.length = NetArea.length
         this.height = NetArea.height
+        this.length = NetArea.length
+        this.width = NetArea.width
         this.tileHeight = 32
         this.tileWidth = 64
         this.tileHalfHeight = this.tileHeight/2

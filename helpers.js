@@ -171,6 +171,76 @@ function getPixelColorInImage(image,x,y) {
     return pixelRGB
 }
 
+function crop3dMatrix(matrix, x, y,z, width, length,height) {
+    return matrix.slice(z, z + height).map((layer)=>{
+        return layer.slice(y, y + length).map((row)=>{
+            return row.slice(x, x + width)
+        })
+    })
+}
+
+function findBoundsOfMatrix(matrix,ignoreID = 0){
+    let iterator = iterateOver3dMatrix(matrix)
+    let r = {
+        min:{
+            x:Infinity,
+            y:Infinity,
+            z:Infinity
+        },
+        max:{
+            x:-Infinity,
+            y:-Infinity,
+            z:-Infinity
+        }
+    }
+    for(let gridPos of iterator){
+        if(gridPos.tileID == ignoreID){
+            //Consider this tile outside the bounds of the matrix
+            continue
+        }
+        if(gridPos.x < r.min.x){
+            r.min.x = gridPos.x
+        }
+        if(gridPos.x > r.max.x){
+            r.max.x = gridPos.x
+        }
+        if(gridPos.y < r.min.y){
+            r.min.y = gridPos.y
+        }
+        if(gridPos.y > r.max.y){
+            r.max.y = gridPos.y
+        }
+        if(gridPos.z < r.min.z){
+            r.min.z = gridPos.z
+        }
+        if(gridPos.z > r.max.z){
+            r.max.z = gridPos.z
+        }
+    }
+    console.log(r)
+    return r
+}
+
+function trim3dMatrix(matrix,ignoreID=0){
+    let bounds = findBoundsOfMatrix(matrix,ignoreID)
+    let x = bounds.min.x
+    let y = bounds.min.y
+    let z = bounds.min.z
+    let width = 1+(bounds.max.x-x)
+    let length = 1+(bounds.max.y-y)
+    let height = 1+(bounds.max.z-z)
+    let result = {
+        x,
+        y,
+        z,
+        width,
+        length,
+        height,
+        matrix:crop3dMatrix(matrix,x,y,z,width,length,height),
+    }
+    return result
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -184,5 +254,6 @@ module.exports = {
     RGBAtoString,
     replaceBackslashes,
     returnObjectFromArrayWithKeyValue,
-    getPixelColorInImage
+    getPixelColorInImage,
+    trim3dMatrix
 }
