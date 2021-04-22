@@ -34,12 +34,16 @@ function handle_object_interaction(player_id, object_id)
     --Generate a map
     local generate_map_promise = generate_linked_map(player_id, link, text)
     generate_map_promise.and_then(function (area_info)
-        print('map generated')
+        print('[hyperlinks] map generated')
         currently_generating[object_id] = nil
-        print('got this far!')
 
         if area_info.fresh == true then
             --If the map was just generated
+
+            local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
+
+            load_asset(n_area_properties["Background Texture"])
+            load_asset(n_area_properties["Background Animation"])
 
             --Read new generated map file
             local read_file_promise = Async.read_file(area_info.area_path)
@@ -49,11 +53,26 @@ function handle_object_interaction(player_id, object_id)
                 print("[hyperlinks] added area "..area_info.area_id)
                 transfer_player(player_id,area_info.area_id)
             end)
+
         else
-            transfer_player(player_id,area_info.area_id)
+            --transfer_player(player_id,area_info.area_id)
         end
     end)
 
+end
+
+function load_asset(asset_path)
+    existing_asset_size = Net.get_asset_size(asset_path)
+    if existing_asset_size == 0 then
+        print("[hyperlinks] loading new asset "..asset_path)
+        local read_background_promise = Async.read_file(n_area_properties["Background Texture"])
+        read_background_promise.and_then(function (asset_data)
+            Net.update_asset(asset_path, asset_data)
+            print("[hyperlinks] loaded new asset "..asset_path)
+        end)
+    else
+        print("[hyperlinks] asset already exists "..asset_path)
+    end
 end
 
 function transfer_player(player_id,new_area_id)
