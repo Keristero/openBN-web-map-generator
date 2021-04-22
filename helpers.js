@@ -1,4 +1,5 @@
 const url = require('url');
+const { createCanvas, loadImage } = require('canvas')
 
 class RNG {
     constructor(startingSeed) {
@@ -149,6 +150,97 @@ function replaceBackslashes(string){
     return string.replace(/\\/gm,'/')
 }
 
+function returnObjectFromArrayWithKeyValue(array,key,value){
+    for(let obj of array){
+        if(obj.hasOwnProperty(key)){
+            if(obj[key] === value){
+                return obj
+            }
+        }
+    }
+    return null
+}
+
+function getPixelColorInImage(image,x,y) {
+    //Read middle pixel color to generate a background color
+    let canvas = createCanvas(image.width, image.height)
+    let ctx = canvas.getContext('2d')
+    ctx.drawImage(image, 0, 0)
+    let pixelData = ctx.getImageData(x,y,1,1).data
+    let pixelRGB = { r: middlePixel[0], g: middlePixel[1], b: middlePixel[2] }
+    return pixelRGB
+}
+
+function crop3dMatrix(matrix, x, y,z, width, length,height) {
+    return matrix.slice(z, z + height).map((layer)=>{
+        return layer.slice(y, y + length).map((row)=>{
+            return row.slice(x, x + width)
+        })
+    })
+}
+
+function findBoundsOfMatrix(matrix,ignoreID = 0){
+    let iterator = iterateOver3dMatrix(matrix)
+    let r = {
+        min:{
+            x:Infinity,
+            y:Infinity,
+            z:Infinity
+        },
+        max:{
+            x:-Infinity,
+            y:-Infinity,
+            z:-Infinity
+        }
+    }
+    for(let gridPos of iterator){
+        if(gridPos.tileID == ignoreID){
+            //Consider this tile outside the bounds of the matrix
+            continue
+        }
+        if(gridPos.x < r.min.x){
+            r.min.x = gridPos.x
+        }
+        if(gridPos.x > r.max.x){
+            r.max.x = gridPos.x
+        }
+        if(gridPos.y < r.min.y){
+            r.min.y = gridPos.y
+        }
+        if(gridPos.y > r.max.y){
+            r.max.y = gridPos.y
+        }
+        if(gridPos.z < r.min.z){
+            r.min.z = gridPos.z
+        }
+        if(gridPos.z > r.max.z){
+            r.max.z = gridPos.z
+        }
+    }
+    console.log(r)
+    return r
+}
+
+function trim3dMatrix(matrix,ignoreID=0){
+    let bounds = findBoundsOfMatrix(matrix,ignoreID)
+    let x = bounds.min.x
+    let y = bounds.min.y
+    let z = bounds.min.z
+    let width = 1+(bounds.max.x-x)
+    let length = 1+(bounds.max.y-y)
+    let height = 1+(bounds.max.z-z)
+    let result = {
+        x,
+        y,
+        z,
+        width,
+        length,
+        height,
+        matrix:crop3dMatrix(matrix,x,y,z,width,length,height),
+    }
+    return result
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -160,5 +252,8 @@ module.exports = {
     unstackLayersIntoArray,
     parseDomainName,
     RGBAtoString,
-    replaceBackslashes
+    replaceBackslashes,
+    returnObjectFromArrayWithKeyValue,
+    getPixelColorInImage,
+    trim3dMatrix
 }

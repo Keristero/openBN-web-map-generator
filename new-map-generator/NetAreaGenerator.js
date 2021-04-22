@@ -1,5 +1,5 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
-let {generateGrid,distance,RNG,generate3dMatrix,iterateOver3dMatrix} = require('../helpers')
+let {generateGrid,distance,RNG,generate3dMatrix,iterateOver3dMatrix,trim3dMatrix} = require('../helpers')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
 
@@ -53,6 +53,14 @@ class NetAreaGenerator {
         this.arr_queue = [startingNode]
         await this.processNodeQueue();
         this.removeAllWalls()
+        let trimmed = trim3dMatrix(this.matrix,this.id_air)
+        this.width = trimmed.width
+        this.length = trimmed.length
+        this.height = trimmed.height
+        this.matrix = trimmed.matrix
+        let updatedOffsets = {x:trimmed.x,y:trimmed.y,z:trimmed.z}
+        this.copyFeaturesOfRoomsToArea(updatedOffsets)
+
     }
     removeAllWalls(){
         const iterator = iterateOver3dMatrix(this.matrix);
@@ -74,6 +82,16 @@ class NetAreaGenerator {
         }
         return true
     }
+    copyRoomFeatures(room){
+        //Burn features
+        for(let featureType in room.features){
+            let featuresOfType = room.features[featureType]
+            for(let locationString in featuresOfType){
+                let feature = featuresOfType[locationString]
+                this.addFeature(room,feature)
+            }
+        }
+    }
     burnRoomToMatrix(room) {
         //Burn layout
         const iterator = iterateOver3dMatrix(room.prefab.matrix);
@@ -86,15 +104,6 @@ class NetAreaGenerator {
                 this.matrix[globalZ][globalY][globalX] = gridPos.tileID;
             }
         }
-        //Burn features
-        for(let featureType in room.features){
-            let featuresOfType = room.features[featureType]
-            for(let locationString in featuresOfType){
-                let feature = featuresOfType[locationString]
-                this.addFeature(room,feature)
-            }
-        }
-        this.arr_rooms.push(room)
     }
     addLayers(amount){
         for(let i = 0; i < amount; i++){
@@ -143,6 +152,14 @@ class NetAreaGenerator {
             }
         }
     }
+    copyFeaturesOfRoomsToArea(updatedOffsets){
+        for(let room of this.arr_rooms){
+            room.x -= updatedOffsets.x
+            room.y -= updatedOffsets.y
+            room.z -= updatedOffsets.z
+            this.copyRoomFeatures(room)
+        }
+    }
     async generateLayout(node) {
         let newRoom = new NetAreaRoom(node,this);
         let roomUnplaced = true;
@@ -150,6 +167,7 @@ class NetAreaGenerator {
         while (roomUnplaced) {
             if (this.roomPlacementValid(newRoom)) {
                 this.burnRoomToMatrix(newRoom);
+                this.arr_rooms.push(newRoom)
                 roomUnplaced = false;
                 if (newRoom.node.parent) {
                     await this.findPathBetweenRooms(newRoom, newRoom.node.parent.room)
