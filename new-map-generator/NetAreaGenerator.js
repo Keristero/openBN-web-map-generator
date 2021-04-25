@@ -157,7 +157,6 @@ class NetAreaGenerator {
             room._x -= updatedOffsets.x
             room._y -= updatedOffsets.y
             room._z -= updatedOffsets.z
-            console.log(room)
             this.copyRoomFeatures(room)
         }
     }

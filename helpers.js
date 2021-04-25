@@ -161,16 +161,6 @@ function returnObjectFromArrayWithKeyValue(array,key,value){
     return null
 }
 
-function getPixelColorInImage(image,x,y) {
-    //Read middle pixel color to generate a background color
-    let canvas = createCanvas(image.width, image.height)
-    let ctx = canvas.getContext('2d')
-    ctx.drawImage(image, 0, 0)
-    let pixelData = ctx.getImageData(x,y,1,1).data
-    let pixelRGB = { r: middlePixel[0], g: middlePixel[1], b: middlePixel[2] }
-    return pixelRGB
-}
-
 function crop3dMatrix(matrix, x, y,z, width, length,height) {
     return matrix.slice(z, z + height).map((layer)=>{
         return layer.slice(y, y + length).map((row)=>{
@@ -254,6 +244,5 @@ module.exports = {
     RGBAtoString,
     replaceBackslashes,
     returnObjectFromArrayWithKeyValue,
-    getPixelColorInImage,
     trim3dMatrix
 }

@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require('path');
 const { createCanvas, loadImage } = require('canvas')
 const { downloadFavicon } = require('./downloadFavicon.js')
-const { RNG,getPixelColorInImage } = require('../helpers.js')
+const { RNG } = require('../helpers.js')
 const TweenJs = require('@tweenjs/tween.js')
 const hash = require('object-hash');
 const Random = new RNG(60902583)
@@ -141,11 +141,20 @@ class StaticAnimation {
         this.getBackgroundColorFromFavicon()
 
     }
+    getPixelColorInImage(image,x,y) {
+        //Read middle pixel color to generate a background color
+        let img_canvas = createCanvas(image.width, image.height)
+        let img_ctx = img_canvas.getContext('2d')
+        img_ctx.drawImage(image, 0, 0)
+        let pixelData = img_ctx.getImageData(x,y,1,1).data
+        let pixelRGB = { r: pixelData[0], g: pixelData[1], b: pixelData[2] }
+        return pixelRGB
+    }
     getBackgroundColorFromFavicon() {
         //Read middle pixel color to generate a background color
-        this.pixelColor1 = getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 2)
-        this.pixelColor2 = getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 4)
-        this.pixelColor3 = getPixelColorInImage(this.favicon,this.favicon.width / 4,this.favicon.height / 2)
+        this.pixelColor1 = this.getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 2)
+        this.pixelColor2 = this.getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 4)
+        this.pixelColor3 = this.getPixelColorInImage(this.favicon,this.favicon.width / 4,this.favicon.height / 2)
         let backgroundColorIntensity = 0.3
         function rcolor(val) {
             return Math.floor(val * backgroundColorIntensity)
