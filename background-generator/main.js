@@ -152,14 +152,12 @@ class StaticAnimation {
     }
     getBackgroundColorFromFavicon() {
         //Read middle pixel color to generate a background color
-        this.pixelColor1 = this.getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 2)
-        this.pixelColor2 = this.getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 4)
-        this.pixelColor3 = this.getPixelColorInImage(this.favicon,this.favicon.width / 4,this.favicon.height / 2)
+        this.middle_pixel_color = this.getPixelColorInImage(this.favicon,this.favicon.width / 2,this.favicon.height / 2)
         let backgroundColorIntensity = 0.3
         function rcolor(val) {
             return Math.floor(val * backgroundColorIntensity)
         }
-        this.backgroundColor = `rgb(${rcolor(this.pixelColor1.r)},${rcolor(this.pixelColor1.g)},${rcolor(this.pixelColor1.b)})`
+        this.backgroundColor = `rgb(${rcolor(this.middle_pixel_color.r)},${rcolor(this.middle_pixel_color.g)},${rcolor(this.middle_pixel_color.b)})`
     }
     animateFrame(ctx, frame) {
         TweenJs.update(frame)
