@@ -154,12 +154,17 @@ class NetAreaGenerator {
     }
     copyFeaturesOfRoomsToArea(updatedOffsets){
         for(let room of this.arr_rooms){
-            room.x -= updatedOffsets.x
-            room.y -= updatedOffsets.y
-            room.z -= updatedOffsets.z
+            room._x -= updatedOffsets.x
+            room._y -= updatedOffsets.y
+            room._z -= updatedOffsets.z
+            console.log(room)
             this.copyRoomFeatures(room)
         }
     }
+    /**
+     * 
+     * @param {*} node 
+     */
     async generateLayout(node) {
         let newRoom = new NetAreaRoom(node,this);
         let roomUnplaced = true;
