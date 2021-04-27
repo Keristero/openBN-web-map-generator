@@ -1,6 +1,5 @@
 let { generateGrid, iterateOverGrid, stackArrayIntoLayers } = require('../helpers.js')
 
-//TODO remove need for this tiled_tileTypes thing
 let tiled_tileTypes = {
     "prefab_tiles": {
         subIndex: {

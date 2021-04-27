@@ -321,7 +321,7 @@ class TweenedAnimation extends StaticAnimation {
     }
 }
 
-function saveOutputFrame(canvas, preview, out_ctx, preview_ctx, encoder, frame) {
+function saveOutputFrame(canvas, preview, out_ctx, preview_ctx, encoder, frame_index) {
     //Draw outputs
     if (preview) {
         //Draw 4 copies of the image to preview how well the gif tiles
@@ -331,7 +331,7 @@ function saveOutputFrame(canvas, preview, out_ctx, preview_ctx, encoder, frame) 
         preview_ctx.drawImage(canvas, canvas.width, canvas.height)
         encoder.addFrame(preview_ctx);
     }
-    out_ctx.drawImage(canvas, 0, canvas.height * frame)
+    out_ctx.drawImage(canvas, 0, canvas.height * frame_index)
 }
 
 function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {

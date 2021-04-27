@@ -9,10 +9,7 @@ app.use(express.json())
 app.use(express.static('home-page'))
 
 const web_server_port = 3000
-let net_square_url = `http://localhost:${web_server_port}`
-
-//FOR TESTING
-net_square_url = `https://en.wikipedia.org/wiki/Main_Page`
+const net_square_url = `http://localhost:${web_server_port}`
  
 //Generate maps on demand
 app.post('/', async function (req, res) {
