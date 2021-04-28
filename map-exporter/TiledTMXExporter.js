@@ -5,7 +5,7 @@ const {featureCategories} = require('../new-map-generator/features')
 let { writeFile } = require('fs/promises')
 
 class TiledTMXExporter {
-    constructor(NetArea, p_properties) {
+    constructor(NetArea, p_properties, generated_tiles) {
         this.height = NetArea.height
         this.length = NetArea.length
         this.width = NetArea.width

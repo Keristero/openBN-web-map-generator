@@ -34,6 +34,18 @@ class RNG {
         let a = this.Integer(mincolor.a,maxcolor.a)
         return {r,g,b,a}
     }
+    RGBARounded(mincolor,maxcolor,rounding,alphaRounding){
+        //Note, the output can fall outside the min and max due to nearest rounding
+        let r = roundToNearest(this.Integer(mincolor.r,maxcolor.r),rounding)
+        let g = roundToNearest(this.Integer(mincolor.g,maxcolor.g),rounding)
+        let b = roundToNearest(this.Integer(mincolor.b,maxcolor.b),rounding)
+        let a = roundToNearest(this.Float(mincolor.a,maxcolor.a),alphaRounding)
+        return {r,g,b,a}
+    }
+}
+
+function roundToNearest(value,nearestX) {
+    return Math.round(value / nearestX) * nearestX;
 }
 
 function RGBAtoString(color){
