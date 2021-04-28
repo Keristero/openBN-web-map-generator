@@ -15,29 +15,26 @@ class NetAreaGenerator {
         this.features = {};
         this.RNG = new RNG(60902583)
 
-        /*Setup pathfinding (OLD INFO)
-        0 = air
-        1 = room
-        2 = wall (invisible)
-        3 = path
-        4 = main path
-        */
-
         this.id_air = 0
         this.id_wall = 1
+        this.id_floor_1 = 2
+        this.id_floor_2 = 3
+        this.id_floor_3 = 4
         this.id_path = 5
         this.id_importantPath = 6
 
         //Tiles paths are allowed to replace
-        this.patheableTiles = [this.id_air,this.id_wall,this.id_path]
+        this.replacableTiles = [this.id_air,this.id_wall,this.id_path]
+        //Tiles which can be pathfinded through
+        this.walkableTiles = [this.id_air,this.id_wall,this.id_floor_1,this.id_floor_2,this.id_floor_3,this.id_path,this.id_importantPath]
 
         //Setup easystar
-        easystar.setAcceptableTiles([this.id_air,1,2,3,4,5,6]);
+        easystar.setAcceptableTiles(this.walkableTiles);
         easystar.setTileCost(this.id_air, 4);//Going through empty area
         easystar.setTileCost(this.id_wall, 128);//Going through WALLS
-        easystar.setTileCost(2, 64);//Going through rooms
-        easystar.setTileCost(3, 64);//Going through rooms
-        easystar.setTileCost(4, 64);//Going through rooms
+        easystar.setTileCost(this.id_floor_1, 64);//Going through rooms
+        easystar.setTileCost(this.id_floor_2, 64);//Going through rooms
+        easystar.setTileCost(this.id_floor_3, 64);//Going through rooms
         easystar.setTileCost(this.id_path, 2);//Going along paths
         easystar.setTileCost(this.id_importantPath, 1);//Going along important paths
 
@@ -314,7 +311,7 @@ class NetAreaGenerator {
         }
         for(let loc of pathInfo.locations){
             let existingTileID = this.matrix[zLayer][loc.y][loc.x]
-            if(this.patheableTiles.includes(existingTileID)){
+            if(this.replacableTiles.includes(existingTileID)){
                 this.matrix[zLayer][loc.y][loc.x] = pathInfo.tileID;
             }
         }

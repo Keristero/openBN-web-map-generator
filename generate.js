@@ -1,13 +1,14 @@
-let path = require('path')
-let sanitize = require("sanitize-filename");
-let fs = require('fs')
+const path = require('path')
+const sanitize = require("sanitize-filename");
+const fs = require('fs')
 
-let {NetAreaGenerator} = require('./new-map-generator/NetAreaGenerator.js')
-let TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
-let PrefabLoader = require('./prefab-processor/PrefabLoader.js')
-let scrape = require('./scrape.js')
-let {parseDomainName, replaceBackslashes} = require('./helpers.js')
-let generateBackgroundForWebsite = require('./background-generator/main.js')
+const {NetAreaGenerator} = require('./new-map-generator/NetAreaGenerator.js')
+const TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
+const {generateNetAreaAssets} = require('./map-exporter/generateAssets.js')
+const PrefabLoader = require('./prefab-processor/PrefabLoader.js')
+const scrape = require('./scrape.js')
+const {parseDomainName, replaceBackslashes} = require('./helpers.js')
+const generateBackgroundForWebsite = require('./background-generator/main.js')
 const crypto = require('crypto')
 let prefabLoader = new PrefabLoader()
 
@@ -34,6 +35,7 @@ async function generate(url,isHomePage = false){
     //Paths for final outputs
     let path_onb_server = path.join(".","onb-server")
     let path_generated_map = path.join(path_onb_server,"areas",`${santizedURL}.tmx`)
+    let path_generated_tiles = path.join(path_onb_server,"assets","generated")
     let path_background_output = path.join(path_onb_server,path_domain_assets)
     fs.mkdirSync(path_background_output, { recursive: true })
 
@@ -67,8 +69,11 @@ async function generate(url,isHomePage = false){
     console.log(`generating map...`)
     await netAreaGenerator.generateNetArea(exampleSiteData,prefabs,isHomePage)
 
+    console.log(`generating assets for map and remapping tiles`)
+    let generated_tiles = await generateNetAreaAssets(netAreaGenerator,path_generated_tiles)
+
     console.log('exporting map TMX...')
-    let mapExporter = new TiledTMXExporter(netAreaGenerator,exampleSiteProperties)
+    let mapExporter = new TiledTMXExporter(netAreaGenerator,exampleSiteProperties,generated_tiles)
     await mapExporter.ExportTMX(path_generated_map)
 
     console.log(`saved generated map as ${path_generated_map}`)

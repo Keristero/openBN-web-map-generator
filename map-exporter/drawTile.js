@@ -2,7 +2,7 @@ const { createCanvas, loadImage } = require('canvas')
 const fs = require('fs')
 const { RNG, RGBAtoString } = require('../helpers.js')
 
-function createTilePNG(tile_options,out_path){
+function createTilePNG(tile_options, out_path) {
     let canvas = drawTileOnCanvas(tile_options)
     let out = fs.createWriteStream(out_path)
     let stream = canvas.createPNGStream()
@@ -10,7 +10,7 @@ function createTilePNG(tile_options,out_path){
     out.on('finish', () => console.log('The PNG file was created.'))
 }
 
-function drawRandomTileOnCanvas(){
+function drawRandomTileOnCanvas() {
     let rng = new RNG()
     let minColor = { r: 0, g: 0, b: 0, a: 0.2 }
     let maxColor = { r: 255, g: 255, b: 255, a: 1 }
@@ -18,10 +18,10 @@ function drawRandomTileOnCanvas(){
     let sideColor = RGBAtoString(rng.RGBA(minColor, maxColor))
     let color = RGBAtoString(rng.RGBA(minColor, maxColor))
     let tile_options = {
-        width:64,
-        length:32,
-        tile_height:8,
-        line_width:3,
+        width: 64,
+        length: 32,
+        tile_height: 8,
+        line_width: 3,
         baseColor,
         sideColor,
         color
@@ -29,17 +29,7 @@ function drawRandomTileOnCanvas(){
     return drawTileOnCanvas(tile_options)
 }
 
-function drawTileOnCanvas(tile_options){
-    let {
-        width,
-        length,
-        tile_height,
-        line_width,
-        baseColor,
-        sideColor,
-        color
-    } = tile_options
-
+function drawTileOnCanvas({width,length,tile_height,line_width,baseColor,sideColor,color}) {
     let canvasWidth = width + line_width
     let canvasHeight = length + tile_height + line_width
     let canvas = createCanvas(canvasWidth, canvasHeight)
@@ -121,4 +111,4 @@ function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideCo
     drawReflection(5)
 }
 
-module.exports = {createTilePNG}
+module.exports = { createTilePNG }
