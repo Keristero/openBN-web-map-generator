@@ -12,7 +12,7 @@ function fastHash(data){
 }
 
 function generateFoorTile(baseColor,sideColor,color,path_generated_tiles){
-    let tile_options = {width:64,length:32,tile_height:8,line_width:3,baseColor,sideColor,color}
+    let tile_options = {width:62,length:30,tile_height:8,line_width:3,baseColor,sideColor,color}
     let tile_options_string = JSON.stringify(tile_options)
     let tile_options_hash = fastHash(tile_options_string)
     let tile_output_path = path.join(path_generated_tiles,tile_options_hash)
@@ -28,9 +28,9 @@ function generateFoorTile(baseColor,sideColor,color,path_generated_tiles){
 
 async function generateTSX(tsx_path,tileHash){
     let doc = `<?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="67" tileheight="43" tilecount="1" columns="1" objectalignment="bottom">
+<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="65" tileheight="41" tilecount="1" columns="1" objectalignment="bottom">
     <tileoffset x="0" y="8"/>
-    <image source="./${tileHash}.png" width="64" height="40"/>
+    <image source="./${tileHash}.png" width="65" height="41"/>
 </tileset>
 `
     await writeFile(tsx_path,doc)

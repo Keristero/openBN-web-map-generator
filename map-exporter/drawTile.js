@@ -52,12 +52,12 @@ function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideCo
             }
         })
         //Draw a nice thick line along path
-        ctx.lineWidth = 3
+        ctx.lineWidth = 1 //except right now it aint thick
         ctx.strokeStyle = "rgb(50,50,50)"
         ctx.stroke();
         ctx.fill();
         ctx.lineWidth = 1
-        ctx.strokeStyle = "rgba(255,255,255,0.5)"
+        ctx.strokeStyle = "rgba(255,255,255,0.1)"
         ctx.stroke();
     }
     let hw = xSize / 2
