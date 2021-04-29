@@ -1,5 +1,6 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
 let {generateGrid,distance,RNG,generate3dMatrix,iterateOver3dMatrix,trim3dMatrix} = require('../helpers')
+let {tiled_tileTypes} = require('../prefab-processor/Prefab')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
 
@@ -22,6 +23,18 @@ class NetAreaGenerator {
         this.id_floor_3 = 4
         this.id_path = 5
         this.id_importantPath = 6
+
+        //Set up default tiles (by default use tileset from the prefab processor)
+        this.tile_types = {}
+        for(let filename in tiled_tileTypes){
+            let tileTypeData = tiled_tileTypes[filename]
+            let firstGID = tileTypeData?.subIndex[0]?.id
+            if(firstGID){
+                let tileCount = Object.keys(tileTypeData.subIndex).length
+                let sourcePath = `../assets/shared/tiles/${filename}.tsx`
+                this.tile_types[firstGID] = {tileCount,sourcePath}
+            }
+        }
 
         //Tiles paths are allowed to replace
         this.replacableTiles = [this.id_air,this.id_wall,this.id_path]

@@ -1,6 +1,5 @@
 const { create, convert } = require('xmlbuilder2');
 const {unstackLayersIntoArray,returnObjectFromArrayWithKeyValue} = require('../helpers.js')
-const {tiled_tileTypes} = require('../prefab-processor/Prefab')
 const {featureCategories} = require('../new-map-generator/features')
 let { writeFile } = require('fs/promises')
 
@@ -64,15 +63,12 @@ class TiledTMXExporter {
         }
 
         //Create tilesets
-        for(let filename in tiled_tileTypes){
-            let tileTypeData = tiled_tileTypes[filename]
-            let firstGID = tileTypeData?.subIndex[0]?.id
-            if(firstGID){
-                let tileCount = Object.keys(tileTypeData.subIndex).length
-                let sourcePath = `../assets/shared/tiles/${filename}.tsx`
-                this.AddTileset(tileCount,sourcePath,firstGID)
-            }
+        for(let firstGID in NetArea.tile_types){
+            let tileInfo = NetArea.tile_types[firstGID]
+            this.AddTileset(tileInfo.tileCount,tileInfo.sourcePath,firstGID,true)
         }
+
+        this.nextTileGID++
 
         //Create tilesets from features
         for(let featureCategoryName in featureCategories){
@@ -148,7 +144,7 @@ class TiledTMXExporter {
             })
         }
         if(feature.onExport){
-            feature.onExport(this,x,y,z)
+            feature.onExport({exporter:this,x,y,z,newObject})
         }
         collection.push(newObject)
         this.nextObjectID++
@@ -161,19 +157,20 @@ class TiledTMXExporter {
         }
         propertyArray.push(newProp)
     }
-    AddTileset(tileCount,sourcePath,firstgid=this.nextTileGID){
+    AddTileset(tileCount,sourcePath,firstgid=this.nextTileGID,forceAdd=false){
         let tilesetArray = this.xmlJSON.map['#'][1].tileset
         let preexistingTileset = returnObjectFromArrayWithKeyValue(tilesetArray,"@source",sourcePath)
-        if(!preexistingTileset){
+        if(!preexistingTileset || forceAdd === true){
             let newTilesetData = {
-                "@firstgid":`${firstgid}`,
+                "@firstgid":`${parseInt(firstgid)}`,
                 "@source":`${sourcePath}`
             }
-            this.nextTileGID = firstgid+tileCount
+            this.nextTileGID = parseInt(firstgid)+tileCount
             tilesetArray.push(newTilesetData)
-            console.log(`[TMXExporter] added tileset ${newTilesetData["@source"]}`)
+            console.log(`[TMXExporter] added tileset ${newTilesetData["@firstgid"]}:${newTilesetData["@source"]}`)
         }else{
             firstgid = preexistingTileset["@firstgid"]
+            console.log('there is already a tileset with a matching source',firstgid)
         }
         return firstgid
     }

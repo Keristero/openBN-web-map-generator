@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(express.static('home-page'))
 
 const web_server_port = 3000
-const net_square_url = `http://localhost:${web_server_port}`
+const net_square_url = `https://github.com/`
  
 //Generate maps on demand
 app.post('/', async function (req, res) {

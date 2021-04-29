@@ -3,6 +3,7 @@ const {RNG,RGBAtoString,iterateOver3dMatrix} = require('../helpers.js')
 const crypto = require('crypto')
 const path = require('path')
 const fs = require('fs')
+let { writeFile } = require('fs/promises')
 
 let random = new RNG()
 
@@ -14,12 +15,25 @@ function generateFoorTile(baseColor,sideColor,color,path_generated_tiles){
     let tile_options = {width:64,length:32,tile_height:8,line_width:3,baseColor,sideColor,color}
     let tile_options_string = JSON.stringify(tile_options)
     let tile_options_hash = fastHash(tile_options_string)
-    let tile_output_path = path.join(path_generated_tiles,tile_options_hash+'.png')
-    if(!fs.existsSync(tile_output_path)){
+    let tile_output_path = path.join(path_generated_tiles,tile_options_hash)
+    let write_tsx_path = path.join(path_generated_tiles,tile_options_hash+".tsx")
+    let relative_tsx_path = `../assets/generated/${tile_options_hash}.tsx`
+    if(!fs.existsSync(write_tsx_path)){
         //Only create tile if a matching one does not already exist
-        createTilePNG(tile_options, tile_output_path)
+        createTilePNG(tile_options, tile_output_path+'.png')
+        generateTSX(write_tsx_path,tile_options_hash)
     }
-    return tile_output_path
+    return relative_tsx_path
+}
+
+async function generateTSX(tsx_path,tileHash){
+    let doc = `<?xml version="1.0" encoding="UTF-8"?>
+<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="67" tileheight="43" tilecount="1" columns="1" objectalignment="bottom">
+    <tileoffset x="0" y="8"/>
+    <image source="./${tileHash}.png" width="64" height="40"/>
+</tileset>
+`
+    await writeFile(tsx_path,doc)
 }
 
 async function generateNetAreaAssets(netAreaGenerator,path_generated_tiles){
@@ -30,12 +44,15 @@ async function generateNetAreaAssets(netAreaGenerator,path_generated_tiles){
     //generate generic tiles
     let newTileID = 2
     let tiles = {}
-    for(let i = 0; i < 3; i++){
+    for(let i = 0; i < 5; i++){
         let random_color = random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1},10,0.1)
         let random_color_string = RGBAtoString(random_color)
         tiles[newTileID] = generateFoorTile(base_color,side_color,random_color_string,path_generated_tiles)
         newTileID++
     }
+
+    //Add 100 to tile id so we dont overwrite any of the generic tiles
+    newTileID = 100
 
     //generate room tiles, and replace existing tiles for each room with thier unique ones
     for(let room of netAreaGenerator.arr_rooms){
@@ -52,11 +69,18 @@ async function generateNetAreaAssets(netAreaGenerator,path_generated_tiles){
                 const globalX = room.x + x
                 const globalY = room.y + y
                 const globalZ = room.z + z
-                netAreaGenerator.matrix[globalZ][globalY][globalX] = tileID;
+                netAreaGenerator.matrix[globalZ][globalY][globalX] = newTileID;
             }
         }
         newTileID++
     }
+
+    //Overwrite net area tiles with generated ones
+    for(let tid in tiles){
+        let tileInfo = tiles[tid]
+        netAreaGenerator.tile_types[tid] = {tileCount:1,sourcePath:tileInfo}
+    }
+
     console.log('generated tiles',tiles)
 
 }
