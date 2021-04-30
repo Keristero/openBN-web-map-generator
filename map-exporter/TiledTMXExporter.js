@@ -4,7 +4,7 @@ const {featureCategories} = require('../new-map-generator/features')
 let { writeFile } = require('fs/promises')
 
 class TiledTMXExporter {
-    constructor(NetArea, p_properties, generated_tiles) {
+    constructor(NetArea, p_properties) {
         this.height = NetArea.height
         this.length = NetArea.length
         this.width = NetArea.width
@@ -18,6 +18,7 @@ class TiledTMXExporter {
 
         this.tileLayers = []
         this.objectLayers = []
+        this.assets = []
 
         //Default properties
         let properties = {
@@ -165,6 +166,7 @@ class TiledTMXExporter {
                 "@firstgid":`${parseInt(firstgid)}`,
                 "@source":`${sourcePath}`
             }
+            this.assets.push(sourcePath)
             this.nextTileGID = parseInt(firstgid)+tileCount
             tilesetArray.push(newTilesetData)
             console.log(`[TMXExporter] added tileset ${newTilesetData["@firstgid"]}:${newTilesetData["@source"]}`)
@@ -212,6 +214,7 @@ class TiledTMXExporter {
     async ExportTMX(path) {
         const doc = create({ version: '1.0' }, this.xmlJSON).end({ prettyPrint: true });
         writeFile(path,doc)
+        return this.assets
     }
 }
 

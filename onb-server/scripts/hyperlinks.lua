@@ -44,6 +44,9 @@ function handle_object_interaction(player_id, object_id)
 
             load_asset(n_area_properties["Background Texture"])
             load_asset(n_area_properties["Background Animation"])
+            for index, value in ipairs(area_info.assets) do
+                load_asset(value)
+            end
 
             --Read new generated map file
             local read_file_promise = Async.read_file(area_info.area_path)
@@ -55,7 +58,7 @@ function handle_object_interaction(player_id, object_id)
             end)
 
         else
-            --transfer_player(player_id,area_info.area_id)
+            transfer_player(player_id,area_info.area_id)
         end
     end)
 
