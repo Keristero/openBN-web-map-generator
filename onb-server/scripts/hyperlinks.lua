@@ -2,80 +2,121 @@ local json = require('scripts/libs/json')
 
 local currently_generating = {}
 local player_last_area_url = {}
+local existing_areas = Net.list_areas()
+for index, value in ipairs(existing_areas) do
+    print("existing area",index,value)
+end
 
 function handle_object_interaction(player_id, object_id)
     local area_id = Net.get_player_area(player_id)
-    local area_properties = Net.get_area_custom_properties(area_id)
-    local object = Net.get_object_by_id(area_id, object_id)
+    local link_object = Net.get_object_by_id(area_id, object_id)
     --Only check 'link' interactions
-    if object.type ~= "link" and object.type ~= "back_link" then
+    if link_object.type ~= "link" and link_object.type ~= "back_link" then
         return
     end
+    on_link_interaction(player_id,link_object)
+end
 
-    local web_link = object.custom_properties.link
+function map_is_already_loaded(map_id)
+    Net.has_asset(server_path)
+end
 
+function on_link_interaction(player_id,link_object)
     --TODO insert check here to see if the map is already loaded
-    if currently_generating[object_id] then
+
+    --check if map is already being generated
+    if currently_generating[link_object.id] then
         print("[hyperlinks] already generating this area....")
         return
     end
-    currently_generating[object_id] = true
+    currently_generating[link_object.id] = true
 
     --get link details
-    local link = object.custom_properties.link
-    local text = object.custom_properties.text
+    local link = link_object.custom_properties.link
+    local text = link_object.custom_properties.text
 
-    if object.type == "back_link" then
-        --TODO get area URL from tiled map player_metadata 
+    --If it is a back link, overwrite destination link to previous url the player was at
+    if link_object.type == "back_link" then
         link = player_last_area_url[player_id]
         print("back_link:"..link)
     end
 
     --Generate a map
-    local generate_map_promise = generate_linked_map(player_id, link, text)
-    generate_map_promise.and_then(function (area_info)
-        print('[hyperlinks] map generated')
-        currently_generating[object_id] = nil
+    Async.promisify(coroutine.create(function()
+        local generate_map_promise = generate_linked_map(player_id, link, text)
+        local area_info = Async.await(generate_map_promise)
+        print('[hyperlinks] received map info '..area_info.area_path)
 
-        if area_info.fresh == true then
+        if area_info.fresh then
+            print('[hyperlinks] new map was generated '..area_info.area_path)
             --If the map was just generated
-
-            local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
-
-            load_asset(n_area_properties["Background Texture"])
-            load_asset(n_area_properties["Background Animation"])
-            for index, value in ipairs(area_info.assets) do
-                load_asset(value)
-            end
 
             --Read new generated map file
             local read_file_promise = Async.read_file(area_info.area_path)
-            read_file_promise.and_then(function (area_data)
-                --Add area to server
-                Net.update_area(area_info.area_id, area_data)
-                print("[hyperlinks] added area "..area_info.area_id)
-                transfer_player(player_id,area_info.area_id)
-            end)
+            local area_data = Async.await(read_file_promise)
+            --Add area to server
+            print("[hyperlinks] read tmx, updating area "..area_info.area_id)
+            Net.update_area(area_info.area_id, area_data)
+            print("[hyperlinks] updated area "..area_info.area_id)
 
+            local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
+
+            print('[hyperlinks] area properties gotten')
+
+            print("[hyperlinks] loading assets...")
+            local tilesheet_promises = {}
+            tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(n_area_properties["Background Texture"])
+            tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(n_area_properties["Background Animation"])
+            for index, value in ipairs(area_info.assets) do
+                tilesheet_promises[#tilesheet_promises+1] = load_asset_promise(value)
+            end
+            Async.await_all(tilesheet_promises)
+            print("[hyperlinks] loaded all assets!")
+
+            currently_generating[link_object.id] = nil
+
+    
+            transfer_player(player_id,area_info.area_id)
+            
         else
+            currently_generating[link_object.id] = nil
+            print('[hyperlinks] area already existed, transfering right away '..area_info.area_path)
             transfer_player(player_id,area_info.area_id)
         end
-    end)
-
+    end))
 end
 
+--[[
 function load_asset(asset_path)
-    existing_asset_size = Net.get_asset_size(asset_path)
-    if existing_asset_size == 0 then
+    if not Net.has_asset(asset_path) then
         print("[hyperlinks] loading new asset "..asset_path)
-        local read_background_promise = Async.read_file(n_area_properties["Background Texture"])
-        read_background_promise.and_then(function (asset_data)
+        local read_asset_promise = Async.read_file(asset_path)
+        read_asset_promise.and_then(function (asset_data)
             Net.update_asset(asset_path, asset_data)
             print("[hyperlinks] loaded new asset "..asset_path)
         end)
     else
         print("[hyperlinks] asset already exists "..asset_path)
     end
+end
+]]
+
+
+function load_asset_promise(system_asset_path)
+    local co = coroutine.create(function ()
+        if not Net.has_asset(system_asset_path) then
+            print("[hyperlinks] loading new asset "..system_asset_path)
+            local read_asset_promise = Async.read_file(system_asset_path)
+            local asset_data = Async.await(read_asset_promise)
+
+            local server_asset_path = system_asset_path:gsub( "%./", "/server/")
+            print("[hyperlinks] new asset name (server) "..server_asset_path)
+            Net.update_asset(server_asset_path, asset_data)
+        else
+            print("[hyperlinks] asset already exists "..server_asset_path)
+        end
+    end)
+    return Async.promisify(co)
 end
 
 function transfer_player(player_id,new_area_id)
@@ -103,7 +144,6 @@ function generate_linked_map(player_id, link, text)
     headers["Content-Type"] = "application/json"
     local body = {
         player_id = player_id,
-        object_id = object_id,
         link = link,
         text = text
     }

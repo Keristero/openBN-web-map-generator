@@ -37,7 +37,20 @@ async function generate(url,isHomePage = false){
     let path_generated_map = path.join(path_onb_server,"areas",`${santizedURL}.tmx`)
     let path_generated_tiles = path.join(path_onb_server,"assets","generated")
     let path_background_output = path.join(path_onb_server,path_domain_assets)
+    let relativeServerMapPath = replaceBackslashes(path_generated_map)
+    relativeServerMapPath = relativeServerMapPath.substring(relativeServerMapPath.indexOf('/') + 1);
     fs.mkdirSync(path_background_output, { recursive: true })
+
+    //Check if map already exists
+    let map_already_exists = fs.existsSync(path_generated_map)
+    if(map_already_exists){
+        let result = {
+            area_path:relativeServerMapPath,
+            area_id:santizedURL,
+            fresh:false
+        }
+        return result
+    }
 
     //Properties which will be included in the map.tmx
     let server_domain_asset_path = replaceBackslashes(path_domain_assets)
@@ -78,14 +91,12 @@ async function generate(url,isHomePage = false){
 
     console.log(`saved generated map as ${path_generated_map}`)
 
-    let relativeServerMapPath = replaceBackslashes(path_generated_map)
-    relativeServerMapPath = relativeServerMapPath.substring(relativeServerMapPath.indexOf('/') + 1);
-
 
     let result = {
         area_path:relativeServerMapPath,
         area_id:santizedURL,
-        assets:tilesets
+        assets:tilesets,
+        fresh:true
     }
     return result
 }

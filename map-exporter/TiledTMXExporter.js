@@ -166,7 +166,11 @@ class TiledTMXExporter {
                 "@firstgid":`${parseInt(firstgid)}`,
                 "@source":`${sourcePath}`
             }
-            this.assets.push(sourcePath)
+            if(!preexistingTileset ){
+                let asset_path = sourcePath.replace("..",".")
+                this.assets.push(asset_path)
+                this.assets.push(asset_path.replace(".tsx",".png"))
+            }
             this.nextTileGID = parseInt(firstgid)+tileCount
             tilesetArray.push(newTilesetData)
             console.log(`[TMXExporter] added tileset ${newTilesetData["@firstgid"]}:${newTilesetData["@source"]}`)

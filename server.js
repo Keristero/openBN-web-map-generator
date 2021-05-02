@@ -15,18 +15,17 @@ const net_square_url = `http://localhost:${web_server_port}`
 app.post('/', async function (req, res) {
   console.log(req.body)
   let response;
+  res.status(200)
   if(req?.body?.link){
     if(req?.body?.link == net_square_url){
       response = {status:"ok",area_id:"default",area_path:"areas/default.tmx",fresh:false,assets:[]}
     }else{
-      let {area_id,area_path,assets} = await generate(req?.body?.link)
-      response = {status:"ok",area_id,area_path,fresh:true,assets}
+      let {area_id,area_path,assets,fresh} = await generate(req?.body?.link)
+      response = {status:"ok",area_id,area_path,fresh,assets}
     }
   }else{
     response = {status:"error"}
   }
-
-  res.status(200)
   res.send(JSON.stringify(response))
 })
 
