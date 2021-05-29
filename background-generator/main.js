@@ -23,8 +23,12 @@ async function generateBackgroundForWebsite(url,outputName,outputPath){
 
 async function generateAnimationFile(PNGname,outputPath,width,height,frames){
     let outputString = `imagePath="${PNGname}"\nanimation state="BG"\n`
+
+    let frames_per_row = Math.round(Math.sqrt(frames))+1
     for(let i = 0; i < frames; i++){
-        outputString += `frame duration="0.041" x="0" y="${i*height}" w="${width}" h="${height}" originx="0" originy="0"\n`
+        let x = i % frames_per_row
+        let y = Math.floor(i / frames_per_row)
+        outputString += `frame duration="0.041" x="${x*width}" y="${y*height}" w="${width}" h="${height}" originx="0" originy="0"\n`
     }
     fs.writeFileSync(outputPath,outputString)
 }
@@ -60,14 +64,15 @@ async function generateAnimationPNG(converted_favicon_path, output_path, preview
 
     let animation = new TweenedAnimation(canvas, favicon, parameters)
 
-    let out_canvas = createCanvas(width, height * animation.frames)
+    let out_sheet_row_length = Math.round(Math.sqrt(animation.frames))+1
+    let out_canvas = createCanvas(out_sheet_row_length*width, out_sheet_row_length*height)
     let out_ctx = out_canvas.getContext('2d')
     out_ctx.imageSmoothingEnabled = false
 
     //Animate
     while (frame < animation.frames) {
         animation.animateFrame(ctx, frame)
-        saveOutputFrame(canvas, preview, out_ctx, preview_ctx, encoder, frame)
+        saveOutputFrame(canvas, preview, out_ctx, out_sheet_row_length, preview_ctx, encoder, frame)
         ctx.clearRect(0, 0, width, height)
         frame++
     }
@@ -319,7 +324,7 @@ class TweenedAnimation extends StaticAnimation {
     }
 }
 
-function saveOutputFrame(canvas, preview, out_ctx, preview_ctx, encoder, frame_index) {
+function saveOutputFrame(canvas, preview, out_ctx, out_sheet_row_length, preview_ctx, encoder, frame_index) {
     //Draw outputs
     if (preview) {
         //Draw 4 copies of the image to preview how well the gif tiles
@@ -329,7 +334,11 @@ function saveOutputFrame(canvas, preview, out_ctx, preview_ctx, encoder, frame_i
         preview_ctx.drawImage(canvas, canvas.width, canvas.height)
         encoder.addFrame(preview_ctx);
     }
-    out_ctx.drawImage(canvas, 0, canvas.height * frame_index)
+    let tile_widths = out_sheet_row_length
+    let tile_heights = out_sheet_row_length
+    let x = frame_index % tile_widths
+    let y = Math.floor(frame_index / tile_heights)
+    out_ctx.drawImage(canvas, x*64, y*64)
 }
 
 function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {
