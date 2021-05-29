@@ -65,8 +65,13 @@ function on_link_interaction(player_id,link_object)
 
             print("[hyperlinks] loading assets...")
             local tilesheet_promises = {}
-            tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(n_area_properties["Background Texture"])
-            tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(n_area_properties["Background Animation"])
+            --TODO I need to make it load the backgrounds right
+            local background_texture_relative_path = n_area_properties["Background Texture"]:gsub("/server/", "./")
+            local background_animation_relative_path = n_area_properties["Background Animation"]:gsub("/server/", "./")
+            print("TRYING TO LOAD BACKGROUND FROM:")
+            print(background_texture_relative_path)
+            tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(background_texture_relative_path)
+            tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(background_animation_relative_path)
             for index, value in ipairs(area_info.assets) do
                 tilesheet_promises[#tilesheet_promises+1] = load_asset_promise(value)
             end
@@ -85,22 +90,6 @@ function on_link_interaction(player_id,link_object)
         end
     end))
 end
-
---[[
-function load_asset(asset_path)
-    if not Net.has_asset(asset_path) then
-        print("[hyperlinks] loading new asset "..asset_path)
-        local read_asset_promise = Async.read_file(asset_path)
-        read_asset_promise.and_then(function (asset_data)
-            Net.update_asset(asset_path, asset_data)
-            print("[hyperlinks] loaded new asset "..asset_path)
-        end)
-    else
-        print("[hyperlinks] asset already exists "..asset_path)
-    end
-end
-]]
-
 
 function load_asset_promise(system_asset_path)
     local co = coroutine.create(function ()
