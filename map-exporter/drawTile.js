@@ -14,32 +14,32 @@ function drawRandomTileOnCanvas() {
     let rng = new RNG()
     let minColor = { r: 0, g: 0, b: 0, a: 0.2 }
     let maxColor = { r: 255, g: 255, b: 255, a: 1 }
-    let baseColor = RGBAtoString(rng.RGBA(minColor, maxColor))
-    let sideColor = RGBAtoString(rng.RGBA(minColor, maxColor))
+    let base_color = RGBAtoString(rng.RGBA(minColor, maxColor))
+    let side_color = RGBAtoString(rng.RGBA(minColor, maxColor))
     let color = RGBAtoString(rng.RGBA(minColor, maxColor))
     let tile_options = {
         width: 64,
         length: 32,
         tile_height: 8,
         line_width: 3,
-        baseColor,
-        sideColor,
+        base_color,
+        side_color,
         color
     }
     return drawTileOnCanvas(tile_options)
 }
 
-function drawTileOnCanvas({width,length,tile_height,line_width,baseColor,sideColor,color}) {
+function drawTileOnCanvas({width,length,tile_height,line_width,base_color,side_color,color}) {
     let canvasWidth = width + line_width
     let canvasHeight = length + tile_height + line_width
     let canvas = createCanvas(canvasWidth, canvasHeight)
     let ctx = canvas.getContext('2d')
-    console.log(baseColor)
-    drawTile(ctx, 0, 0, width, length, tile_height, line_width, baseColor, sideColor, color)
+    drawTile(ctx, 0, 0, width, length, tile_height, line_width, base_color, side_color, color)
     return canvas
 }
 
-function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideColor, topColor) {
+function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, base_color, side_color, color) {
+    console.log('drawing tile',base_color,side_color,color)
     let x = (px + xSize / 2) + (lineWidth / 2)
     let y = py + (lineWidth / 2)
     let drawAndFillPath = function (points) {
@@ -72,10 +72,10 @@ function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideCo
     let top_left = { x: x - hw, y: y + hh }
     let bottom_left = { x: x - hw, y: ly + hh }
 
-    ctx.fillStyle = baseColor
+    ctx.fillStyle = base_color
     let bottomPoints = [bottom_back, bottom_right, bottom_front, bottom_left, bottom_back]
     drawAndFillPath(bottomPoints)
-    ctx.fillStyle = sideColor
+    ctx.fillStyle = side_color
     let rightSidePoints = [bottom_back, top_back, top_right, bottom_right, bottom_back]
     drawAndFillPath(rightSidePoints)
     let leftSidePoints = [bottom_back, top_back, top_left, bottom_left, bottom_back]
@@ -84,7 +84,7 @@ function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, baseColor, sideCo
     drawAndFillPath(frontRightPoints)
     let frontLeftPoints = [bottom_front, top_front, top_left, bottom_left, bottom_front]
     drawAndFillPath(frontLeftPoints)
-    ctx.fillStyle = topColor
+    ctx.fillStyle = color
     let topPoints = [top_back, top_right, top_front, top_left, top_back]
     drawAndFillPath(topPoints)
 

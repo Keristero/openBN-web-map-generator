@@ -11,8 +11,8 @@ function fastHash(data){
     return crypto.createHash('sha1').update(data).digest('hex');
 }
 
-function generateFoorTile(baseColor,sideColor,color,path_generated_tiles){
-    let tile_options = {width:62,length:30,tile_height:8,line_width:3,baseColor,sideColor,color}
+function generateFloorTile(base_color,side_color,color,path_generated_tiles){
+    let tile_options = {width:62,length:30,tile_height:8,line_width:3,base_color,side_color,color}
     let tile_options_string = JSON.stringify(tile_options)
     let tile_options_hash = fastHash(tile_options_string)
     let tile_output_path = path.join(path_generated_tiles,tile_options_hash)
@@ -38,16 +38,15 @@ async function generateTSX(tsx_path,tileHash){
 
 async function generateNetAreaAssets(netAreaGenerator,path_generated_tiles){
     //Generate random base and side colors
-    let base_color = RGBAtoString(random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1}),10,0.1)
-    let side_color = RGBAtoString(random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1}),10,0.1)
+    let base_color = RGBAtoString(random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1},10,0.1))
+    let side_color = RGBAtoString(random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1},10,0.1))
 
     //generate generic tiles
     let newTileID = 2
     let tiles = {}
     for(let i = 0; i < 5; i++){
-        let random_color = random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1},10,0.1)
-        let random_color_string = RGBAtoString(random_color)
-        tiles[newTileID] = generateFoorTile(base_color,side_color,random_color_string,path_generated_tiles)
+        let color = RGBAtoString(random.RGBARounded({r:50,g:50,b:50,a:0.2},{r:250,g:250,b:250,a:1},10,0.1))
+        tiles[newTileID] = generateFloorTile(base_color,side_color,color,path_generated_tiles)
         newTileID++
     }
 
@@ -60,7 +59,7 @@ async function generateNetAreaAssets(netAreaGenerator,path_generated_tiles){
             continue
         }
         //Generate tile
-        tiles[newTileID] = generateFoorTile(base_color,side_color,room.color,path_generated_tiles)
+        tiles[newTileID] = generateFloorTile(base_color,side_color,room.color,path_generated_tiles)
         //Replace tiles on map, leave room itself unmodified
         let roomMatrixIterator = iterateOver3dMatrix(room.prefab.matrix)
         let tilesToReplace = [netAreaGenerator.id_floor_1,netAreaGenerator.id_floor_2,netAreaGenerator.id_floor_3]
