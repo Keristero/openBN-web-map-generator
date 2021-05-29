@@ -7,10 +7,12 @@ const TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
 const {generateNetAreaAssets} = require('./map-exporter/generateAssets.js')
 const PrefabLoader = require('./prefab-processor/PrefabLoader.js')
 const scrape = require('./scrape.js')
-const {parseDomainName, replaceBackslashes} = require('./helpers.js')
+const {parseDomainName, replaceBackslashes,RNG} = require('./helpers.js')
 const generateBackgroundForWebsite = require('./background-generator/main.js')
 const crypto = require('crypto')
+const songs = ["boundless-network.ogg","digital-strider.ogg","global-network.ogg","internet-world.ogg","life-in-the-network.ogg","network-is-spreading.ogg","network-space.ogg"]
 let prefabLoader = new PrefabLoader()
+let random = new RNG()
 
 
 async function generate(url,isHomePage = false){
@@ -36,16 +38,18 @@ async function generate(url,isHomePage = false){
     let path_onb_server = path.join(".","onb-server")
     let path_generated_map = path.join(path_onb_server,"areas",`${santizedURL}.tmx`)
     let path_generated_tiles = path.join(path_onb_server,"assets","generated")
+    let path_music = path.join("assets","shared","music")
     let path_background_output = path.join(path_onb_server,path_domain_assets)
-    let relativeServerMapPath = replaceBackslashes(path_generated_map)
-    relativeServerMapPath = relativeServerMapPath.substring(relativeServerMapPath.indexOf('/') + 1);
+    let relative_server_music_path = path_music.substring(path_music.indexOf('/') + 1);
+    let relative_server_map_path = replaceBackslashes(path_generated_map)
+    relative_server_map_path = relative_server_map_path.substring(relative_server_map_path.indexOf('/') + 1);
     fs.mkdirSync(path_background_output, { recursive: true })
 
     //Check if map already exists
     let map_already_exists = fs.existsSync(path_generated_map)
     if(map_already_exists){
         let result = {
-            area_path:relativeServerMapPath,
+            area_path:relative_server_map_path,
             area_id:santizedURL,
             fresh:false
         }
@@ -60,6 +64,8 @@ async function generate(url,isHomePage = false){
         "Background Animation":`/server/${server_domain_asset_path}/background.animation`,
         "Background Texture":`/server/${server_domain_asset_path}/background.png`,
     }
+
+    exampleSiteProperties["Song"] = `/server/${replaceBackslashes(path.join(relative_server_music_path,songs[random.Integer(0,songs.length-1)]))}`
 
     let netAreaGenerator = new NetAreaGenerator()
     
@@ -93,7 +99,7 @@ async function generate(url,isHomePage = false){
 
 
     let result = {
-        area_path:relativeServerMapPath,
+        area_path:relative_server_map_path,
         area_id:santizedURL,
         assets:tilesets,
         fresh:true
