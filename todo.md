@@ -1,60 +1,20 @@
-Next:
-1. ✅ Load prefabs, they should have this data
-- ✅ matrix
-- ✅ feature list
-    - ✅ connections
-    - ✅ ground features
-    - ✅ wall features
+## Todo
+- ✅ Further refine scraping
+- Script basic NPCS
+    - add assets
+    - script NPC generation from objects in tiled
 
-1. ✅ Update net area generator to support new prefabs
+- polish warps, add opening of warps and error handling
+    - warps are opened instead of automatically warping you when loaded
+    - if an error occurs during generation, the warp is blocked
+    - back warps take you back to the last warp you used
+    - warp player to center of warp and use landing animation
 
-1. ✅ Add basic TMX export!
-
-1. ✅ Add stair generation logic 
-
-1. ✅ Make a few more prefabs
-
-1. ✅ Replace home warp generation with "Back" warp generation (site entry + back to last site warp)
-    1. except for first home (net square)
-
-1. when warping "Back", go back to warp used previously to get to this area (if possible)
-
-
-
-1. Automatically extend height of map when required
-
-1. Refine scraping so that it only returns exactly the elements we want...
-
-
-## Background Generator
-- ✅ Remove scrolling from animation, this is handled clientside.
-- ✅ Add some randomized variations with flipping/rotating tiles etc.
-
-## New Map Generator
-- ✅ Add third dimension
-- ✅ Stair placement
-- ✅ Links
-- ✅ Images
-- ✅ Text
-- Generate new colored tiles when required
-
-## Prefab Processor
-- Generate flip variations
-- Generate rotate variations
-- ✅ Count each feature type and list locations of features (not really needed aye)
-
-## Tile texture generator
-- make it a module
-- Add generaton of stairs
-- Add generation of warps (or use static warps)
-- Add generation of screens (or use static warps)
-- Add generation of mugshots for screens
-
-## TMX Exporter
-- ✅ Export map data
-- ✅ Initially, just use static tilesets and textures
-- ✅ Export Warps
-- ✅ Export Prog Text
-- ✅ Export Pictures
-- Export with generated background path
-- Use generated tilesets and textures
+- Use page background color in background generation
+- Use colors from favicon for tiles
+- Add prefab stitching for generating large rooms
+    - prefabs can have more prefabs stitched to them to accomidate more features
+    - prefabs can be rotated
+    - prefabs can be mirrored
+- Generate image screen mugshots
+- Add stair tile generation
