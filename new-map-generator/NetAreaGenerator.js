@@ -63,15 +63,12 @@ class NetAreaGenerator {
         this.arr_queue = [startingNode]
         await this.processNodeQueue();
         this.removeAllWalls()
-        /* TODO re enable trimming once client shadow bug is fixed
         let trimmed = trim3dMatrix(this.matrix,this.id_air)
         this.width = trimmed.width
         this.length = trimmed.length
         this.height = trimmed.height
         this.matrix = trimmed.matrix
         let updatedOffsets = {x:trimmed.x,y:trimmed.y,z:trimmed.z}
-        */
-        let updatedOffsets = {x:0,y:0,z:0}
         this.copyFeaturesOfRoomsToArea(updatedOffsets)
     }
     removeAllWalls(){
