@@ -75,6 +75,8 @@ async function generate(url,isHomePage = false){
     if(!isHomePage){
         console.log(`generating background animation`)
         await generateBackgroundForWebsite(url,"background",path_background_output)
+    }else{
+        exampleSiteProperties["Background"] = "misc"
     }
 
     console.log(`loading prefabs`)
