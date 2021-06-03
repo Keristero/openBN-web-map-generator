@@ -72,7 +72,9 @@ class TextFeature extends Feature{
         this.y_spawn_offset = -16
         this.x_spawn_offset = -16
         let newProperties = {
-            "default_response":feature.text.toUpperCase(),
+            "npc_asset_name":"prog",
+            "npc_chat":feature.text.toUpperCase(),
+            "npc_type":"chat"
         }
         Object.assign(this.properties,newProperties)
     }
