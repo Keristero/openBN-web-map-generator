@@ -78,7 +78,7 @@ function on_link_interaction(player_id,link_object)
             end
             Async.await_all(tilesheet_promises)
             print("[hyperlinks] loaded all assets!")
-            ezevents.broadcast_event('hyperlinks_added_area',area_info.area_id)
+            ezevents.broadcast_event('new_area_added',area_info.area_id)
 
             currently_generating[link_object.id] = nil
 
