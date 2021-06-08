@@ -1,10 +1,12 @@
 const fs = require("fs");
 const path = require('path');
 const axios = require("axios").default;
-const {parseDomainName} =require('../helpers.js')
+const url =require('url')
 
 async function downloadFavicon(linkToWebsite,output_path){
-    let favicon_address = parseDomainName(linkToWebsite)
+    
+    let web_address = url.parse(linkToWebsite)
+    let favicon_address = web_address.hostname
     let faviconToPNGApiAddr = `https://www.google.com/s2/favicons?domain=${favicon_address}`
     let response = await axios.get(faviconToPNGApiAddr,{responseType:'stream'})
     let writer = fs.createWriteStream(output_path)

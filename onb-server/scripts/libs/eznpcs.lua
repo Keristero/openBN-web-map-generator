@@ -8,8 +8,8 @@ npc_required_properties = {"Direction","npc_asset_name"}
 
 function CreateBotFromObject(area_id,object_id)
     local placeholder_object = Net.get_object_by_id(area_id, object_id)
-    x = placeholder_object.x
-    y = placeholder_object.y
+    x = placeholder_object.x+1
+    y = placeholder_object.y+1
     z = placeholder_object.z
 
     for i, prop_name in pairs(npc_required_properties) do
@@ -46,6 +46,7 @@ function CreateNPC(area_id,asset_name,x,y,z,direction,is_solid,bot_name)
     name = bot_name or nil
     solid = is_solid or true
     npc_data = {
+        asset_name=asset_name,
         bot_id=lastBotId, 
         name=name, 
         area_id=area_id, 
@@ -61,7 +62,7 @@ function CreateNPC(area_id,asset_name,x,y,z,direction,is_solid,bot_name)
     }
     Net.create_bot(lastBotId, npc_data)
     npcs[lastBotId] = npc_data
-    print('[eznpcs] created npc at ('..x..','..y..','..z..')')
+    print('[eznpcs] created npc '..lastBotId..' at ('..x..','..y..','..z..')')
     return npcs[lastBotId]
 end
 
@@ -85,7 +86,7 @@ function ChatBehaviour(chat_text)
         type='on_interact',
         action=function(npc,player_id)
             npc.is_interacting = true
-            local mug_texture_path = npc_asset_folder.."/mug/"..asset_name..".png"
+            local mug_texture_path = npc_asset_folder.."/mug/"..npc.asset_name..".png"
             --TODO, add mugshot animation where it exists
             Net.message_player(player_id, chat_text, mug_texture_path)
             npc.is_interacting = false
@@ -113,8 +114,11 @@ function WaypointFollowBehaviour(first_waypoint_id)
 end
 
 function OnActorInteraction(player_id,actor_id)
-    npc = npcs[actor_id]
-    if npc then
+    print('interacting with actor'..actor_id)
+    local npc_id = tonumber(actor_id)
+    if npcs[npc_id] then
+        print('interacting with npc!')
+        local npc = npcs[npc_id]
         if npc.on_interact then
             npc.on_interact.action(npc,player_id)
         end

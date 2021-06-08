@@ -10,6 +10,7 @@ class Feature{
         this.width = 64
         this.height = 32
         this.tid = 0
+        this.visible = "1"
         this.properties = {}
         Object.assign(this.properties,properties)
     }
@@ -66,6 +67,7 @@ class TextFeature extends Feature{
     constructor(x,y,z,feature,properties){
         super(x,y,z,properties)
         this.type = "NPC"
+        this.visible = 0
         this.y_spawn_offset = -16
         this.x_spawn_offset = -16
         let newProperties = {

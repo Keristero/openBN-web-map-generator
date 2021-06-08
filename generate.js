@@ -21,11 +21,6 @@ async function load(){
 
 load()
 
-function parseHostName(linkToWebsite){
-    let addr = url.parse(linkToWebsite)
-    return addr.hostname
-}
-
 async function generate(site_url,isHomePage = false){
     //URL of website to scrape
     let hashed_url = crypto.createHash('sha256').update(site_url, 'utf8').digest('hex');

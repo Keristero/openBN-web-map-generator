@@ -134,6 +134,7 @@ class TiledTMXExporter {
             "@y":isoCoords.y+feature.y_spawn_offset,
             "@width":feature.width,
             "@height":feature.height,
+            "@visible":feature.visible,
             "properties":{
                 "property":[]
             }
