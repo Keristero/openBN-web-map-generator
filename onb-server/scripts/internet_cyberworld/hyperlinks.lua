@@ -25,7 +25,6 @@ end
 function on_link_interaction(player_id,link_object)
     --TODO insert check here to see if the map is already loaded
     local current_area_id = Net.get_player_area(player_id)
-    local used_back_link = false
 
     --check if map is already being generated
     if currently_generating[link_object.id] then
@@ -42,8 +41,7 @@ function on_link_interaction(player_id,link_object)
     if link_object.type == "back_link" then
         local last_warp_info = player_last_warp_info[current_area_id][player_id]
         currently_generating[link_object.id] = false
-        used_back_link = true
-        transfer_player_from_warp_to_warp(player_id,current_area_id,last_warp_info.area_id,link_object.id,last_warp_info.warp_id,used_back_link)
+        transfer_player_from_warp_to_warp(player_id,current_area_id,last_warp_info.area_id,link_object.id,last_warp_info.warp_id,true)
         return
     end
 
@@ -72,8 +70,6 @@ function on_link_interaction(player_id,link_object)
             --TODO I need to make it load the backgrounds right
             local background_texture_relative_path = n_area_properties["Background Texture"]:gsub("/server/", "./")
             local background_animation_relative_path = n_area_properties["Background Animation"]:gsub("/server/", "./")
-            print("TRYING TO LOAD BACKGROUND FROM:")
-            print(background_texture_relative_path)
             tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(background_texture_relative_path)
             tilesheet_promises[#tilesheet_promises+1]= load_asset_promise(background_animation_relative_path)
             for index, value in ipairs(area_info.assets) do
@@ -81,15 +77,14 @@ function on_link_interaction(player_id,link_object)
             end
             Async.await_all(tilesheet_promises)
             print("[hyperlinks] loaded all assets!")
+            currently_generating[link_object.id] = nil
             ezevents.broadcast_event('new_area_added',area_info.area_id)
-
-.           transfer_player_from_warp_to_warp(player_id,current_area_id,area_info.area_id,link_object.id,n_area_properties.entry_warp_id,used_back_link)
         else
-            local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
+            currently_generating[link_object.id] = nil
             print('[hyperlinks] area already existed, transfering right away '..area_info.area_path)
-            transfer_player_from_warp_to_warp(player_id,current_area_id,area_info.area_id,link_object.id,n_area_properties.entry_warp_id,used_back_link)
         end
-        currently_generating[link_object.id] = nil
+        local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
+        transfer_player_from_warp_to_warp(player_id,current_area_id,area_info.area_id,link_object.id,n_area_properties.entry_warp_id,false)
     end))
 end
 
@@ -111,6 +106,7 @@ function load_asset_promise(system_asset_path)
 end
 
 function transfer_player_from_warp_to_warp(player_id,from_area_id,to_area_id,from_warp_id,to_warp_id,used_back_link)
+    print('[hyperlinks] transfering player to '..to_area_id)
     local destination_warp = Net.get_object_by_id(to_area_id,to_warp_id)
     if not player_last_warp_info[to_area_id] then
         player_last_warp_info[to_area_id] = {}
