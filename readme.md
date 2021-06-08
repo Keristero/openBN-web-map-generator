@@ -8,8 +8,10 @@ node test-new-map-generator.js
 ## Todo
 - ✅ Further refine scraping
 - Script basic NPCS
-    - add assets
-    - script NPC generation from objects in tiled
+    - ✅ add assets
+    - ✅ script NPC generation from objects in tiled
+
+- ✅ Generate the same music for a given hostname every time
 
 - polish warps, add opening of warps and error handling
     - warps are opened instead of automatically warping you when loaded

@@ -1,6 +1,7 @@
 const express = require('express')
 
 const generate = require('./generate')
+const {asyncSleep} = require('./helpers')
 
 const app = express()
 //For parsing json bodies
@@ -32,6 +33,7 @@ app.post('/', async function (req, res) {
 app.listen(web_server_port)
 
 async function main(){
+  await asyncSleep(2000)
   await generate(net_square_url,true)
 }
 

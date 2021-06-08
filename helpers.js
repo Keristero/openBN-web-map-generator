@@ -1,4 +1,3 @@
-const url = require('url');
 const { createCanvas, loadImage } = require('canvas')
 
 class RNG {
@@ -42,6 +41,12 @@ class RNG {
         let a = roundToNearest(this.Float(mincolor.a,maxcolor.a),alphaRounding)
         return {r,g,b,a}
     }
+}
+
+function asyncSleep(time_ms){
+    return new Promise((resolve)=>{
+        setTimeout(resolve,time_ms)
+    })
 }
 
 function roundToNearest(value,nearestX) {
@@ -153,11 +158,6 @@ function* iterateOver3dMatrix(matrix, startX = 0, startY = 0, startZ = 0, lastX,
     }
 }
 
-function parseDomainName(linkToWebsite){
-    let addr = url.parse(linkToWebsite)
-    return addr.host
-}
-
 function replaceBackslashes(string){
     return string.replace(/\\/gm,'/')
 }
@@ -252,9 +252,9 @@ module.exports = {
     iterateOver3dMatrix,
     stackArrayIntoLayers,
     unstackLayersIntoArray,
-    parseDomainName,
     RGBAtoString,
     replaceBackslashes,
     returnObjectFromArrayWithKeyValue,
-    trim3dMatrix
+    trim3dMatrix,
+    asyncSleep
 }

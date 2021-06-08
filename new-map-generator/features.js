@@ -44,13 +44,13 @@ class HomeWarpFeature extends Feature{
         super(x,y,z,properties)
         this.type = "Home Warp"
     }
-    onExport({exporter,x,y,z}){
+    onExport({exporter,x,y,z,newObject}){
         //Called by tmx exporter when this feature is exported
         //sets the default entry point for this map, where the player will be transfered to on moving here
         exporter.AddProperty("entryX",x)//+0.5 so that players appear in the middle of the tile
         exporter.AddProperty("entryY",y)
         exporter.AddProperty("entryZ",z)
-        exporter.AddProperty("entryDirection",this.properties.Direction)
+        exporter.AddProperty("entryWarpId",newObject["@id"])
     }
 }
 
