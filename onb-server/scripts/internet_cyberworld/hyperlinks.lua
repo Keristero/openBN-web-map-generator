@@ -2,7 +2,7 @@ local json = require('scripts/libs/json')
 local ezevents = require('scripts/libs/ezevents')
 
 local currently_generating = {}
-local player_last_area_url = {}
+local player_last_warp_info = {}
 local existing_areas = Net.list_areas()
 for index, value in ipairs(existing_areas) do
     print("existing area",index,value)
@@ -24,6 +24,7 @@ end
 
 function on_link_interaction(player_id,link_object)
     --TODO insert check here to see if the map is already loaded
+    current_area_id = Net.get_player_area(player_id)
 
     --check if map is already being generated
     if currently_generating[link_object.id] then
@@ -38,8 +39,11 @@ function on_link_interaction(player_id,link_object)
 
     --If it is a back link, overwrite destination link to previous url the player was at
     if link_object.type == "back_link" then
-        link = player_last_area_url[player_id]
+        last_warp_info = player_last_warp_info[player_id]
+        currently_generating[link_object.id] = false
         print("back_link:"..link)
+        transfer_player_from_warp_to_warp(player_id,current_area_id,last_warp_info.area_id,link_object.id,last_warp_info.warp_id)
+        return
     end
 
     --Generate a map
@@ -80,16 +84,12 @@ function on_link_interaction(player_id,link_object)
             print("[hyperlinks] loaded all assets!")
             ezevents.broadcast_event('new_area_added',area_info.area_id)
 
-            currently_generating[link_object.id] = nil
-
-    
-            transfer_player(player_id,area_info.area_id)
-            
+            transfer_player_from_warp_to_warp(player_id,current_area_id,area_info.area_id,link_object.id,n_area_properties.entry_warp_id)
         else
-            currently_generating[link_object.id] = nil
             print('[hyperlinks] area already existed, transfering right away '..area_info.area_path)
-            transfer_player(player_id,area_info.area_id)
+            transfer_player_from_warp_to_warp(player_id,current_area_id,area_info.area_id,link_object.id,n_area_properties.entry_warp_id)
         end
+        currently_generating[link_object.id] = nil
     end))
 end
 
@@ -110,23 +110,10 @@ function load_asset_promise(system_asset_path)
     return Async.promisify(co)
 end
 
-function transfer_player(player_id,new_area_id)
-    local current_area_id = Net.get_player_area(player_id)
-    print("transfering player from "..current_area_id.." to "..new_area_id)
-    local c_area_properties = Net.get_area_custom_properties(current_area_id)
-    print('curentareaprops',c_area_properties)
-    local n_area_properties = Net.get_area_custom_properties(new_area_id)
-    print('nextareaprops',n_area_properties)
-
-    print("entryX",n_area_properties.entryX)
-    print("entryY",n_area_properties.entryY)
-    print("entryZ",n_area_properties.entryZ)
-    print("entryDirection",n_area_properties.entryDirection)
-    
-    --Record the last area the player was in
-    player_last_area_url[player_id] = c_area_properties.URL
-    --Transfer player there
-    Net.transfer_player(player_id, new_area_id,true,n_area_properties.entryX,n_area_properties.entryY,n_area_properties.entryZ,n_area_properties.entryDirection)
+function transfer_player_from_warp_to_warp(player_id,from_area_id,to_area_id,from_warp_id,to_warp_id)
+    local destination_warp = Net.get_object_by_id(to_area_id,to_warp_id)
+    player_last_warp_info[player_id] = {area_id=from_area_id,warp_id=from_warp_id}
+    Net.transfer_player(player_id, to_area_id, true, destination_warp.x,destination_warp.y,destination_warp.z,destination_warp.custom_properties.Direction)
 end
 
 function generate_linked_map(player_id, link, text)
