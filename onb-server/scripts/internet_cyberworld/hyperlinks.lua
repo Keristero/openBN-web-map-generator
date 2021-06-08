@@ -49,6 +49,11 @@ function on_link_interaction(player_id,link_object)
     Async.promisify(coroutine.create(function()
         local generate_map_promise = generate_linked_map(player_id, link, text)
         local area_info = Async.await(generate_map_promise)
+        if area_info.status ~= "ok" then
+            print('[hyperlinks] map generation failed')
+            currently_generating[link_object.id] = nil
+            return
+        end
         print('[hyperlinks] received map info '..area_info.area_path)
 
         if area_info.fresh then

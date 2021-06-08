@@ -21,8 +21,13 @@ app.post('/', async function (req, res) {
     if(req?.body?.link == net_square_url){
       response = {status:"ok",area_id:"default",area_path:"areas/default.tmx",fresh:false,assets:[]}
     }else{
-      let {area_id,area_path,assets,fresh} = await generate(req?.body?.link)
-      response = {status:"ok",area_id,area_path,fresh,assets}
+      try{
+        let {area_id,area_path,assets,fresh} = await generate(req?.body?.link)
+        response = {status:"ok",area_id,area_path,fresh,assets}
+      }catch(e){
+        console.error(e)
+        response = {status:"error"}
+      }
     }
   }else{
     response = {status:"error"}

@@ -19,7 +19,7 @@ and in another terminal
     - generate unique warp texture using favicon, use it for all warps to this hostname
     - use Custom Warp type and `handle_custom_warp`
     - warps are opened instead of automatically warping you when loaded
-    - if an error occurs during generation, the warp is deactivated
+    - ✅ if an error occurs during generation, the warp is deactivated
     - ✅ back warps take you back to the last warp you used
     - warp player to center of warp and use landing animation
 
