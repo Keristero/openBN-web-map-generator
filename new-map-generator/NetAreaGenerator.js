@@ -1,6 +1,6 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
 let {generateGrid,distance,RNG,generate3dMatrix,iterateOver3dMatrix,trim3dMatrix} = require('../helpers')
-let {tiled_tileTypes} = require('../prefab-processor/Prefab')
+let tiled_tileTypes = require('./default_tiles')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
 
