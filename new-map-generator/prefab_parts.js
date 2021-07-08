@@ -11,13 +11,13 @@ let parts = [
                 [1,1,1]
             ]
         ],
-        features:[
+        ground_features:[
             {
                 pos:{x:1,y:1},
-                type:"ground_feature",
                 properties:{}
             }
         ],
+        wall_features:[],
         connections:[
             {
                 x:-1,
@@ -53,15 +53,14 @@ let parts = [
                 [1,1,1]
             ]
         ],
-        features:[
+        ground_features:[],
+        wall_features:[
             {
                 pos:{x:1,y:0},
-                type:"wall_feature",
                 properties:{Direction:"Down Left"}
             },
             {
                 pos:{x:0,y:1},
-                type:"wall_feature",
                 properties:{Direction:"Down Right"}
             }
         ],
@@ -75,3 +74,5 @@ let parts = [
         ]
     }
 ]
+
+module.exports = parts
