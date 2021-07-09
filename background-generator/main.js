@@ -1,13 +1,20 @@
 const fs = require("fs");
 const path = require('path');
+const url = require('url')
 const { createCanvas, loadImage } = require('canvas')
-const { downloadFavicon } = require('./downloadFavicon.js')
-const { RNG } = require('../helpers.js')
+const { RNG ,downloadFile} = require('../helpers.js')
 const TweenJs = require('@tweenjs/tween.js')
 const hash = require('object-hash');
 const Random = new RNG(60902583)
 //For preview
 const GIFEncoder = require('gifencoder');
+
+async function downloadFavicon(linkToWebsite,output_path){
+    let web_address = url.parse(linkToWebsite)
+    let favicon_address = web_address.hostname
+    let faviconToPNGApiAddr = `https://www.google.com/s2/favicons?domain=${favicon_address}`
+    await downloadFile(faviconToPNGApiAddr,output_path)
+}
 
 async function generateBackgroundForWebsite(url,outputName,outputPath){
     let converted_favicon_path = path.resolve(outputPath, `favicon.png`)

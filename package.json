@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
-    "canvas": "^2.7.0",
+    "canvas": "^2.8.0",
     "easystarjs": "^0.4.4",
     "express": "^4.17.1",
     "sanitize-filename": "^1.6.3",

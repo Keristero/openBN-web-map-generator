@@ -1,4 +1,6 @@
 const { createCanvas, loadImage } = require('canvas')
+const axios = require("axios").default;
+const fs = require("fs");
 
 class RNG {
     constructor(startingSeed) {
@@ -243,6 +245,17 @@ function trim3dMatrix(matrix,ignoreID=0){
     return result
 }
 
+async function downloadFile(link_to_file,output_path){
+    let response = await axios.get(link_to_file,{responseType:'stream'})
+    let writer = fs.createWriteStream(output_path)
+    response.data.pipe(writer)
+    console.log(`downloading ${link_to_file}`)
+    return new Promise((resolve, reject) => {
+        writer.on('finish', resolve)
+        writer.on('error', reject)
+    })
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -256,5 +269,6 @@ module.exports = {
     replaceBackslashes,
     returnObjectFromArrayWithKeyValue,
     trim3dMatrix,
-    asyncSleep
+    asyncSleep,
+    downloadFile
 }
