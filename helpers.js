@@ -1,71 +1,71 @@
 const { createCanvas, loadImage } = require('canvas')
-const axios = require("axios").default;
-const fs = require("fs");
+const axios = require('axios').default
+const fs = require('fs')
 
 class RNG {
     constructor(startingSeed) {
         this.seed = startingSeed || Math.random()
     }
-    Bool(){
+    Bool() {
         return Math.random() < 0.501
     }
     Float() {
-        var x = Math.sin(this.seed++) * 10000;
-        return x - Math.floor(x);
+        var x = Math.sin(this.seed++) * 10000
+        return x - Math.floor(x)
     }
     Integer(min, max) {
-        var range = max - min + 1;
-        return Math.floor(range * this.Float()) + min;
+        var range = max - min + 1
+        return Math.floor(range * this.Float()) + min
     }
     UnevenInteger(min, max) {
-        var range = max - min + 1;
-        return (Math.floor((Math.floor(range * this.Float()) + min) / 2) * 2) + 1;
+        var range = max - min + 1
+        return Math.floor((Math.floor(range * this.Float()) + min) / 2) * 2 + 1
     }
     RandomPositionOnCircumference(radius) {
-        var angle = this.Float() * Math.PI * 2;
+        var angle = this.Float() * Math.PI * 2
         return {
             x: Math.cos(angle) * radius,
-            y: Math.sin(angle) * radius
+            y: Math.sin(angle) * radius,
         }
     }
-    RGBA(mincolor,maxcolor){
-        let r = this.Integer(mincolor.r,maxcolor.r)
-        let g = this.Integer(mincolor.g,maxcolor.g)
-        let b = this.Integer(mincolor.b,maxcolor.b)
-        let a = this.Integer(mincolor.a,maxcolor.a)
-        return {r,g,b,a}
+    RGBA(mincolor, maxcolor) {
+        let r = this.Integer(mincolor.r, maxcolor.r)
+        let g = this.Integer(mincolor.g, maxcolor.g)
+        let b = this.Integer(mincolor.b, maxcolor.b)
+        let a = this.Integer(mincolor.a, maxcolor.a)
+        return { r, g, b, a }
     }
-    RGBARounded(mincolor,maxcolor,rounding,alphaRounding){
+    RGBARounded(mincolor, maxcolor, rounding, alphaRounding) {
         //Note, the output can fall outside the min and max due to nearest rounding
-        let r = roundToNearest(this.Integer(mincolor.r,maxcolor.r),rounding)
-        let g = roundToNearest(this.Integer(mincolor.g,maxcolor.g),rounding)
-        let b = roundToNearest(this.Integer(mincolor.b,maxcolor.b),rounding)
-        let a = roundToNearest(this.Float(mincolor.a,maxcolor.a),alphaRounding)
-        return {r,g,b,a}
+        let r = roundToNearest(this.Integer(mincolor.r, maxcolor.r), rounding)
+        let g = roundToNearest(this.Integer(mincolor.g, maxcolor.g), rounding)
+        let b = roundToNearest(this.Integer(mincolor.b, maxcolor.b), rounding)
+        let a = roundToNearest(this.Float(mincolor.a, maxcolor.a), alphaRounding)
+        return { r, g, b, a }
     }
 }
 
-function asyncSleep(time_ms){
-    return new Promise((resolve)=>{
-        setTimeout(resolve,time_ms)
+function asyncSleep(time_ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, time_ms)
     })
 }
 
-function roundToNearest(value,nearestX) {
-    return Math.round(value / nearestX) * nearestX;
+function roundToNearest(value, nearestX) {
+    return Math.round(value / nearestX) * nearestX
 }
 
-function RGBAtoString(color){
+function RGBAtoString(color) {
     return `rgba(${color.r},${color.b},${color.g},${color.a})`
 }
 
 function distance(a, b) {
-    return Math.abs(a - b);
+    return Math.abs(a - b)
 }
 
 function unstackLayersIntoArray(grid) {
     let array = []
-    const iterator = iterateOverGrid(grid);
+    const iterator = iterateOverGrid(grid)
     for (const gridPos of iterator) {
         array.push(gridPos.tileID)
     }
@@ -73,10 +73,10 @@ function unstackLayersIntoArray(grid) {
 }
 
 /**
- * 
- * @param {[number]} array 
- * @param {number} width 
- * @param {number} height 
+ *
+ * @param {[number]} array
+ * @param {number} width
+ * @param {number} height
  * @returns {[[number]]}
  */
 function stackArrayIntoLayers(array, width, height) {
@@ -92,33 +92,33 @@ function stackArrayIntoLayers(array, width, height) {
 }
 
 /**
- * 
- * @param {number} width 
- * @param {number} length 
- * @param {number} defaultValue 
+ *
+ * @param {number} width
+ * @param {number} length
+ * @param {number} defaultValue
  * @returns {[[number]]}
  */
 function generateGrid(width, length, defaultValue = 0) {
-    let grid = [];
+    let grid = []
     for (var y = 0; y < length; y++) {
         grid.push([])
         for (var x = 0; x < width; x++) {
             grid[y].push(defaultValue)
         }
     }
-    return grid;
+    return grid
 }
 
 /**
- * 
- * @param {number} width 
- * @param {number} length 
- * @param {number} height 
- * @param {[[[number]]]} defaultValue 
- * @returns 
+ *
+ * @param {number} width
+ * @param {number} length
+ * @param {number} height
+ * @param {[[[number]]]} defaultValue
+ * @returns
  */
 function generate3dMatrix(width, length, height, defaultValue = 0) {
-    let matrix = [];
+    let matrix = []
     for (var z = 0; z < height; z++) {
         matrix.push([])
         for (var y = 0; y < length; y++) {
@@ -128,7 +128,7 @@ function generate3dMatrix(width, length, height, defaultValue = 0) {
             }
         }
     }
-    return matrix;
+    return matrix
 }
 
 function* iterateOverGrid(grid, startX = 0, startY = 0, lastX, lastY) {
@@ -138,7 +138,7 @@ function* iterateOverGrid(grid, startX = 0, startY = 0, lastX, lastY) {
         let endX = lastX || grid[y].length
         for (let x = startX; x < endX; x++) {
             let tileID = grid[y][x]
-            yield ({ tileID, x, y, index })
+            yield { tileID, x, y, index }
             index++
         }
     }
@@ -153,21 +153,21 @@ function* iterateOver3dMatrix(matrix, startX = 0, startY = 0, startZ = 0, lastX,
             let endX = lastX || matrix[z][y].length
             for (let x = startX; x < endX; x++) {
                 let tileID = matrix[z][y][x]
-                yield ({ tileID, x, y, z, index })
+                yield { tileID, x, y, z, index }
                 index++
             }
         }
     }
 }
 
-function replaceBackslashes(string){
-    return string.replace(/\\/gm,'/')
+function replaceBackslashes(string) {
+    return string.replace(/\\/gm, '/')
 }
 
-function returnObjectFromArrayWithKeyValue(array,key,value){
-    for(let obj of array){
-        if(obj.hasOwnProperty(key)){
-            if(obj[key] === value){
+function returnObjectFromArrayWithKeyValue(array, key, value) {
+    for (let obj of array) {
+        if (obj.hasOwnProperty(key)) {
+            if (obj[key] === value) {
                 return obj
             }
         }
@@ -175,49 +175,49 @@ function returnObjectFromArrayWithKeyValue(array,key,value){
     return null
 }
 
-function crop3dMatrix(matrix, x, y,z, width, length,height) {
-    return matrix.slice(z, z + height).map((layer)=>{
-        return layer.slice(y, y + length).map((row)=>{
+function crop3dMatrix(matrix, x, y, z, width, length, height) {
+    return matrix.slice(z, z + height).map((layer) => {
+        return layer.slice(y, y + length).map((row) => {
             return row.slice(x, x + width)
         })
     })
 }
 
-function findBoundsOfMatrix(matrix,ignoreID = 0){
+function findBoundsOfMatrix(matrix, ignoreID = 0) {
     let iterator = iterateOver3dMatrix(matrix)
     let r = {
-        min:{
-            x:Infinity,
-            y:Infinity,
-            z:Infinity
+        min: {
+            x: Infinity,
+            y: Infinity,
+            z: Infinity,
         },
-        max:{
-            x:-Infinity,
-            y:-Infinity,
-            z:-Infinity
-        }
+        max: {
+            x: -Infinity,
+            y: -Infinity,
+            z: -Infinity,
+        },
     }
-    for(let gridPos of iterator){
-        if(gridPos.tileID == ignoreID){
+    for (let gridPos of iterator) {
+        if (gridPos.tileID == ignoreID) {
             //Consider this tile outside the bounds of the matrix
             continue
         }
-        if(gridPos.x < r.min.x){
+        if (gridPos.x < r.min.x) {
             r.min.x = gridPos.x
         }
-        if(gridPos.x > r.max.x){
+        if (gridPos.x > r.max.x) {
             r.max.x = gridPos.x
         }
-        if(gridPos.y < r.min.y){
+        if (gridPos.y < r.min.y) {
             r.min.y = gridPos.y
         }
-        if(gridPos.y > r.max.y){
+        if (gridPos.y > r.max.y) {
             r.max.y = gridPos.y
         }
-        if(gridPos.z < r.min.z){
+        if (gridPos.z < r.min.z) {
             r.min.z = gridPos.z
         }
-        if(gridPos.z > r.max.z){
+        if (gridPos.z > r.max.z) {
             r.max.z = gridPos.z
         }
     }
@@ -225,14 +225,14 @@ function findBoundsOfMatrix(matrix,ignoreID = 0){
     return r
 }
 
-function trim3dMatrix(matrix,ignoreID=0){
-    let bounds = findBoundsOfMatrix(matrix,ignoreID)
+function trim3dMatrix(matrix, ignoreID = 0) {
+    let bounds = findBoundsOfMatrix(matrix, ignoreID)
     let x = bounds.min.x
     let y = bounds.min.y
     let z = bounds.min.z
-    let width = 1+(bounds.max.x-x)
-    let length = 1+(bounds.max.y-y)
-    let height = 1+(bounds.max.z-z)
+    let width = 1 + (bounds.max.x - x)
+    let length = 1 + (bounds.max.y - y)
+    let height = 1 + (bounds.max.z - z)
     let result = {
         x,
         y,
@@ -240,13 +240,13 @@ function trim3dMatrix(matrix,ignoreID=0){
         width,
         length,
         height,
-        matrix:crop3dMatrix(matrix,x,y,z,width,length,height),
+        matrix: crop3dMatrix(matrix, x, y, z, width, length, height),
     }
     return result
 }
 
-async function downloadFile(link_to_file,output_path){
-    let response = await axios.get(link_to_file,{responseType:'stream'})
+async function downloadFile(link_to_file, output_path) {
+    let response = await axios.get(link_to_file, { responseType: 'stream' })
     let writer = fs.createWriteStream(output_path)
     response.data.pipe(writer)
     console.log(`downloading ${link_to_file}`)
@@ -270,5 +270,5 @@ module.exports = {
     returnObjectFromArrayWithKeyValue,
     trim3dMatrix,
     asyncSleep,
-    downloadFile
+    downloadFile,
 }
