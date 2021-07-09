@@ -1,6 +1,6 @@
 let {NetAreaRoom} = require('./NetAreaRoom.js')
 let {generateGrid,distance,RNG,generate3dMatrix,iterateOver3dMatrix,trim3dMatrix} = require('../helpers')
-let {tiled_tileTypes} = require('../prefab-processor/Prefab')
+let tiled_tileTypes = require('./default_tiles')
 let EasyStar = require('easystarjs')
 let easystar = new EasyStar.js()
 
@@ -56,9 +56,8 @@ class NetAreaGenerator {
         this.oneUseConnectors = false; //Improves look, but increases failure rate
         this.allowLayerGeneration = true; //Allow generation to add new layers as required, can be a bit crazy...
     }
-    async generateNetArea(startingNode,prefabs,isHomePage){
+    async generateNetArea(startingNode,isHomePage){
         this.isHomePage = isHomePage
-        this.prefabs = prefabs
         startingNode.isFirstNode = true
         this.arr_queue = [startingNode]
         await this.processNodeQueue();

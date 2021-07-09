@@ -5,21 +5,12 @@ const fs = require('fs')
 const {NetAreaGenerator} = require('./new-map-generator/NetAreaGenerator.js')
 const TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
 const {generateNetAreaAssets} = require('./map-exporter/generateAssets.js')
-const PrefabLoader = require('./prefab-processor/PrefabLoader.js')
 const scrape = require('./scrape.js')
 const {replaceBackslashes,RNG} = require('./helpers.js')
 const generateBackgroundForWebsite = require('./background-generator/main.js')
 const crypto = require('crypto')
 const url = require('url')
 const songs = ["boundless-network.ogg","digital-strider.ogg","global-network.ogg","internet-world.ogg","life-in-the-network.ogg","network-is-spreading.ogg","network-space.ogg"]
-let prefabLoader = new PrefabLoader()
-
-async function load(){
-    console.log(`loading prefabs`)
-    await prefabLoader.LoadPrefabs('./prefab-processor/prefabs')
-}
-
-load()
 
 async function generate(site_url,isHomePage = false){
     //URL of website to scrape
@@ -93,7 +84,7 @@ async function generate(site_url,isHomePage = false){
     LetChildrenKnowAboutTheirParents(exampleSiteData)
 
     console.log(`generating map...`)
-    await netAreaGenerator.generateNetArea(exampleSiteData,prefabLoader.prefabs,isHomePage)
+    await netAreaGenerator.generateNetArea(exampleSiteData,isHomePage)
 
     console.log(`generating assets for map and remapping tiles`)
     let generated_tiles = await generateNetAreaAssets(netAreaGenerator,path_generated_tiles)
