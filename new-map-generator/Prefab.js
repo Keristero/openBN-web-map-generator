@@ -2,8 +2,8 @@ class Prefab {
     constructor() {
         this.features = {
             female_connections: [],
-            groundFeatures: [],
-            wallFeatures: []
+            ground_features: [],
+            wall_features: []
         }
         this.totalFeatures = 0
         this.matrix = []

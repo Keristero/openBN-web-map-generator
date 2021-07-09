@@ -112,7 +112,7 @@ let featureCategories = {
             className:null
         }
     },
-    groundFeatures:{
+    ground_features:{
         "links":{
             scrapedName:"links",
             extraRequirements:0,
@@ -134,7 +134,7 @@ let featureCategories = {
             className:TextFeature
         }
     },
-    wallFeatures:{
+    wall_features:{
         "images":{
             scrapedName:"images",
             extraRequirements:0,

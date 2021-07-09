@@ -20,16 +20,16 @@ let default_tiles = {
     },
     "ground_feature": {
         subIndex: {
-            0: { type: "Feature", name: "GroundFeature", collection: "groundFeatures", Direction: "Up Left" },
-            1: { type: "Feature", name: "GroundFeature", collection: "groundFeatures", Direction: "Up Right" },
-            2: { type: "Feature", name: "GroundFeature", collection: "groundFeatures", Direction: "Down Right" },
-            3: { type: "Feature", name: "GroundFeature", collection: "groundFeatures", Direction: "Down Left" },
+            0: { type: "Feature", name: "GroundFeature", collection: "ground_features", Direction: "Up Left" },
+            1: { type: "Feature", name: "GroundFeature", collection: "ground_features", Direction: "Up Right" },
+            2: { type: "Feature", name: "GroundFeature", collection: "ground_features", Direction: "Down Right" },
+            3: { type: "Feature", name: "GroundFeature", collection: "ground_features", Direction: "Down Left" },
         }
     },
     "wall_feature": {
         subIndex: {
-            0: { type: "Feature", name: "WallFeature", collection: "wallFeatures", Direction: "Down Right" },
-            1: { type: "Feature", name: "WallFeature", collection: "wallFeatures", Direction: "Down Left" },
+            0: { type: "Feature", name: "WallFeature", collection: "wall_features", Direction: "Down Right" },
+            1: { type: "Feature", name: "WallFeature", collection: "wall_features", Direction: "Down Left" },
         }
     },
     "forward-stairs": {
