@@ -1,4 +1,5 @@
 let {featureCategories, LinkFeature,TextFeature,ImageFeature,HomeWarpFeature} = require('./features.js')
+let GenerateForRequirements = require('./NetPrefabGenerator')
 class NetAreaRoom{
     constructor(node, netAreaGenerator) {
         let defaultX = parseInt(netAreaGenerator.width/2)
@@ -154,11 +155,6 @@ class NetAreaRoom{
         return smallestPrefabs
     }
     pickSmallestPrefab(node) {
-        let prefabs = this.netAreaGenerator.prefabs
-        //TODO select prefab from list of exisitng ones, rather than generating a new one each time
-
-        let filtered = prefabs
-
         if(this.node.isFirstNode){
             if(this.netAreaGenerator.isHomePage){
                 this.totalRequired.home_warps = 1
@@ -171,42 +167,17 @@ class NetAreaRoom{
             }
             this.isStairs = false
         }
-
         let requiredConnections = node?.room?.prefabRequirements?.connections || 0
         let requiredGroundFeatures = this.totalRequired.groundFeatures
         let requiredWallFeatures = this.totalRequired.wallFeatures
 
-        if(this.isStairs){
-            filtered = filtered.filter(prefab => prefab?.properties?.Stairs);
-            //console.log(`prefabs that are stairs (${filtered.length})`)
-        }else{
-            filtered = filtered.filter(prefab => !prefab?.properties?.Stairs);
-            //console.log(`prefabs that are not stairs (${filtered.length})`)
+        let requirements = {
+            groundFeatures:requiredGroundFeatures,
+            wallFeatures:requiredWallFeatures
         }
 
-
-        /* TODO maybe remove this?
-        filtered = filtered.filter(prefab => prefab.features.connections.length >= requiredConnections);
-        //console.log(`prefabs with ${requiredConnections} or more connections (${filtered.length})`)
-        */
-
-        filtered = filtered.filter(prefab => prefab.features.groundFeatures.length >= requiredGroundFeatures);
-        //console.log(`prefabs with ${requiredLinks} or more links (${filtered.length})`)
-
-        filtered = filtered.filter(prefab => prefab.features.wallFeatures.length >= requiredWallFeatures);
-
-
-        if (filtered.length == 0) {
-            throw(`node requirements not met ${JSON.stringify({requiredConnections,requiredGroundFeatures,requiredWallFeatures})}`)
-            //return prefabs[this.netAreaGenerator.RNG.Integer(0, prefabs.length - 1)]
-        }
-
-        let smallestPrefabs = this.filterAllButSmallestPrefabs(filtered)
-        return smallestPrefabs[this.netAreaGenerator.RNG.Integer(0,smallestPrefabs.length-1)];
-        /*
-         let prefabGenerator = new PrefabGenerator()
-         return prefabGenerator.newPrefab(this.prefabRequirements)
-         */
+        let prefab = GenerateForRequirements(requirements)
+        return prefab
     }
     set x(val) {
         if (val > 0 && val + this.width < (this.netAreaGenerator.width - 1)) {

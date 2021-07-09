@@ -1,7 +1,7 @@
 class Prefab {
     constructor() {
         this.features = {
-            connections: [],
+            female_connections: [],
             groundFeatures: [],
             wallFeatures: []
         }
@@ -28,4 +28,4 @@ class Prefab {
     }
 }
 
-return Prefab
+module.exports = Prefab
