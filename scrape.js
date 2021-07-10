@@ -1,5 +1,5 @@
 const { FeatureType, Web2DocScraper, AttributeType } = require('./web-to-document-scraper/main.js')
-const fs = require('fs')
+const fs = require('fs-extra')
 let testScraper = new Web2DocScraper()
 
 async function scrape(url, outputPath, fromFile = false, trim = true) {
@@ -68,7 +68,8 @@ async function scrape(url, outputPath, fromFile = false, trim = true) {
     testScraper.addFeatureType('IMG', ImageFeature)
 
     let res = await testScraper.scrape(url, fromFile, trim)
-    fs.writeFileSync(outputPath, JSON.stringify(res, null, 2))
+    await fs.ensureFile(outputPath)
+    await fs.writeFile(outputPath, JSON.stringify(res, null, 2))
 }
 
 module.exports = scrape
