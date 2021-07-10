@@ -49,17 +49,17 @@ function write_parts_to_prefab(prefab, placements) {
     let part_start_y = Infinity
     let part_start_z = Infinity
     for (let placement of placements) {
-        let part_max_x = placement.part_pos.x + placement.part.width
-        let part_max_y = placement.part_pos.y + placement.part.length
-        let part_max_z = placement.part_pos.z + placement.part.height
-        if (part_max_x > part_max_x) {
-            part_max_x = part_max_x
+        let part_end_x = placement.part_pos.x + placement.part.width;
+        let part_end_y = placement.part_pos.y + placement.part.length;
+        let part_end_z = placement.part_pos.z + placement.part.height;
+        if (part_end_x > part_max_x) {
+            part_max_x = part_end_x;
         }
-        if (part_max_x > part_max_x) {
-            part_max_y = part_max_y
+        if (part_end_y > part_max_y) {
+            part_max_y = part_end_y;
         }
-        if (part_max_z > part_max_z) {
-            part_max_z = part_max_z
+        if (part_end_z > part_max_z) {
+            part_max_z = part_end_z;
         }
         if (placement.part_pos.x < part_start_x) {
             part_start_x = placement.part_pos.x
@@ -71,18 +71,20 @@ function write_parts_to_prefab(prefab, placements) {
             part_start_z = placement.part_pos.z
         }
     }
-    let width = Math.abs(part_max_x - part_start_x)
-    let length = Math.abs(part_max_y - part_start_y)
-    let height = Math.abs(part_max_z - part_start_z)
-    prefab.matrix = generate3dMatrix(width, length, height, 0)
+    let width = Math.abs(part_max_x-part_start_x)+1
+    let length = Math.abs(part_max_y-part_start_y)+1
+    let height = Math.abs(part_max_z-part_start_z)+1
+    console.log('prefab dimensions',width,length,height)
+    prefab.matrix = generate3dMatrix(width,length,height,0)
 
     //loop over each part and copy it's array contents to the 3d array
     for (let placement of placements) {
         let part_matrix_iterator = iterateOver3dMatrix(placement.part.matrix)
-        for (let grid_pos of part_matrix_iterator) {
-            let x = part_start_x + grid_pos.x
-            let y = part_start_y + grid_pos.y
-            let z = part_start_z + grid_pos.z
+        for(let grid_pos of part_matrix_iterator){
+            let x = part_start_x+grid_pos.x
+            let y = part_start_y+grid_pos.y
+            let z = part_start_z+grid_pos.z
+            prefab.matrix[z][y][x] = grid_pos.tileID
         }
     }
 
