@@ -6,8 +6,6 @@ const { RNG, downloadFile } = require('../helpers.js')
 const TweenJs = require('@tweenjs/tween.js')
 const hash = require('object-hash')
 const Random = new RNG(60902583)
-//For preview
-const GIFEncoder = require('gifencoder')
 
 async function downloadFavicon(linkToWebsite, output_path) {
     let web_address = url.parse(linkToWebsite)
@@ -50,6 +48,8 @@ async function generateAnimationPNG(converted_favicon_path, output_path, preview
     let frame = 0
 
     if (preview) {
+        const GIFEncoder = require('gifencoder')
+
         var preview_canvas = createCanvas(width * 2, height * 2)
         var preview_ctx = preview_canvas.getContext('2d')
         //prepare gif encoder if we want a preview
