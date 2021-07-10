@@ -16,9 +16,9 @@ class TiledTMXExporter {
         this.nextLayerID = 1
         this.nextObjectID = 1
 
-        this.tileLayers = [];
-        this.objectLayers = [];
-        this.assets = [];
+        this.tileLayers = []
+        this.objectLayers = []
+        this.assets = []
 
         //Default properties
         let properties = {
@@ -36,17 +36,17 @@ class TiledTMXExporter {
 
         this.xmlJSON = {
             map: {
-                "@": {
-                    version: "1.5",
-                    tiledversion: "1.5.0",
-                    orientation: "isometric",
-                    renderorder: "right-down",
-                    compressionlevel: "0",
+                '@': {
+                    version: '1.5',
+                    tiledversion: '1.5.0',
+                    orientation: 'isometric',
+                    renderorder: 'right-down',
+                    compressionlevel: '0',
                     width: this.width,
                     height: this.length,
-                    tilewidth: "64",
-                    tileheight: "32",
-                    infinite: "0",
+                    tilewidth: '64',
+                    tileheight: '32',
+                    infinite: '0',
                     nextlayerid: this.height * 2,
                     nextobjectid: '216',
                 },
@@ -69,7 +69,7 @@ class TiledTMXExporter {
             this.AddTileset(tileInfo.tileCount, tileInfo.sourcePath, firstGID, true)
         }
 
-        this.nextTileGID++;
+        this.nextTileGID++
 
         //Create tilesets from features
         for (let featureCategoryName in featureCategories) {
@@ -146,8 +146,8 @@ class TiledTMXExporter {
         if (feature.onExport) {
             feature.onExport({ exporter: this, x, y, z, newObject })
         }
-        collection.push(newObject);
-        this.nextObjectID++;
+        collection.push(newObject)
+        this.nextObjectID++
     }
     AddProperty(propertyName, propertyValue) {
         let propertyArray = this.xmlJSON.map['#'][0].properties.property
@@ -177,7 +177,7 @@ class TiledTMXExporter {
             firstgid = preexistingTileset['@firstgid']
             console.log('there is already a tileset with a matching source', firstgid)
         }
-        return firstgid;
+        return firstgid
     }
     AddObjectLayer(layerIndex) {
         let layerArray = this.xmlJSON.map['#']

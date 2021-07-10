@@ -16,13 +16,13 @@ class NetAreaGenerator {
         this.features = {}
         this.RNG = new RNG(60902583)
 
-        this.id_air = 0;
-        this.id_wall = 1;
-        this.id_floor_1 = 2;
-        this.id_floor_2 = 3;
-        this.id_floor_3 = 4;
-        this.id_path = 5;
-        this.id_importantPath = 6;
+        this.id_air = 0
+        this.id_wall = 1
+        this.id_floor_1 = 2
+        this.id_floor_2 = 3
+        this.id_floor_3 = 4
+        this.id_path = 5
+        this.id_importantPath = 6
 
         //Set up default tiles (by default use tileset from the prefab processor)
         this.tile_types = {}
@@ -103,7 +103,7 @@ class NetAreaGenerator {
                 return false
             }
         }
-        return true;
+        return true
     }
     copyRoomFeatures(room) {
         //Burn features
@@ -146,7 +146,7 @@ class NetAreaGenerator {
         if (!this.features[z][y]) {
             this.features[z][y] = {}
         }
-        this.features[z][y][x] = newFeature;
+        this.features[z][y][x] = newFeature
     }
     async processNodeQueue() {
         while (this.arr_queue.length > 0) {
@@ -160,13 +160,13 @@ class NetAreaGenerator {
         if (children) {
             children = children.sort((a, b) => {
                 //Sort ascending
-                let childrenA = a?.features?.children?.length;
-                let childrenB = b?.features?.children?.length;
+                let childrenA = a?.features?.children?.length
+                let childrenB = b?.features?.children?.length
                 if (childrenA < childrenB) {
-                    return -1;
+                    return -1
                 }
                 if (childrenA > childrenB) {
-                    return 1;
+                    return 1
                 }
                 return 0
             })
@@ -197,7 +197,7 @@ class NetAreaGenerator {
                 this.arr_rooms.push(newRoom)
                 roomUnplaced = false
                 if (newRoom.node.parent) {
-                    await this.findPathBetweenRooms(newRoom, newRoom.node.parent.room);
+                    await this.findPathBetweenRooms(newRoom, newRoom.node.parent.room)
                 }
             } else {
                 this.setRoomLocation(newRoom, attempts)
@@ -266,7 +266,7 @@ class NetAreaGenerator {
                 console.warn('no path found, attempt:', attempts)
             }
 
-            attempts++;
+            attempts++
         }
         if (path == null) {
             throw 'no path found!'
@@ -315,18 +315,18 @@ class NetAreaGenerator {
             roomBConnections.forEach((conB, indexB) => {
                 let dist = distance(roomA.x + conA.x, roomB.x + conB.x) + distance(roomA.y + conA.y, roomB.y + conB.y)
                 if (dist < smallestDistance) {
-                    smallestDistance = dist;
-                    con.a = conA;
-                    con.b = conB;
-                    con.indexA = indexA;
-                    con.indexB = indexB;
+                    smallestDistance = dist
+                    con.a = conA
+                    con.b = conB
+                    con.indexA = indexA
+                    con.indexB = indexB
                 }
             })
         })
         if (con.a == null || con.b == null) {
             throw 'Unable to connect rooms, not enough connections'
         }
-        return con;
+        return con
     }
     addPathToMatrix(path, important, zLayer) {
         let pathInfo = {

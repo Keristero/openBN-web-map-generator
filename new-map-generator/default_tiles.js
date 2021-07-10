@@ -104,6 +104,6 @@ let default_tiles = {
             5: { type: 'Tile', name: 'Backward-Top-Right', id: 16 },
         },
     },
-};
+}
 
 module.exports = default_tiles

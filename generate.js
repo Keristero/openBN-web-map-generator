@@ -63,7 +63,7 @@ async function generate(site_url, isHomePage = false) {
     }
 
     //Properties which will be included in the map.tmx
-    let server_domain_asset_path = replaceBackslashes(path_domain_assets);
+    let server_domain_asset_path = replaceBackslashes(path_domain_assets)
     let site_properties = {
         Name: hostname,
         URL: site_url,
@@ -88,9 +88,9 @@ async function generate(site_url, isHomePage = false) {
         site_properties['Background'] = 'misc'
     }
 
-    console.log(`loading scraped data`);
-    let exampleSiteData = JSON.parse(fs.readFileSync(path_scraped_document));
-    LetChildrenKnowAboutTheirParents(exampleSiteData);
+    console.log(`loading scraped data`)
+    let exampleSiteData = JSON.parse(fs.readFileSync(path_scraped_document))
+    LetChildrenKnowAboutTheirParents(exampleSiteData)
 
     console.log(`generating map...`)
     await netAreaGenerator.generateNetArea(exampleSiteData, isHomePage)

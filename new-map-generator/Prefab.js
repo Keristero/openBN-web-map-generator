@@ -9,16 +9,16 @@ class Prefab {
         this.matrix = []
     }
     get width() {
-        return this.matrix[0][0].length;
+        return this.matrix[0][0].length
     }
     get length() {
-        return this.matrix[0].length;
+        return this.matrix[0].length
     }
     get height() {
-        return this.matrix.length;
+        return this.matrix.length
     }
     AddMatrixLayer(gridLayer) {
-        this.matrix.push(gridLayer);
+        this.matrix.push(gridLayer)
     }
     AddFeature(featureCollectionName, x, y, z, properties) {
         let newFeatureData = { x, y, z, properties }
