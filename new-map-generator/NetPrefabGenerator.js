@@ -71,32 +71,34 @@ function write_parts_to_prefab(prefab, placements) {
             part_start_z = placement.part_pos.z
         }
     }
-    let width = Math.abs(part_max_x-part_start_x)+1
-    let length = Math.abs(part_max_y-part_start_y)+1
+    let width = Math.abs(part_max_x-part_start_x)
+    let length = Math.abs(part_max_y-part_start_y)
     let height = Math.abs(part_max_z-part_start_z)+1
     console.log('prefab dimensions',width,length,height)
     prefab.matrix = generate3dMatrix(width,length,height,0)
 
     //loop over each part and copy it's array contents to the 3d array
     for (let placement of placements) {
+        console.log(placement)
         let part_matrix_iterator = iterateOver3dMatrix(placement.part.matrix)
         for(let grid_pos of part_matrix_iterator){
-            let x = part_start_x+grid_pos.x
-            let y = part_start_y+grid_pos.y
-            let z = part_start_z+grid_pos.z
+            let x = -part_start_x + placement.part_pos.x + grid_pos.x
+            let y = -part_start_y + placement.part_pos.y + grid_pos.y
+            let z = -part_start_z + placement.part_pos.z + grid_pos.z
             prefab.matrix[z][y][x] = grid_pos.tileID
         }
+        console.log(prefab.matrix)
     }
 
     //add each feature from each part into the prefab
-    let feature_collections = ['ground_features', 'wall_features']
+    let feature_collections = ['ground_features','male_connectors','female_connectors', 'wall_features']
     for (let feature_collection_name of feature_collections) {
         for (let placement of placements) {
             let part = placement.part
             for (let feature of part[feature_collection_name]) {
-                let x = placement.part_pos.x + feature.x
-                let y = placement.part_pos.y + feature.y
-                let z = placement.part_pos.z + feature.z
+                let x = -placement.part_pos.x + feature.x
+                let y = -placement.part_pos.y + feature.y
+                let z = -placement.part_pos.z + feature.z
                 prefab.AddFeature(feature_collection_name, x, y, z, feature.properties)
             }
         }
@@ -111,7 +113,15 @@ function place_part(part, part_pos, placed_features, placements) {
     }
 
     //update list of all female connectors
-    placed_features.arr_female_connectors = placed_features.arr_female_connectors.concat(part.female_connectors)
+    for(let connector of part.female_connectors){
+        //convert connector coordinates to global
+        let global_connector = {
+            x:connector.x+part_pos.x,
+            y:connector.y+part_pos.y,
+            z:connector.z+part_pos.z
+        }
+        placed_features.arr_female_connectors.push(global_connector)
+    }
     placed_features.ground_features += part.ground_features.length
     placed_features.wall_features += part.wall_features.length
 
@@ -154,9 +164,9 @@ function does_part_at_position_overlap_placed_part(partA, partA_pos, placements)
         let partB = placement.part
         let partB_pos = placement.part_pos
 
-        let z_overlap = partA_pos.z < partB_pos.z + partB.height && partA_pos.z + partA.height > partB_pos.z
-        let y_overlap = partA_pos.y < partB_pos.y + partB.length && partA_pos.y + partA.length > partB_pos.y
-        let x_overlap = partA_pos.x < partB_pos.z + partB.width && partA_pos.x + partA.width > partB_pos.x
+        let z_overlap = partA_pos.z <= partB_pos.z + partB.height && partA_pos.z + partA.height > partB_pos.z
+        let y_overlap = partA_pos.y <= partB_pos.y + partB.length && partA_pos.y + partA.length > partB_pos.y
+        let x_overlap = partA_pos.x <= partB_pos.z + partB.width && partA_pos.x + partA.width > partB_pos.x
 
         if (z_overlap && y_overlap && x_overlap) {
             return true

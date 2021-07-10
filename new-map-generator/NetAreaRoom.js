@@ -129,12 +129,12 @@ class NetAreaRoom {
         }
     }
     connectionsOnZ(targetZ) {
-        let connections = this.prefab.features.connections.filter((connection) => connection.z == targetZ)
+        let connections = this.prefab.features.male_connectors.filter((connection) => connection.z == targetZ)
         return connections
     }
     getHighestConnectorZ() {
         let highestLayer = 0
-        for (let connection of this.prefab.features.connections) {
+        for (let connection of this.prefab.features.male_connectors) {
             if (connection.z > highestLayer) {
                 highestLayer = connection.z
             }
