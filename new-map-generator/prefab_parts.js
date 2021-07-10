@@ -1,6 +1,6 @@
 let parts = [
     {
-        name: "3x3 with ground_feature",
+        name: '3x3 with ground_feature',
         width: 3,
         length: 3,
         height: 0,
@@ -64,7 +64,7 @@ let parts = [
         ],
     },
     {
-        name: "3x3 with wall_features",
+        name: '3x3 with wall_features',
         width: 3,
         length: 3,
         height: 0,
@@ -79,11 +79,11 @@ let parts = [
         wall_features: [
             {
                 pos: { x: 1, y: 0, z: 0 },
-                properties: { Direction: "Down Left" },
+                properties: { Direction: 'Down Left' },
             },
             {
                 pos: { x: 0, y: 1, z: 0 },
-                properties: { Direction: "Down Right" },
+                properties: { Direction: 'Down Right' },
             },
         ],
         male_connectors: [
@@ -95,6 +95,6 @@ let parts = [
             { x: 1, y: 2, z: 0 },
         ],
     },
-];
+]
 
-module.exports = parts;
+module.exports = parts

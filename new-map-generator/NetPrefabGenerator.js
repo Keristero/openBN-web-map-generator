@@ -163,4 +163,4 @@ function does_part_at_position_overlap_placed_part(partA, partA_pos, placements)
     return false;
 }
 
-module.exports = GenerateForRequirements;
+module.exports = GenerateForRequirements
