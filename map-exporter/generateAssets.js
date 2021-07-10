@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs')
 let { writeFile } = require('fs/promises')
 
-let random = new RNG();
+let random = new RNG()
 
 function fastHash(data) {
     return crypto.createHash('sha1').update(data).digest('hex')
@@ -31,7 +31,7 @@ function generateFloorTile(base_color, side_color, color, path_generated_tiles) 
         createTilePNG(tile_options, tile_output_path + '.png')
         generateTSX(write_tsx_path, tile_options_hash)
     }
-    return relative_tsx_path;
+    return relative_tsx_path
 }
 
 async function generateTSX(tsx_path, tileHash) {
@@ -65,7 +65,7 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
     }
 
     //Add 100 to tile id so we dont overwrite any of the generic tiles
-    newTileID = 100;
+    newTileID = 100
 
     //generate room tiles, and replace existing tiles for each room with thier unique ones
     for (let room of netAreaGenerator.arr_rooms) {
@@ -85,7 +85,7 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
                 netAreaGenerator.matrix[globalZ][globalY][globalX] = newTileID
             }
         }
-        newTileID++;
+        newTileID++
     }
 
     //Overwrite net area tiles with generated ones

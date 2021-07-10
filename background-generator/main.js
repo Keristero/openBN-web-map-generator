@@ -45,13 +45,13 @@ async function generateAnimationFile(PNGname, outputPath, width, height, frames)
 async function generateAnimationPNG(converted_favicon_path, output_path, preview = false, previewPath = 'preview.gif') {
     let favicon = await loadImage(converted_favicon_path)
 
-    let width = 64;
-    let height = 64;
-    let frame = 0;
+    let width = 64
+    let height = 64
+    let frame = 0
 
     if (preview) {
-        var preview_canvas = createCanvas(width * 2, height * 2);
-        var preview_ctx = preview_canvas.getContext("2d");
+        var preview_canvas = createCanvas(width * 2, height * 2)
+        var preview_ctx = preview_canvas.getContext('2d')
         //prepare gif encoder if we want a preview
         var encoder = new GIFEncoder(width * 2, height * 2)
         encoder.createReadStream().pipe(fs.createWriteStream(previewPath))
@@ -66,7 +66,7 @@ async function generateAnimationPNG(converted_favicon_path, output_path, preview
         faviconScaling: 1,
     }
 
-    let animation = new TweenedAnimation(canvas, favicon, parameters);
+    let animation = new TweenedAnimation(canvas, favicon, parameters)
 
     let out_sheet_row_length = Math.round(Math.sqrt(animation.frames)) + 1
     let out_canvas = createCanvas(out_sheet_row_length * width, out_sheet_row_length * height)
@@ -75,10 +75,10 @@ async function generateAnimationPNG(converted_favicon_path, output_path, preview
 
     //Animate
     while (frame < animation.frames) {
-        animation.animateFrame(ctx, frame);
-        saveOutputFrame(canvas, preview, out_ctx, out_sheet_row_length, preview_ctx, encoder, frame);
-        ctx.clearRect(0, 0, width, height);
-        frame++;
+        animation.animateFrame(ctx, frame)
+        saveOutputFrame(canvas, preview, out_ctx, out_sheet_row_length, preview_ctx, encoder, frame)
+        ctx.clearRect(0, 0, width, height)
+        frame++
     }
 
     if (preview) {
@@ -86,26 +86,26 @@ async function generateAnimationPNG(converted_favicon_path, output_path, preview
     }
 
     //Save
-    out_canvas.createPNGStream().pipe(fs.createWriteStream(output_path));
-    return animation;
+    out_canvas.createPNGStream().pipe(fs.createWriteStream(output_path))
+    return animation
 }
 
 class StaticAnimation {
     constructor(canvas, favicon, { spacing, faviconScaling }) {
-        this.frames = 1;
-        this.width = canvas.width;
-        this.height = canvas.height;
-        this.favicon = favicon;
+        this.frames = 1
+        this.width = canvas.width
+        this.height = canvas.height
+        this.favicon = favicon
 
         this.faviconScaledSize = favicon.width * faviconScaling
         this.spacing = spacing + this.faviconScaledSize
         this.rows = this.width / this.faviconScaledSize + 20
         this.columns = this.height / this.faviconScaledSize + 20
 
-        this.xStart = -spacing;
-        this.yStart = -spacing;
-        this.xEnd = this.width + spacing;
-        this.yEnd = this.height + spacing;
+        this.xStart = -spacing
+        this.yStart = -spacing
+        this.xEnd = this.width + spacing
+        this.yEnd = this.height + spacing
 
         //Generate a darker verison of the favicon for the back side
         let fav_canvas = createCanvas(this.favicon.width, this.favicon.height)
@@ -118,7 +118,7 @@ class StaticAnimation {
 
         //Generate icons
         //This data can be tweened for animations!
-        this.icons = {};
+        this.icons = {}
         for (let row = -10; row < this.rows; row++) {
             let x = this.xStart + row * this.spacing
             for (let column = -10; column < this.columns; column++) {
@@ -143,8 +143,8 @@ class StaticAnimation {
                 this.icons[iconHash] = newIcon
             }
         }
-        this.randomiseIconProperties(this.icons);
-        this.initialIcons = JSON.parse(JSON.stringify(this.icons));
+        this.randomiseIconProperties(this.icons)
+        this.initialIcons = JSON.parse(JSON.stringify(this.icons))
 
         //Read middle pixel color to generate a background color
         this.getBackgroundColorFromFavicon()
@@ -167,52 +167,52 @@ class StaticAnimation {
         )
         let backgroundColorIntensity = 0.3
         function rcolor(val) {
-            return Math.floor(val * backgroundColorIntensity);
+            return Math.floor(val * backgroundColorIntensity)
         }
         this.backgroundColor = `rgb(${rcolor(this.middle_pixel_color.r)},${rcolor(this.middle_pixel_color.g)},${rcolor(
             this.middle_pixel_color.b
         )})`
     }
     animateFrame(ctx, frame) {
-        TweenJs.update(frame);
-        ctx.fillStyle = this.backgroundColor;
-        ctx.fillRect(0, 0, this.width, this.height);
+        TweenJs.update(frame)
+        ctx.fillStyle = this.backgroundColor
+        ctx.fillRect(0, 0, this.width, this.height)
         for (let iconHash in this.icons) {
-            let icon = this.icons[iconHash];
-            let width = this.faviconScaledSize * icon.xScale;
-            let height = this.faviconScaledSize * icon.yScale;
-            let flip = false;
-            let flop = false;
-            let image = this.favicon;
+            let icon = this.icons[iconHash]
+            let width = this.faviconScaledSize * icon.xScale
+            let height = this.faviconScaledSize * icon.yScale
+            let flip = false
+            let flop = false
+            let image = this.favicon
             if (width < 0) {
-                flip = true;
-                width = Math.abs(this.faviconScaledSize * icon.xScale);
+                flip = true
+                width = Math.abs(this.faviconScaledSize * icon.xScale)
             }
             if (height < 0) {
-                flop = true;
-                height = Math.abs(this.faviconScaledSize * icon.yScale);
+                flop = true
+                height = Math.abs(this.faviconScaledSize * icon.yScale)
             }
             if ((flip && !flop) || (!flip && flop)) {
                 //If the favicon is both flipped and flopped, it would be frontside not back
                 //If it is either flipped or flopped, it shows the front
-                image = this.favicon_backside;
+                image = this.favicon_backside
             }
-            drawImage(ctx, image, icon.x, icon.y, width, height, icon.rotation, flip, flop, true);
+            drawImage(ctx, image, icon.x, icon.y, width, height, icon.rotation, flip, flop, true)
         }
     }
 }
 
 class TweenedAnimation extends StaticAnimation {
     constructor(canvas, favicon, parameters) {
-        super(canvas, favicon, parameters);
+        super(canvas, favicon, parameters)
 
         this.tweenTargets = []
         let animationStages = 2 //Random.Integer(1, 2)
         for (let stage = 0; stage < animationStages; stage++) {
             if (stage == 0) {
-                this.generateTweenStage(this.icons);
+                this.generateTweenStage(this.icons)
             } else {
-                this.generateTweenStage(this.icons);
+                this.generateTweenStage(this.icons)
             }
         }
         this.generateResetTween(this.tweenTargets[this.tweenTargets.length - 1])
@@ -228,104 +228,104 @@ class TweenedAnimation extends StaticAnimation {
         let tweens = []
         let index = 0
         for (let tweenTarget of this.tweenTargets) {
-            let tweenDuration = Math.floor(this.frames / this.tweenTargets.length);
-            let newTween = new TweenJs.Tween(this.icons).to(tweenTarget, tweenDuration).easing(easeStrat);
+            let tweenDuration = Math.floor(this.frames / this.tweenTargets.length)
+            let newTween = new TweenJs.Tween(this.icons).to(tweenTarget, tweenDuration).easing(easeStrat)
             if (index > 0) {
-                tweens[index - 1].chain(newTween);
+                tweens[index - 1].chain(newTween)
             } else {
-                newTween.start(0);
+                newTween.start(0)
             }
-            tweens.push(newTween);
-            index++;
+            tweens.push(newTween)
+            index++
         }
-        tweens[0].start();
+        tweens[0].start()
     }
     randomiseIconProperties(icons, dontMove = false) {
-        let horizontalDirection = Random.Integer(-1, 1);
-        let verticalDirection = Random.Integer(-1, 1);
+        let horizontalDirection = Random.Integer(-1, 1)
+        let verticalDirection = Random.Integer(-1, 1)
         if (dontMove) {
-            horizontalDirection = 0;
-            verticalDirection = 0;
+            horizontalDirection = 0
+            verticalDirection = 0
         }
 
-        let everySecondColumn = Random.Bool();
-        let everySecondRow = Random.Bool();
-        let invertSelection = Random.Bool();
+        let everySecondColumn = Random.Bool()
+        let everySecondRow = Random.Bool()
+        let invertSelection = Random.Bool()
 
-        let flipDirection = Random.Integer(-1, 1);
-        let flopDirection = Random.Integer(-1, 1);
+        let flipDirection = Random.Integer(-1, 1)
+        let flopDirection = Random.Integer(-1, 1)
 
-        let rotationDirection = Random.Integer(-1, 1);
-        let halfRotations = Random.Integer(1, 2);
+        let rotationDirection = Random.Integer(-1, 1)
+        let halfRotations = Random.Integer(1, 2)
         for (let iconHash in icons) {
-            let icon = icons[iconHash];
-            let translationMulti = 2;
-            let skip = false;
+            let icon = icons[iconHash]
+            let translationMulti = 2
+            let skip = false
             if (everySecondColumn && icon.column % 2 == 0) {
-                skip = true;
+                skip = true
             }
             if (everySecondRow && icon.row % 2 == 0) {
-                skip = true;
+                skip = true
             }
             if (invertSelection) {
-                skip = !skip;
+                skip = !skip
             }
             if (skip) {
-                continue;
+                continue
             }
-            let transforms = 0;
-            let maxTransforms = 3;
+            let transforms = 0
+            let maxTransforms = 3
             if (horizontalDirection != 0 && transforms < maxTransforms) {
-                let places = translationMulti * horizontalDirection;
-                icon.x += this.spacing * places;
-                icon.row += places;
-                transforms++;
+                let places = translationMulti * horizontalDirection
+                icon.x += this.spacing * places
+                icon.row += places
+                transforms++
             }
             if (verticalDirection != 0 && transforms < maxTransforms) {
-                let places = translationMulti * verticalDirection;
-                icon.y += this.spacing * places;
-                icon.col += places;
-                transforms++;
+                let places = translationMulti * verticalDirection
+                icon.y += this.spacing * places
+                icon.col += places
+                transforms++
             }
             if (flipDirection != 0 && transforms < maxTransforms) {
-                icon.xScale = flipDirection;
-                transforms++;
+                icon.xScale = flipDirection
+                transforms++
             }
             if (flopDirection != 0 && transforms < maxTransforms) {
                 icon.yScale = flopDirection
                 transforms++
             }
             if (rotationDirection != 0 && transforms < maxTransforms) {
-                let angleDelta = halfRotations * rotationDirection * 180;
-                icon.rotation += angleDelta;
-                transforms++;
+                let angleDelta = halfRotations * rotationDirection * 180
+                icon.rotation += angleDelta
+                transforms++
             }
-            icons[iconHash] = icon;
+            icons[iconHash] = icon
         }
     }
     generateTweenStage(previousStage) {
-        var tweenIcons = JSON.parse(JSON.stringify(previousStage));
-        this.randomiseIconProperties(tweenIcons);
-        this.tweenTargets.push(tweenIcons);
+        var tweenIcons = JSON.parse(JSON.stringify(previousStage))
+        this.randomiseIconProperties(tweenIcons)
+        this.tweenTargets.push(tweenIcons)
     }
     generateResetTween(previousStage) {
-        let resetStage = JSON.parse(JSON.stringify(previousStage));
+        let resetStage = JSON.parse(JSON.stringify(previousStage))
         for (let iconHash in this.icons) {
-            let icon = this.icons[iconHash];
-            let latestCopy = previousStage[iconHash];
-            let finalCopy = resetStage[iconHash];
+            let icon = this.icons[iconHash]
+            let latestCopy = previousStage[iconHash]
+            let finalCopy = resetStage[iconHash]
             if (icon.rotation % 360 != latestCopy.rotation % 360) {
-                finalCopy.rotation = icon.rotation;
+                finalCopy.rotation = icon.rotation
             }
             if (icon.xScale != latestCopy.xScale) {
-                finalCopy.xScale = icon.xScale;
+                finalCopy.xScale = icon.xScale
             }
             if (icon.yScale != latestCopy.yScale) {
-                finalCopy.yScale = icon.yScale;
+                finalCopy.yScale = icon.yScale
             }
         }
-        this.tweenTargets.push(resetStage);
-        console.log("reset tween");
+        this.tweenTargets.push(resetStage)
+        console.log('reset tween')
     }
 }
 
