@@ -1,10 +1,4 @@
-let {
-    featureCategories,
-    LinkFeature,
-    TextFeature,
-    ImageFeature,
-    HomeWarpFeature,
-} = require("./features.js");
+let { featureCategories, LinkFeature, TextFeature, ImageFeature, HomeWarpFeature } = require("./features.js");
 let GenerateForRequirements = require("./NetPrefabGenerator");
 class NetAreaRoom {
     constructor(node, netAreaGenerator) {
@@ -27,8 +21,7 @@ class NetAreaRoom {
         this.nextGroundFeatureIndex = 0;
         this.nextWallFeatureIndex = 0;
 
-        let { prefabRequirements, totalRequired } =
-            this.determineFeatureRequirementsFromNode(this.node);
+        let { prefabRequirements, totalRequired } = this.determineFeatureRequirementsFromNode(this.node);
         this.prefabRequirements = prefabRequirements;
         this.totalRequired = totalRequired;
 
@@ -111,51 +104,32 @@ class NetAreaRoom {
                 //Loop through each feature subtype
                 let featureMapping = featureTypes[featureName];
                 //Skip if this node does not have any features of this type
-                if (
-                    !this.node?.features ||
-                    !this.node.features[featureMapping.scrapedName]
-                ) {
+                if (!this.node?.features || !this.node.features[featureMapping.scrapedName]) {
                     continue;
                 }
-                let nodeFeaturesOfType =
-                    this.node.features[featureMapping.scrapedName];
+                let nodeFeaturesOfType = this.node.features[featureMapping.scrapedName];
                 for (let n_featureKey in nodeFeaturesOfType) {
                     let newPlacementPosition;
                     if (category == "ground_features") {
-                        newPlacementPosition =
-                            this.prefab.features[category][
-                                this.nextGroundFeatureIndex
-                            ];
+                        newPlacementPosition = this.prefab.features[category][this.nextGroundFeatureIndex];
                         this.nextGroundFeatureIndex++;
                         //console.log('placing a ground feature on location',this.nextGroundFeatureIndex,'/', this.prefab.features[category].length)
                     }
                     if (category == "wall_features") {
-                        newPlacementPosition =
-                            this.prefab.features[category][
-                                this.nextWallFeatureIndex
-                            ];
+                        newPlacementPosition = this.prefab.features[category][this.nextWallFeatureIndex];
                         this.nextWallFeatureIndex++;
                         //console.log('placing a wall feature on location',this.nextWallFeatureIndex,'/', this.prefab.features[category].length)
                     }
                     let featureData = nodeFeaturesOfType[n_featureKey];
                     let { x, y, z, properties } = newPlacementPosition;
-                    let newFeature = new featureMapping.className(
-                        x,
-                        y,
-                        z,
-                        featureData,
-                        properties
-                    );
-                    this.features[featureName][newFeature.locationString] =
-                        newFeature;
+                    let newFeature = new featureMapping.className(x, y, z, featureData, properties);
+                    this.features[featureName][newFeature.locationString] = newFeature;
                 }
             }
         }
     }
     connectionsOnZ(targetZ) {
-        let connections = this.prefab.features.connections.filter(
-            (connection) => connection.z == targetZ
-        );
+        let connections = this.prefab.features.connections.filter((connection) => connection.z == targetZ);
         return connections;
     }
     getHighestConnectorZ() {
@@ -193,8 +167,7 @@ class NetAreaRoom {
             }
             this.isStairs = false;
         }
-        let requiredConnections =
-            node?.room?.prefabRequirements?.connections || 0;
+        let requiredConnections = node?.room?.prefabRequirements?.connections || 0;
         let requiredground_features = this.totalRequired.ground_features;
         let requiredwall_features = this.totalRequired.wall_features;
 
@@ -223,16 +196,8 @@ class NetAreaRoom {
             //TODO remove this prob, it is a bit crazy
             if (this.netAreaGenerator.allowLayerGeneration) {
                 if (val + this.height >= this.netAreaGenerator.height - 1) {
-                    let heightNeeded =
-                        val +
-                        this.height -
-                        (this.netAreaGenerator.height - 1) +
-                        1;
-                    console.log(
-                        val + this.height,
-                        ">=",
-                        this.netAreaGenerator.height - 1
-                    );
+                    let heightNeeded = val + this.height - (this.netAreaGenerator.height - 1) + 1;
+                    console.log(val + this.height, ">=", this.netAreaGenerator.height - 1);
                     console.log("adding layers", heightNeeded);
                     this.netAreaGenerator.addLayers(heightNeeded);
                     this._z = val;
