@@ -1,15 +1,10 @@
 const { createTilePNG } = require('./drawTile')
-const { RNG, RGBAtoString, iterateOver3dMatrix } = require('../helpers.js')
-const crypto = require('crypto')
+const { RNG, RGBAtoString, iterateOver3dMatrix,fastHash} = require('../helpers.js')
 const path = require('path')
 const fs = require('fs')
 let { writeFile } = require('fs/promises')
 
 let random = new RNG()
-
-function fastHash(data) {
-    return crypto.createHash('sha1').update(data).digest('hex')
-}
 
 function generateFloorTile(base_color, side_color, color, path_generated_tiles) {
     let tile_options = {
@@ -58,7 +53,7 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
     let tiles = {}
     for (let i = 0; i < 5; i++) {
         let color = RGBAtoString(
-            random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.2 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+            random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.8 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
         )
         tiles[newTileID] = generateFloorTile(base_color, side_color, color, path_generated_tiles)
         newTileID++

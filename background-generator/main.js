@@ -40,12 +40,16 @@ async function generateAnimationFile(PNGname, outputPath, width, height, frames)
     fs.writeFileSync(outputPath, outputString)
 }
 
-async function generateAnimationPNG(converted_favicon_path, output_path, preview = false, previewPath = 'preview.gif') {
+async function generateAnimationPNG(converted_favicon_path, output_path, preview = true, previewPath = 'preview.gif') {
     let favicon = await loadImage(converted_favicon_path)
 
     let width = 64
     let height = 64
     let frame = 0
+
+    let canvas = createCanvas(width, height)
+    let ctx = canvas.getContext('2d')
+    ctx.imageSmoothingEnabled = true
 
     if (preview) {
         const GIFEncoder = require('gifencoder')

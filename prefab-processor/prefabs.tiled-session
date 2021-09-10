@@ -1,0 +1,994 @@
+{
+    "activeFile": "C:/Users/Keris/Documents/Repos/gravy-yum/areas/gravy-pot.tmx",
+    "automapping.whileDrawing": false,
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/conveyers.tmx": {
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1525.5,
+                "y": 592
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/default.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 1232.6666666666665,
+                "y": 784.6666666666667
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/farm.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1124.6666666666665,
+                "y": 579.9999999999999
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/gravy-pot.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1853.1666666666665,
+                "y": 752.6666666666666
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/test-honey.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/BlueMysteryData.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/Tombstone_exe6.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/coffee.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/crater.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/ezmystery/GreenMysteryData.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/ezmystery/PurpleMysteryData.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/gate.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/home_warp.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/plants.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/plants/plants.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/simple-graveyard-arrows-70-44-alt.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/simple-graveyard-arrows-70-44.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/spacing-test.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/vendor_desk.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/warp.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/water-thing-spout.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/water-thing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/cursed-stairs-2.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/grassy-tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/simple-graveyard-conveyers-64-40-alt.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/simple-graveyard-conveyers-64-40.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/simple-graveyard-stairs-63-55-alt.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/simple-graveyard-stairs-63-55.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/simple-graveyard-tiles-64-40-alt.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/simple-graveyard-tiles-64-40.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/test-honey.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/tree.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/areas/default.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 550.6666666666666,
+                "y": 612.6666666666667
+            }
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/006f73986743ea44a110198ce5339fa590254b19.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/00c28d4b027abd4f725e49c71f1050a640291439.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/01f8b045bbace406f64515d2ad4c1de82f547644.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/042cb39ef5d528cd82db48d60ae7316ce61c5218.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/048ad593c477a1eddde3f939f6ed4cb9fd46e4a0.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/04d34d843057177b8ee3051f069ee6d0d41ea3e0.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0599a76ac4b42a2b9a0291106bc40cfb9ed2c5d9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/06197685ecb66deb3f768b4e37b0ffbb92b1f278.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/063407af38ede1341369e02a1ff08bcad96edc21.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0872b98fcfad276a073009fd773dc0b7f6375a61.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/09a672deed7cc3c09bea060e8a63b357313a9483.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0bfd8580592165495164063663b8682cd729b189.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0c030d5f45025f6b8bb9b9c9481cad861a132764.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0c1438b98f0657991e9cb3dbd2ec9389509d28ad.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0c574a7d3852af70e36f1da7fc7eaa2d46247831.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0d8f401dc7ad206a261b781822f78b0fb73ca627.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0deb1dbcd782642bfa961f75fef41c9f2b8a8082.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0e59e2a1353ee9f8d30da8c025a86f4c52039fbf.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0f09147a494526706f24dec6557964280704dfdf.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/0fb54bd7e940b9dba7e1b4c68c107240346dbba7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/11e30c87be87c65bdc70402aa0ecef58e0ae029f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/11f29d387b7605d5a3f031b5f47fa8d8d06ca2e5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1262c3d76bcb7d6b318dbd6db50e632bb4dfd182.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/14b71531231c4ede8d90a86949be1089f7124465.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/14e293182bcc31ee8cd9812512ca4b210a2b1ed2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1540101c21e6e18edd1e1c188fa87cdae1dca8aa.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1680168547e6a123dd2b896dfb5cf479eb3b5f1b.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/179f8c9fd80f6dd0a5a7c087551bfffa679c878a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/17e28d752da7614681ea9cd78f64bc9e55ef7e82.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/196e72ab420d0f20d98e24b55cf6f58128d149eb.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1c5ed461206ead08f65525a9a4f0eb58721ed6d6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1d1e35cf2c554ebe96e09cfc54ec8fc9c751d70f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1dd89a1f5bb3e994e410d7872040d28bc5d81d0c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/1f0bfed134493389ad8fb33418cf30dfe1bc86e7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/21ee04c741ffe136aedf0af158bf893237af64cf.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/23409a592a25ef0d6cbae36214536597d320b7de.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2390eee66ee5c4ef883880daa9f4a057be7feb3e.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/24451dbd412406a11e13d93bccba9677e29d2e08.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/24f458ff0e3c10291a0a264b7925db2654e364d5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/25612d05aba6b7fa526f19953e5ce281d453c4b5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/28c4433aac7451486fb384abfee77543dd1b1a16.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2ad5023040acf26bec3ec589750a3d81eb098261.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2bd59382721ba127f0968a3df69efe3f4f8014de.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2d57c52a3f8d5c3aeab6992656a7629e110d7fd7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2df612a2b81ab123f7e8f3cba61d103051775818.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2e21bbf01a2cc3c8ab97e1f541b31b52e8f1ac71.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2e5d90a6426b7cadf55a236b20b3da9b4007f74f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2e66ada3c5960fb20f3259a87876b864eece9f7e.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2e6d88353cec18de182a614149c5eda5155c6ec2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2eb35203d70c485bc9ac2b82d0d50e916e7a5c1c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2fe2cb6f77b43a39138bf96c8859eb6afb9febb2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/2ff0ef98ad5a27dc3591be9c1479e5da999cbec8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/30635674e159ceba8110092d5600113ddd004bf9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/312f813ae1b1b45b884aec15effcb1b01b5f3d95.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/31d4bff01e13414f5cdd34c5aab879c85806db60.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/335f8ba585c5db6cc4ef95fcb1ab8ddf79c62426.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/345d00e73a47e59d83544b4d0c91881f3d8dc337.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/36230112480308c975130242369e4f0138c4b9a3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/36e45f712c7d0b1660e912382cf5717d3d1be555.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/39a37458c431c7e74b1069f83dba894f170b36bb.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/39b9d5448d275e121f068e33fb438ea032387336.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3a3e9adc123a38937ec86b3163d9bb3d41fa5053.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3a77ec62c707bfbc3ffa17e7781b5820cc669964.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3aff366eb92e0290eb5b19479e67462b09616620.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3b05931281e3b55881c86397f23264af2dd560c7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3cd586315343e4a2940365e1ab02a4ec6c91c050.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3dab3615b970037205e834f7dcc043dbc93a9a36.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3dafd009e947905fdc957f3dd47179d4fef04bab.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3de5beb5e05cc0c7f1d6947e5a6c5156c948d7e9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3e800d50eaab4a5b4bd8c2980360a6c0c2cb9bd8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3efdb63db9dd31825a7f37f26ea0a50f8bd14913.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3f64530a887b5359b49189275d0e4bf371e64ce5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/3fbb22c90d5e673550a5364121cde661a5c84e38.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4121b41264f3f7508a78281ed67550b2ae9f8de8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/416bed342f569b0758a551e865ead09c0de0f410.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4218736825c7cf99e02fcc84b91a20b1424053cc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/439e595e9ea600ec7d48e77a3373f687353583b3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/440b51a00e9493d9167a59c06ab2c074cc896c2d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/457e77983a358be9c47ec3b678c4a9c7bc44ab38.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4793a87ce38484690a6b0c232bfc4f728f56dbfc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4832796c066e1fc26552f9c9baa4f7c330e12c15.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4ae8cd96bc19aa20f362885c011301051a45d198.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4b66f146d0ab713e0c838621602dbde0c26e9a66.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4ba47e7bec720862e1883f964700f7df9e01a8c0.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4c044ff423e481f2347dfd1c68cc29ec8712d42b.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4c0de410b292cc9aea9b4366f9339a2d300adff6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4cf6e25dd2a6077daf96ca8e6c2b660f4c6b2b55.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4df000e4429a181429c4c3f544f750b900c85ce8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4e4019bcdd1b175cd851d4e969d1a766afbcbffd.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/4f2f941d79d5f89d5defb9a0dfe2ddeb6d58bd9b.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/502a8d7832341e9e7ce763769927f5237e841d48.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/5168a2ea66cbffc3eea0004d6073d25da99a195d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/51a5b3e5fe0e84707440f5c9076942e8b1c87765.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/53756463d317ce46e424f47cf740799231a4d9bf.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/55f471684a734f6aca6605881475f10f6c1496dc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/5be3b0f535706d48782e1072e76de1ed8916f95b.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/5ce38997cc74b3e666f359033feff2bd3688fc00.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/5e5805ac9172e9c94298ae7cd91c211739b99351.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/5e9016781b9fdd1edb32448ae3d45567ea5d1b9a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/5ef30ee89cf4d5b57c9fa34b2bbed1f8e47a88a4.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/60bac0908822752ef78e6482a81de2fdc64f9b24.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/60dbf212e166fb4b9854b505e24980f62ec7132a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/615a732851de427108b1ab2605cb40e5d77beb7a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/625026aba535c50117ff6dd75dad9a9540605dd4.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6348592a9707ca34da9c8479ae59a599edfe0f68.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6372dc7981dd9fb261ef857c0ad488154d73f482.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/63c5d87473c2756626ead7a53c63cdad1b8074a7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6529fc72127e683f73087aa3920c6dc45270d278.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/65f03dc5949802c781a28099d2413775b1d90c3d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/67e4e20124c77ab175a21cada4f141cfd5994dcc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6874eceb429884bd348f853aed5f25c17a93f400.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/68a55403aa521a1eab47f1ea1ca41eaad8204cdf.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/694442c0b2ef3a89263b0228492c947d012a92e8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/69ded42d7b493c2e694c0853fcb73623c97d6267.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6a48dddd6c386377c82186a323a6c5f3f440bb78.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6d1cdb493710fa99096640a2f0d4d378490aa614.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6d4836912e66e7e21e1dfecf8862352b2cf556ab.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6dd9f69ef586f6ae108bbab527b5f8ba6eac62b9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/6ddbfa417257702c6d314a681eb4a412c9441aef.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/702a91b3dfb965e9c163f1bf6c804b0b492295d8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7048d853a7a1a5e8809e9bd13dee204ec9fb32a6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/721fd06f9f9ded681f3d1fc6eda07ab70b9fc014.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/72c3d7e23c24c82db9d8e4da71a916b430dc68a7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/72db78d8fee4e076db7d68729f5c70298160eb1a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/72e21cf8368eec8193ddfd1dded4b99020ea57d9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7685694ec4d63027ed86590f4bc435a8b1e8afe1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/77e0f05dfc2bb5cad1975dd0ab45ab9734fb8c34.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/786de470eb2e94271fd832f1bb25f659087ba226.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/78b1c4358ed92389651688c4b5885f5ca664d7f2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/79195a88eb86bb197a9d8fbf33e6dd7adc502f5a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7be44f38205c5428ef2de2d2cc80c083b7bf4f02.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7d7a9c88906b665be5b811b24296415aabd273f4.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7ddc87187a3fd4638aa91d87eddc0b855487d86e.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7e47e99f03d863cbd5fb1e74ed40a35dab1a2cd4.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/7f1e2c607e0f97e562a0f7ea035294a3b1ec9b0e.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8117b8304e1f97cea6feb07c4d9f91fbe6acbeef.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/81dd60da881b7ce88b4b7855ef489db5fc5460fb.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/829e86686031d21ca9696726dba2059f8c7e15de.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/845d5b3d4561271fd64e092d32d1323db14e38ac.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/860f1bb67522baa6f01b56a3973e8710fffac3f6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8896d6db76cbd586163e3f6d86a937620f3b0dff.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/88ba5fd22177b5025212e1817854389d9642351a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8c4f69c94b15e1bbd5cbb7b13ae71547b1afcf26.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8cf00bf10cbd16af6d9d32878c7914f58f5763fa.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8e9b29494b554c5e4c8a45ef0de31d09f123e05d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8ef0d9586818ba620ac0dc46ee8a1554369ddc83.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8f1dcb699b6d3f576699e26baf5b22525eb6453a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8f8480225e7912cad1dc67c09d3eff754fcc837d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/8fd528362cbcd21197ccda5bf99136a36ddddf40.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/90b521aefba4c210e4d05c6bbf85f37e2bf31d7a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/90cacf9b4bbd04f0629cd1ad6cbc0ccc4f7f3b92.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/911113c946d69a75281e42254644fd9e6fb57c6c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/91677a8760495617a737efbfa7e4ce655c7062a4.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/961c9ee2579809746c17e2a0c94e73f41798b532.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/977881b15b2c90740a345ae79366cfe759aa6581.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/97937510c57bcd645ea6237968905f48dec6548d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/982a0c88b7a0e55f1a1f4d7cecdad4803dfd929a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/98bd83139c8e8b011c23b218f5099d7f7416b3f3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/99ceb0b879a849bd6a2480be56c6f70a99a475dd.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/99e7e5727849978773a187f0a471a946e2443a46.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9b16261da960d3b14c1d573057e111e7f741bc9e.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9b2aaf343d834a66291b2bc2ff6ee5b7c18ed04d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9c58786f1b058ea100c651778712aa72b5f9e36b.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9c9656a5630764f183a31f89ccde0cf3ab81ef20.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9d14f1b84f48436910d610355f1ecf254d3b044b.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9d2f63203bfc034cede86a0d7830231700857015.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9dbbf9292eccd93f656b7d31268984cdacdbf13d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/9f715d5f3a1dbc71ac3ef1b7078c426841198b59.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a01a8e2a3a61bbe47c52a98dfdcc84db95b54242.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a210bdc35be0ceccc37702b8d4eab8865d0a0499.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a3416da85490e8c21bbaa95467943986f6a1bded.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a568f671d95eb08e1e666b9276357336e67abd1f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a5e01a01a936a5fca786b3e81071fdbf150ba5f1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a65b2bab9e583c7ee0a960081f8970fa77887855.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/a926aeca51c6980176e3428537a6a85720215eea.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/aadc180062ffab586071bb55cae8642e04758794.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ab3a8ec19901f8fa4de03c283141e320e6c15010.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/adcef4af5bc46e1a93c6c5c42883e7e787617624.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/afe66bae325a550232f749a4fe3c2d0bc7fa68a9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b126373a9f131438418ccd0fc77889a83632e08f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b1c5ab65f6e81f15444e86294c02b2ebf1ce095f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b22794ee7d2d937a11680980f688ef3baf9c4bf6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b2c9f2bb0c0f90b280935dacd210ca1c74dd267a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b3262acd365014d3dc92f8eb536ae3e589b95edc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b38c103adb68ffa56d498c9d49f574534fe4f27c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b624142316b21b14092ef42f059528c56c03011e.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b6d28af957e04fd6cb1d7404d8e731640d5eef0f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/b8b1e7d05dc03ef6d3a63de77a16a0f1d025d8f8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ba6ab829b4d49d4c25c12a4180dca0bfddecb863.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/bcfe84e80dd0c86c14397aba22c37505ea38f1db.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/bdc0b9e0c7dbfc9e645df5fdb54d69092e5d914a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/bf04e81820aa486ef43586b45203f6436c4e89de.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/bf176c774972aa086e7dd701fd30234a84ce4985.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c1031921ed12200d5afaa8beed60f08797896383.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c11c41a30efff87f8281f61d812738237e7f72c7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c308b3f8a975c5d8f7da2f22f7b076cd1180d3d9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c37bcf8152f4c49233271f2615ff0a63534d12f9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c39c02baae9f63e247f92c79c84885d8737418f9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c3ce644c286be72234e01d02ab6c101c4a56a2fc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c4e892b0e98226b7c544262046e1216d06cc17e3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c73db5cd2a00a0256b9a76b930e3fbafb1a7b0cd.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/c938392ded24323b4e5e67c3607b60af0bcffab2.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ca118cef9fde241c218551271baffc14c675c5a5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/cb83328bf96bb2d513e20937c1a5485dc734dc50.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/cdac0c9b185ce9fa46248ba4e75dbb0b2f4562f0.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/cf864a600a9e3eae0b1e004ffefe1cef79475cd6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/cf96661b5b8536150e836493073279c03a19b2b8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d0fddd5244356ad8d0f20a0657cd491d56984928.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d1d00d47bd7f5e1cc7b4567b9d2c50ace032d728.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d236f697ef3ba458a8c4a5424841ad5b62f771d9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d26eda0082d24e4e2cd8e80065a56c2461ea77dd.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d2bf3fe4e3dbcabfacc815b0d64183185bb82314.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d5a4b6257607a6dbca4f827b2efce30c9da16c15.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d80e4bd6605ba685f4d6244e404eeceef1748c15.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/d8766fa69fdedc5d4c2091864650da11c8ba472a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/daeb95c9e8ff3577bb5d36d921436f8add5c04dd.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/db54fc5b06df1395123481c1a0f562e7a71d02c8.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/dc46038a9b5588855aaad8a1e00dea074d9a8411.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/dc695e1fd05302176e603a614f6738922831f7bf.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/dd2e26c1d39447a27bcab46409d72ddce8f7fbf0.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/dde17bab70cbb30093d4f8171e32ada71adb6c33.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ddf4f463e360aabbcd9eb2a9df5cd37f0e3fe4eb.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e1073bb747e5c3c8fb43865a49824e8ac5050f09.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e176bb3eb35f9d7a1e39209e6d6f142287db5237.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e19e5188ea0668c9c6873684fa5b63b381076e40.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e22f15675879eeffac788ee5643186177fbebb58.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e28708d124174a86cbbdd68fe6bf63d0f645c023.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e2fd79fb28612a5f7a93e0f0d459a2ab036470f3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e4b1be943d800aba5456ef308118f13e65f30d8c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e66d99384593b62ee803902803abbdb33041ec08.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e801a1ad66de64c184c1f0ecda77d774b6f3262a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e80821e4bf44693a3e87f114466e6876060c259a.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/e8bcc1a8bb80837f60841c5b929ada452795527c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ec30acd84f1115865835231024724c0a0bccc02f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ed03a637ba8689e51292b0d22c181c09d8ed79f7.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ed066602394d711f6c80ef78c561c551ef00c8da.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/eeec768c335e31a8e2f420d9c87c07e1c7b8b784.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ef1ec2cc08c0b740a318df3d1f6e28d12c3ed7d0.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ef8ada3a06432718f36974707aea2a0ad71db17f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f110fa3505a77e8520d2f609eb76f082036805f1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f15dcce16aa486bceb7e7d8536a8d2f4ea67e813.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f1d245cf717e2ec7dcb69d13c7365fd9dc015639.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f207f8de53b41b275350b7c6d99669abc62fc5c1.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f251b0dabfed71559c614e3dd300f22bc3b81ba3.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f2de1e21b8e694c93a61fb1f6b6ed2bdcf5502d5.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f54c6a44ac1104aa467e65814635e0dbc2e41e37.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f55fb2f94467d12146ffbd721ffc5b03ca1d1e53.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f702df9d22aad687f7b219257c4a32adc0249356.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f73769a3023160d258c8e1b321550133eb6d890f.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f9b4cf696618645f5f7243f81c00507222330fd9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/f9cc6c3dc01390929181ec05da45458e74000fa9.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/fad4cf7b3738d2c6d949c79b4c791e4d94e213c6.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/faebe06345812867cce52bbc0070d235f2e23375.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/fb9647d1150028c5ad77355703b5317bb36cd46c.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/fe6a3fc77bab065ba61b7bfd58d8b5c8adf1599d.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/generated/ff5b6f072555e04e76535417e5ba4a27e992be91.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/back_link.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/home_warp.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/link.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/placeholder_npc.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/objects/wall_feature.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/back-stairs.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/forward-stairs.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/Keris/Documents/Repos/openMMBN-web-map-generator/onb-server/assets/shared/tiles/prefab_tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "resources/floor-tiles.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        }
+    },
+    "frame.defaultDuration": 100,
+    "last.imagePath": "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/ezmystery",
+    "map.fixedSize": true,
+    "map.height": 50,
+    "map.lastUsedExportFilter": "JSON map files (*.json)",
+    "map.orientation": 1,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 50,
+    "openFiles": [
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/farm.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/default.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/conveyers.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/plants/plants.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/gravy-pot.tmx"
+    ],
+    "project": "",
+    "property.type": "string",
+    "recentFiles": [
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/farm.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/default.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/conveyers.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/plants/plants.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/areas/gravy-pot.tmx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/tiles/grassy-tiles.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/ezmystery/PurpleMysteryData.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/ezmystery/GreenMysteryData.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/BlueMysteryData.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/water-thing.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/Tombstone_exe6.tsx",
+        "C:/Users/Keris/Documents/Repos/gravy-yum/assets/objects/water-thing-spout.tsx"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 116,
+        "width": 136
+    },
+    "tileset.transparentColor": "#ff00ff",
+    "tileset.type": 0,
+    "tileset.useTransparentColor": false
+}

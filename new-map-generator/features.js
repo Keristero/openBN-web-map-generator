@@ -1,3 +1,5 @@
+let {get_tiled_tid} = require('../helpers')
+let {generate_image_board} = require('../map-exporter/generate-image-board')
 class Feature {
     static tilesetGID = null
     static tsxPath = null
@@ -45,7 +47,7 @@ class HomeWarpFeature extends Feature {
         super(x, y, z, properties)
         this.type = 'Home Warp'
     }
-    onExport({ exporter, newObject }) {
+    async onExport({ exporter, newObject }) {
         //Called by tmx exporter when this feature is exported
         //sets the default entry point for this map, where the player will be transfered to on moving here
         exporter.AddProperty('entry_warp_id', newObject['@id'])
@@ -96,10 +98,19 @@ class ImageFeature extends Feature {
         }
         Object.assign(this.properties, newProperties)
     }
-    onExport({ exporter, newObject }) {
-        //This ensures that the Down Left facing objects are using the gid and facing the correct way as a result
+    async onExport({ exporter, newObject }) {
+        let tile_count = 1
+        if(!this.properties.src){
+            return
+        }
+        let tsx_path = await generate_image_board(this.properties.src)
+        let new_gid = exporter.AddTileset(tile_count, tsx_path)
+        delete this.properties.src
         if (this.properties.Direction == 'Down Left') {
-            newObject['@gid'] = newObject['@gid'] + 1
+            let xflipped = true
+            newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
+        }else{
+            newObject['@gid'] = new_gid
         }
     }
 }

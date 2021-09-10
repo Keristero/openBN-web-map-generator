@@ -1,6 +1,7 @@
 const { createCanvas, loadImage } = require('canvas')
 const axios = require('axios').default
 const fs = require('fs')
+const crypto = require('crypto')
 
 class RNG {
     constructor(startingSeed) {
@@ -256,6 +257,52 @@ async function downloadFile(link_to_file, output_path) {
     })
 }
 
+function parse_tiled_tid_info(tid) {
+    /* Tiled map editor encodes the flipping of tiles in a number using binary
+    https://doc.mapeditor.org/en/stable/reference/tmx-map-format/
+    */
+    let binary = tid.toString(2).padStart(32, "0")
+    let xFlipped = binary[0] === "1"
+    let yFlipped = binary[1] === "1"
+    let diagonallyFlipped = binary[2] === "1"
+    let id = parseInt(binary.substr(3, binary.length), 2)
+    let tiledTileInfo = {
+        id,
+        xFlipped,
+        yFlipped,
+        diagonallyFlipped
+    }
+    return tiledTileInfo
+}
+
+function replaceAtIndex(str,index,value) {
+    if(index > str.length-1) 
+    {
+        return string
+    }
+    else{
+    return str.substring(0,index) + value + str.substring(index+1)
+    }
+}
+
+function get_tiled_tid(tid,xFlipped,yFlipped,diagonallyFlipped){
+    let binary = tid.toString(2).padStart(32, "0")
+    if(xFlipped){
+        binary = replaceAtIndex(binary,0,"1")
+    }
+    if(yFlipped){
+        binary = replaceAtIndex(binary,1,"1")
+    }
+    if(diagonallyFlipped){
+        binary = replaceAtIndex(binary,2,"1")
+    }
+    return parseInt(binary, 2)
+}
+
+function fastHash(data) {
+    return crypto.createHash('sha1').update(data).digest('hex')
+}
+
 module.exports = {
     generateGrid,
     distance,
@@ -271,4 +318,6 @@ module.exports = {
     trim3dMatrix,
     asyncSleep,
     downloadFile,
+    get_tiled_tid,
+    fastHash
 }

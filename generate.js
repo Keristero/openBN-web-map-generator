@@ -99,8 +99,8 @@ async function generate(site_url, isHomePage = false) {
     let generated_tiles = await generateNetAreaAssets(netAreaGenerator, path_generated_tiles)
 
     console.log('exporting map TMX...')
-    let mapExporter = new TiledTMXExporter(netAreaGenerator, site_properties, generated_tiles)
-    let tilesets = await mapExporter.ExportTMX(path_generated_map)
+    let mapExporter = new TiledTMXExporter()
+    let tilesets = await mapExporter.ExportTMX(netAreaGenerator, site_properties,path_generated_map)
 
     console.log(`saved generated map as ${path_generated_map}`)
 

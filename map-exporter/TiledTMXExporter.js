@@ -4,7 +4,110 @@ const { featureCategories } = require('../new-map-generator/features')
 let { writeFile } = require('fs/promises')
 
 class TiledTMXExporter {
-    constructor(NetArea, p_properties) {
+    constructor(){
+    }
+    GridCoordsToWorldCoords(x, y) {
+        let IsoPos = {
+            x: x * this.tileHeight,
+            y: y * this.tileHeight,
+        }
+        return IsoPos
+    }
+    async AddObject(x, y, z, feature) {
+        let collection = this.objectLayers[z].objectgroup.object
+        let isoCoords = this.GridCoordsToWorldCoords(x, y)
+        console.log(`feature gid = ${feature.tilesetGID}, lid=${feature.tid}`)
+        let newObject = {
+            '@id': this.nextObjectID,
+            '@type': feature.type,
+            '@gid': feature.tilesetGID + feature.tid,
+            '@x': isoCoords.x + feature.x_spawn_offset,
+            '@y': isoCoords.y + feature.y_spawn_offset,
+            '@width': feature.width,
+            '@height': feature.height,
+            '@visible': feature.visible,
+            properties: {
+                property: [],
+            },
+        }
+        for (let propertyName in feature.properties) {
+            newObject.properties.property.push({
+                '@name': propertyName,
+                '@value': `${feature.properties[propertyName]}`,
+            })
+        }
+        if (feature.onExport) {
+            await feature.onExport({ exporter: this, x, y, z, newObject })
+        }
+        collection.push(newObject)
+        this.nextObjectID++
+    }
+    AddProperty(propertyName, propertyValue) {
+        let propertyArray = this.xmlJSON.map['#'][0].properties.property
+        let newProp = {
+            '@name': `${propertyName}`,
+            '@value': `${propertyValue}`,
+        }
+        propertyArray.push(newProp)
+    }
+    AddTileset(tileCount, sourcePath, firstgid = this.nextTileGID, forceAdd = false) {
+        let tilesetArray = this.xmlJSON.map['#'][1].tileset
+        let preexistingTileset = returnObjectFromArrayWithKeyValue(tilesetArray, '@source', sourcePath)
+        if (!preexistingTileset || forceAdd === true) {
+            let newTilesetData = {
+                '@firstgid': `${parseInt(firstgid)}`,
+                '@source': `${sourcePath}`,
+            }
+            if (!preexistingTileset) {
+                let asset_path = sourcePath.replace('..', '.')
+                this.assets.push(asset_path)
+                this.assets.push(asset_path.replace('.tsx', '.png'))
+            }
+            this.nextTileGID = parseInt(firstgid) + tileCount
+            tilesetArray.push(newTilesetData)
+            console.log(`[TMXExporter] added tileset ${newTilesetData['@firstgid']}:${newTilesetData['@source']}`)
+        } else {
+            firstgid = preexistingTileset['@firstgid']
+            console.log('there is already a tileset with a matching source', firstgid)
+        }
+        return firstgid
+    }
+    AddObjectLayer(layerIndex) {
+        let layerArray = this.xmlJSON.map['#']
+        let newObjLayer = {
+            objectgroup: {
+                '@id': `${this.nextLayerID}`,
+                '@name': `Objects ${layerIndex}`,
+                '@offsetx': `0`,
+                '@offsety': `${-((layerIndex - 1) * 16)}`,
+                object: [], //We can add the objects here later
+            },
+        }
+        this.nextLayerID++
+        this.objectLayers.push(newObjLayer)
+        layerArray.push(newObjLayer)
+    }
+    AddTileLayer(layerIndex, csvData) {
+        let layerArray = this.xmlJSON.map['#']
+        let newTileLayer = {
+            layer: {
+                '@id': `${this.nextLayerID}`,
+                '@name': `Tiles ${layerIndex}`,
+                '@width': this.width,
+                '@height': this.length,
+                '@offsetx': `0`,
+                '@offsety': `${-((layerIndex - 1) * 16)}`,
+                data: {
+                    '@encoding': 'csv',
+                    '#': csvData,
+                },
+            },
+        }
+        this.nextLayerID++
+        this.tileLayers.push(newTileLayer)
+        layerArray.push(newTileLayer)
+    }
+    async ExportTMX(NetArea, p_properties,path) {
         this.height = NetArea.height
         this.length = NetArea.length
         this.width = NetArea.width
@@ -108,113 +211,10 @@ class TiledTMXExporter {
         for (let z in NetArea.features) {
             for (let y in NetArea.features[z]) {
                 for (let x in NetArea.features[z][y]) {
-                    this.AddObject(x, y, z, NetArea.features[z][y][x])
+                    await this.AddObject(x, y, z, NetArea.features[z][y][x])
                 }
             }
         }
-    }
-    GridCoordsToWorldCoords(x, y) {
-        let IsoPos = {
-            x: x * this.tileHeight,
-            y: y * this.tileHeight,
-        }
-        return IsoPos
-    }
-    AddObject(x, y, z, feature) {
-        let collection = this.objectLayers[z].objectgroup.object
-        let isoCoords = this.GridCoordsToWorldCoords(x, y)
-        console.log(`feature gid = ${feature.tilesetGID}, lid=${feature.tid}`)
-        let newObject = {
-            '@id': this.nextObjectID,
-            '@type': feature.type,
-            '@gid': feature.tilesetGID + feature.tid,
-            '@x': isoCoords.x + feature.x_spawn_offset,
-            '@y': isoCoords.y + feature.y_spawn_offset,
-            '@width': feature.width,
-            '@height': feature.height,
-            '@visible': feature.visible,
-            properties: {
-                property: [],
-            },
-        }
-        for (let propertyName in feature.properties) {
-            newObject.properties.property.push({
-                '@name': propertyName,
-                '@value': `${feature.properties[propertyName]}`,
-            })
-        }
-        if (feature.onExport) {
-            feature.onExport({ exporter: this, x, y, z, newObject })
-        }
-        collection.push(newObject)
-        this.nextObjectID++
-    }
-    AddProperty(propertyName, propertyValue) {
-        let propertyArray = this.xmlJSON.map['#'][0].properties.property
-        let newProp = {
-            '@name': `${propertyName}`,
-            '@value': `${propertyValue}`,
-        }
-        propertyArray.push(newProp)
-    }
-    AddTileset(tileCount, sourcePath, firstgid = this.nextTileGID, forceAdd = false) {
-        let tilesetArray = this.xmlJSON.map['#'][1].tileset
-        let preexistingTileset = returnObjectFromArrayWithKeyValue(tilesetArray, '@source', sourcePath)
-        if (!preexistingTileset || forceAdd === true) {
-            let newTilesetData = {
-                '@firstgid': `${parseInt(firstgid)}`,
-                '@source': `${sourcePath}`,
-            }
-            if (!preexistingTileset) {
-                let asset_path = sourcePath.replace('..', '.')
-                this.assets.push(asset_path)
-                this.assets.push(asset_path.replace('.tsx', '.png'))
-            }
-            this.nextTileGID = parseInt(firstgid) + tileCount
-            tilesetArray.push(newTilesetData)
-            console.log(`[TMXExporter] added tileset ${newTilesetData['@firstgid']}:${newTilesetData['@source']}`)
-        } else {
-            firstgid = preexistingTileset['@firstgid']
-            console.log('there is already a tileset with a matching source', firstgid)
-        }
-        return firstgid
-    }
-    AddObjectLayer(layerIndex) {
-        let layerArray = this.xmlJSON.map['#']
-        let newObjLayer = {
-            objectgroup: {
-                '@id': `${this.nextLayerID}`,
-                '@name': `Objects ${layerIndex}`,
-                '@offsetx': `0`,
-                '@offsety': `${-((layerIndex - 1) * 16)}`,
-                object: [], //We can add the objects here later
-            },
-        }
-        this.nextLayerID++
-        this.objectLayers.push(newObjLayer)
-        layerArray.push(newObjLayer)
-    }
-    AddTileLayer(layerIndex, csvData) {
-        let layerArray = this.xmlJSON.map['#']
-        let newTileLayer = {
-            layer: {
-                '@id': `${this.nextLayerID}`,
-                '@name': `Tiles ${layerIndex}`,
-                '@width': this.width,
-                '@height': this.length,
-                '@offsetx': `0`,
-                '@offsety': `${-((layerIndex - 1) * 16)}`,
-                data: {
-                    '@encoding': 'csv',
-                    '#': csvData,
-                },
-            },
-        }
-        this.nextLayerID++
-        this.tileLayers.push(newTileLayer)
-        layerArray.push(newTileLayer)
-    }
-    async ExportTMX(path) {
         const doc = create({ version: '1.0' }, this.xmlJSON).end({
             prettyPrint: true,
         })

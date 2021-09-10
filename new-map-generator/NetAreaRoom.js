@@ -69,6 +69,7 @@ class NetAreaRoom {
         let totalRequired = {
             ground_features: 0,
             wall_features: 0,
+            back_links:0
         }
 
         for (let featureCategory in featureCategories) {
@@ -163,6 +164,9 @@ class NetAreaRoom {
             } else {
                 this.totalRequired.back_links = 1
                 this.totalRequired.ground_features += 1
+                if(!this.node.features){
+                    this.node.features = {}
+                }
                 this.node.features.back_links = [{}]
             }
             this.isStairs = false
