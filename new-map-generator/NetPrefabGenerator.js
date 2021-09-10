@@ -5,6 +5,8 @@ const { iterateOver3dMatrix, generate3dMatrix, iterateOverGrid } = require('../h
 function GenerateForRequirements({ ground_features, wall_features }) {
     let newPrefab = new Prefab()
 
+    ground_features = Math.max(ground_features,1)
+
     let placed_features = {
         ground_features: 0,
         wall_features: 0,
@@ -37,6 +39,7 @@ function GenerateForRequirements({ ground_features, wall_features }) {
         console.log(`placed wall features`, placed_features.wall_features, '/', wall_features)
     }
     write_parts_to_prefab(newPrefab, placements)
+    console.log("prefab generated",newPrefab)
     return newPrefab
 }
 
@@ -97,9 +100,9 @@ function write_parts_to_prefab(prefab, placements) {
         for (let placement of placements) {
             let part = placement.part
             for (let feature of part[feature_collection_name]) {
-                let x = placement.part_pos.x + feature.x + wall_padding
-                let y = placement.part_pos.y + feature.y + wall_padding
-                let z = placement.part_pos.z + feature.z
+                let x = -part_start_x + placement.part_pos.x + wall_padding + feature.x
+                let y = -part_start_y + placement.part_pos.y + wall_padding + feature.y
+                let z = -part_start_z + placement.part_pos.z
                 if(feature.properties){
                     if(!feature.properties.Direction){
                         feature.properties.Direction = directions[Math.floor(Math.random()*directions.length)]
