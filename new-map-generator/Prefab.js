@@ -1,9 +1,10 @@
 class Prefab {
     constructor() {
         this.features = {
-            female_connections: [],
-            groundFeatures: [],
-            wallFeatures: []
+            male_connectors: [],
+            female_connectors: [],
+            ground_features: [],
+            wall_features: [],
         }
         this.totalFeatures = 0
         this.matrix = []
@@ -24,7 +25,7 @@ class Prefab {
         let newFeatureData = { x, y, z, properties }
         this.features[featureCollectionName].push(newFeatureData)
         this.totalFeatures++
-        console.log("Added feature", newFeatureData, "To", featureCollectionName)
+        console.log('Added feature', newFeatureData, 'To', featureCollectionName)
     }
 }
 

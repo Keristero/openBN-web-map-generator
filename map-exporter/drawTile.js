@@ -24,12 +24,12 @@ function drawRandomTileOnCanvas() {
         line_width: 3,
         base_color,
         side_color,
-        color
+        color,
     }
     return drawTileOnCanvas(tile_options)
 }
 
-function drawTileOnCanvas({width,length,tile_height,line_width,base_color,side_color,color}) {
+function drawTileOnCanvas({ width, length, tile_height, line_width, base_color, side_color, color }) {
     let canvasWidth = width + line_width
     let canvasHeight = length + tile_height + line_width
     let canvas = createCanvas(canvasWidth, canvasHeight)
@@ -39,26 +39,26 @@ function drawTileOnCanvas({width,length,tile_height,line_width,base_color,side_c
 }
 
 function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, base_color, side_color, color) {
-    console.log('drawing tile',base_color,side_color,color)
-    let x = (px + xSize / 2) + (lineWidth / 2)
-    let y = py + (lineWidth / 2)
+    console.log('drawing tile', base_color, side_color, color)
+    let x = px + xSize / 2 + lineWidth / 2
+    let y = py + lineWidth / 2
     let drawAndFillPath = function (points) {
-        ctx.beginPath();
+        ctx.beginPath()
         points.forEach((point, index) => {
             if (index == 0) {
-                ctx.moveTo(point.x, point.y);
+                ctx.moveTo(point.x, point.y)
             } else {
                 ctx.lineTo(point.x, point.y)
             }
         })
         //Draw a nice thick line along path
         ctx.lineWidth = 1 //except right now it aint thick
-        ctx.strokeStyle = "rgb(50,50,50)"
-        ctx.stroke();
-        ctx.fill();
+        ctx.strokeStyle = 'rgb(50,50,50)'
+        ctx.stroke()
+        ctx.fill()
         ctx.lineWidth = 1
-        ctx.strokeStyle = "rgba(255,255,255,0.1)"
-        ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,0.1)'
+        ctx.stroke()
     }
     let hw = xSize / 2
     let hh = ySize / 2
@@ -89,23 +89,23 @@ function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, base_color, side_
     drawAndFillPath(topPoints)
 
     let drawReflection = function (layers) {
-        ctx.globalCompositeOperation = "source-atop"
+        ctx.globalCompositeOperation = 'source-atop'
         ctx.fillStyle = `rgba(0,0,0,0.1)`
         for (let i = 0; i < layers; i++) {
-            ctx.beginPath();
+            ctx.beginPath()
             ctx.ellipse(x - ySize, y + hh, ySize / (2 + i / 4), depth * 2, 0, 0, Math.PI * 2)
-            ctx.fill();
+            ctx.fill()
         }
         for (let i = 0; i < layers; i++) {
-            ctx.beginPath();
+            ctx.beginPath()
             ctx.ellipse(x + ySize, y + hh, ySize / (2 + i / 4), depth * 2, 0, 0, Math.PI * 2)
-            ctx.fill();
+            ctx.fill()
         }
         ctx.fillStyle = `rgba(255,255,255,0.05)`
         for (let i = 0; i < layers; i++) {
-            ctx.beginPath();
+            ctx.beginPath()
             ctx.ellipse(x, y + hh, ySize / (2 + i / 2), xSize / (4 + i / 2), 0, 0, Math.PI * 2)
-            ctx.fill();
+            ctx.fill()
         }
     }
     drawReflection(5)
