@@ -34,7 +34,7 @@ class LinkFeature extends Feature {
         super(x, y, z, properties)
         this.type = 'link'
         let newProperties = {
-            link: feature.link || '',
+            link: feature.href || '',
             text: feature.text || '',
         }
         Object.assign(this.properties, newProperties)
