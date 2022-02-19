@@ -56,18 +56,22 @@ async function generateTSX(tsx_path, tileHash) {
 
 function generate_image_board(image_url){
     return new Promise(async(resolve,reject)=>{
-        let path_generated_assets = path.join('.', 'onb-server','assets', 'generated')
-        let file_name = fastHash(image_url)
-        let relative_tsx_path = `../assets/generated/${file_name}.tsx`
-        let canvas = await generate_image_board_image(image_url)
-        await generateTSX(path.join(path_generated_assets,`${file_name}.tsx`),file_name)
-        let out = fs.createWriteStream(path.join(path_generated_assets,`${file_name}.png`))
-        let stream = canvas.createPNGStream(`${file_name}.png`)
-        stream.pipe(out)
-        out.on('finish', () =>{
-            console.log('generated image board tsx')
-            resolve(relative_tsx_path)
-        })
+        try{
+            let path_generated_assets = path.join('.', 'onb-server','assets', 'generated')
+            let file_name = fastHash(image_url)
+            let relative_tsx_path = `../assets/generated/${file_name}.tsx`
+            let canvas = await generate_image_board_image(image_url)
+            await generateTSX(path.join(path_generated_assets,`${file_name}.tsx`),file_name)
+            let out = fs.createWriteStream(path.join(path_generated_assets,`${file_name}.png`))
+            let stream = canvas.createPNGStream(`${file_name}.png`)
+            stream.pipe(out)
+            out.on('finish', () =>{
+                console.log('generated image board tsx')
+                resolve(relative_tsx_path)
+            })
+        }catch(e){
+            reject(e)
+        }
     })
 }
 

@@ -66,6 +66,18 @@ class BackLinkFeature extends HomeWarpFeature {
 class TextFeature extends Feature {
     static tsxPath = `../assets/shared/objects/placeholder_npc.tsx`
     static tsxTileCount = 1
+    static deprecated_tag_assets  = ["heel-navi-exe4_black","heel-navi-exe4_purple","punk-navi-exe6_navy","punk-navi-exe6_red"]
+    static tag_to_npc_asset = {
+        "P":["prog"],
+        "H1":["official-navi-exe4_orange","official-navi-exe6_orange"],
+        "H2":["normal-navi-bn4_red","normal-navi-bn4_green","normal-navi-bn4_brown","male-navi-exe6_teal"],
+        "H3":["female-navi-exe4_orange","female-navi-exe5_purple","female-navi-exe6_pink","female-navi-exe6_yellow"],
+        "FONT":TextFeature.deprecated_tag_assets,
+        "CENTER":TextFeature.deprecated_tag_assets,
+        "B":TextFeature.deprecated_tag_assets,
+        "MARQUEE":["bass"],
+        "STRONG":["gutsman"]
+    }
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
         this.type = 'NPC'
@@ -73,9 +85,18 @@ class TextFeature extends Feature {
         this.y_spawn_offset = -16
         this.x_spawn_offset = -16
         let newProperties = {
-            npc_asset_name: 'prog',
-            npc_chat: feature.text.toUpperCase(),
-            npc_type: 'chat',
+            "Asset Name": 'prog',
+            "Dialogue Type": 'first',
+            "Text 1": feature.text
+        }
+        //Choose a random NPC asset based on the HTML tag
+        let assets_for_this_tag = TextFeature.tag_to_npc_asset[feature.tag]
+        if(assets_for_this_tag){
+            newProperties['Asset Name'] = assets_for_this_tag[Math.floor(Math.random()*assets_for_this_tag.length)];
+        }
+        //If we end up with a prog asset, convert the text to uppercase
+        if(newProperties['Asset Name'] == 'prog'){
+            newProperties['Text 1'] = newProperties['Text 1'].toUpperCase()
         }
         Object.assign(this.properties, newProperties)
     }
@@ -86,15 +107,14 @@ class ImageFeature extends Feature {
     static tsxTileCount = 2
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
-        console.log(`creating image feature with properties`, properties, feature)
         //TODO download the image
         this.type = 'image'
         this.height = 64
         this.y_spawn_offset = -32
         this.x_spawn_offset = -32
         let newProperties = {
-            src: feature.link || '',
-            text: feature.text || '',
+            src: feature.src || '',
+            text: feature.alt || '',
         }
         Object.assign(this.properties, newProperties)
     }
@@ -103,14 +123,18 @@ class ImageFeature extends Feature {
         if(!this.properties.src){
             return
         }
-        let tsx_path = await generate_image_board(this.properties.src)
-        let new_gid = exporter.AddTileset(tile_count, tsx_path)
-        delete this.properties.src
-        if (this.properties.Direction == 'Down Left') {
-            let xflipped = true
-            newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
-        }else{
-            newObject['@gid'] = new_gid
+        try{
+            let tsx_path = await generate_image_board(this.properties.src)
+            let new_gid = exporter.AddTileset(tile_count, tsx_path)
+            delete this.properties.src
+            if (this.properties.Direction == 'Down Left') {
+                let xflipped = true
+                newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
+            }else{
+                newObject['@gid'] = new_gid
+            }
+        }catch(e){
+            console.log(`error generating image board for ${this.properties.src}`,e)
         }
     }
 }

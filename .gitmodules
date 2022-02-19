@@ -4,3 +4,9 @@
 [submodule "Scriptable-OpenNetBattle-Server"]
 	path = Scriptable-OpenNetBattle-Server
 	url = https://github.com/ArthurCose/Scriptable-OpenNetBattle-Server
+[submodule "onb-server/scripts/ezlibs-scripts"]
+	path = onb-server/scripts/ezlibs-scripts
+	url = https://github.com/Keristero/ezlibs-scripts
+[submodule "onb-server/assets/ezlibs-assets"]
+	path = onb-server/assets/ezlibs-assets
+	url = https://github.com/Keristero/ezlibs-assets.git

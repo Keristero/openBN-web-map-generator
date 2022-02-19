@@ -31,7 +31,6 @@ function create_or_add_to_feature(target_feature,feature_name,feature){
 function detect_feature_type(node){
     //detect which collection the node falls into
     for(let collection_name in collection_attributes){
-        console.log('checking',collection_name)
         for(let key in node){
             if(key === "parent" || key === "children"){
                 continue
@@ -66,7 +65,6 @@ function parse_feature_attributes(feature_collection,node){
         }
     }
     if(feature_collection === "links"){
-        console.log('link node looks like',node)
         if(node["href"]){
             feature["href"] = node.href
         }
@@ -134,7 +132,6 @@ async function scrape(url, outputPath) {
     }
 
     //save converted document
-    console.log('saving converted document',converted_document)
     await writeFile(outputPath, JSON.stringify(converted_document, null, 1))
 
     /* old code

@@ -1,5 +1,5 @@
 local json = require('scripts/libs/json')
-local ezevents = require('scripts/libs/ezevents')
+local ezevents = require('scripts/internet_cyberworld/events')
 
 local currently_generating = {}
 local player_last_warp_info = {}

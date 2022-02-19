@@ -114,16 +114,17 @@ class NetAreaRoom {
                     if (category == 'ground_features') {
                         newPlacementPosition = this.prefab.features[category][this.nextGroundFeatureIndex]
                         this.nextGroundFeatureIndex++
-                        //console.log('placing a ground feature on location',this.nextGroundFeatureIndex,'/', this.prefab.features[category].length)
+                        console.log('placing a ground feature on location',this.nextGroundFeatureIndex,'/', this.prefab.features[category].length)
                     }
                     if (category == 'wall_features') {
                         newPlacementPosition = this.prefab.features[category][this.nextWallFeatureIndex]
                         this.nextWallFeatureIndex++
-                        //console.log('placing a wall feature on location',this.nextWallFeatureIndex,'/', this.prefab.features[category].length)
+                        console.log('placing a wall feature on location',this.nextWallFeatureIndex,'/', this.prefab.features[category].length)
                     }
                     let featureData = nodeFeaturesOfType[n_featureKey]
                     let { x, y, z, properties } = newPlacementPosition
                     let newFeature = new featureMapping.className(x, y, z, featureData, properties)
+                    console.log(newFeature)
                     this.features[featureName][newFeature.locationString] = newFeature
                 }
             }
