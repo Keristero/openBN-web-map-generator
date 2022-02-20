@@ -225,9 +225,6 @@ class TweenedAnimation extends StaticAnimation {
         let easingTypes = [TweenJs.Easing.Quadratic.InOut, TweenJs.Easing.Linear.None, TweenJs.Easing.Linear.None]
         let easeIndex = Random.Integer(0, easingTypes.length - 1)
         let easeStrat = easingTypes[easeIndex]
-        console.log('ease strat index', easeIndex)
-        console.log('frames', this.frames)
-        console.log('stages', animationStages)
 
         let tweens = []
         let index = 0
@@ -329,7 +326,6 @@ class TweenedAnimation extends StaticAnimation {
             }
         }
         this.tweenTargets.push(resetStage)
-        console.log('reset tween')
     }
 }
 

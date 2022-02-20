@@ -66,7 +66,6 @@ function generate_image_board(image_url){
             let stream = canvas.createPNGStream(`${file_name}.png`)
             stream.pipe(out)
             out.on('finish', () =>{
-                console.log('generated image board tsx')
                 resolve(relative_tsx_path)
             })
         }catch(e){

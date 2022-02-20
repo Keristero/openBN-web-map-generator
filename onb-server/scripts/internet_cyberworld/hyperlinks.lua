@@ -1,5 +1,5 @@
 local json = require('scripts/libs/json')
-local ezevents = require('scripts/internet_cyberworld/events')
+local ezlisteners = require('scripts/ezlibs-scripts/ezlisteners')
 
 local currently_generating = {}
 local player_last_warp_info = {}
@@ -8,7 +8,9 @@ for index, value in ipairs(existing_areas) do
     print("existing area",index,value)
 end
 
-function handle_object_interaction(player_id, object_id)
+local lib = {}
+
+function lib.handle_object_interaction(player_id, object_id)
     local area_id = Net.get_player_area(player_id)
     local link_object = Net.get_object_by_id(area_id, object_id)
     --Only check 'link' interactions
@@ -83,7 +85,7 @@ function on_link_interaction(player_id,link_object)
             Async.await_all(tilesheet_promises)
             print("[hyperlinks] loaded all assets!")
             currently_generating[link_object.id] = nil
-            ezevents.broadcast_event('new_area_added',area_info.area_id)
+            ezlisteners.broadcast_event('new_area_added',area_info.area_id)
         else
             currently_generating[link_object.id] = nil
             print('[hyperlinks] area already existed, transfering right away '..area_info.area_path)
@@ -149,3 +151,5 @@ function generate_linked_map(player_id, link, text)
     end)
     return Async.promisify(co)
 end
+
+return lib

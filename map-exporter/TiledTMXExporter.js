@@ -16,7 +16,7 @@ class TiledTMXExporter {
     async AddObject(x, y, z, feature) {
         let collection = this.objectLayers[z].objectgroup.object
         let isoCoords = this.GridCoordsToWorldCoords(x, y)
-        console.log(`feature gid = ${feature.tilesetGID}, lid=${feature.tid}`)
+        //console.log(`feature gid = ${feature.tilesetGID}, lid=${feature.tid}`)
         let newObject = {
             '@id': this.nextObjectID,
             '@type': feature.type,
@@ -65,10 +65,10 @@ class TiledTMXExporter {
             }
             this.nextTileGID = parseInt(firstgid) + tileCount
             tilesetArray.push(newTilesetData)
-            console.log(`[TMXExporter] added tileset ${newTilesetData['@firstgid']}:${newTilesetData['@source']}`)
+            //console.log(`[TMXExporter] added tileset ${newTilesetData['@firstgid']}:${newTilesetData['@source']}`)
         } else {
             firstgid = preexistingTileset['@firstgid']
-            console.log('there is already a tileset with a matching source', firstgid)
+            //console.log('there is already a tileset with a matching source', firstgid)
         }
         return firstgid
     }

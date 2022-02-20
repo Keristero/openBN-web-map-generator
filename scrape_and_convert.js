@@ -61,7 +61,8 @@ function parse_feature_attributes(feature_collection,node){
             feature["alt"] = node.alt
         }
         if(node["background-image"]){
-            //let match_res = node["background-image"].match(/(?:\(\\['"])(.*)(?:\\['"])$/m)
+            let background_image_url = node["background-image"].slice(4, -1).replace(/"/g, "");
+            feature["src"] = background_image_url
         }
     }
     if(feature_collection === "links"){
@@ -75,6 +76,11 @@ function parse_feature_attributes(feature_collection,node){
     if(feature_collection === "text"){
         if(node["text"]){
             feature["text"] = node.text
+        }
+    }
+    if(feature_collection === "children"){
+        if(node["background-color"]){
+            feature["background-color"] = node["background-color"]
         }
     }
     return feature

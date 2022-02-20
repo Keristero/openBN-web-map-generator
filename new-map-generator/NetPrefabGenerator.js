@@ -24,7 +24,6 @@ function GenerateForRequirements({ ground_features, wall_features }) {
         let chosen_part = parts_with_ground_features[Math.floor(Math.random() * parts_with_ground_features.length)]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
-        console.log(`placed ground features`, placed_features.ground_features, '/', ground_features)
     }
 
     while (placed_features.wall_features < wall_features) {
@@ -36,10 +35,8 @@ function GenerateForRequirements({ ground_features, wall_features }) {
         let chosen_part = parts_with_wall_features[Math.floor(Math.random() * parts_with_wall_features.length)]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
-        console.log(`placed wall features`, placed_features.wall_features, '/', wall_features)
     }
     write_parts_to_prefab(newPrefab, placements)
-    console.log("prefab generated",newPrefab)
     return newPrefab
 }
 
@@ -79,7 +76,6 @@ function write_parts_to_prefab(prefab, placements) {
     let width = Math.abs(part_max_x-part_start_x)+(wall_padding*2)
     let length = Math.abs(part_max_y-part_start_y)+(wall_padding*2)
     let height = Math.abs(part_max_z-part_start_z)+1
-    console.log('prefab dimensions',width,length,height)
     prefab.matrix = generate3dMatrix(width,length,height,wall_id)
 
     //loop over each part and copy it's array contents to the 3d array
@@ -115,7 +111,7 @@ function write_parts_to_prefab(prefab, placements) {
 }
 
 function place_part(part, part_pos, placed_features, placements) {
-    console.log(`placing part at ${part_pos.x}, ${part_pos.y}, ${part_pos.z}`)
+    //console.log(`placing part at ${part_pos.x}, ${part_pos.y}, ${part_pos.z}`)
     let placement = {
         part,
         part_pos,
@@ -139,7 +135,7 @@ function place_part(part, part_pos, placed_features, placements) {
 }
 
 function find_placement(partA, placements, placed_features) {
-    console.log(`finding placement for`, partA.name)
+    //console.log(`finding placement for`, partA.name)
 
     let female_connectors = placed_features.arr_female_connectors
 
@@ -160,7 +156,6 @@ function find_placement(partA, placements, placed_features) {
             partA_pos.y = female_connector.y - male_connector.y
             partA_pos.z = female_connector.z - male_connector.z
             if (!does_part_at_position_overlap_placed_part(partA, partA_pos, placements)) {
-                console.log('lmoa')
                 return partA_pos
             }
         }
@@ -185,7 +180,6 @@ function find_placement(partA, placements, placed_features) {
         }
     }
     if(valid_placements.length > 0){
-        console.log('valid placements',valid_placements)
         return valid_placements[Math.floor(Math.random() * valid_placements.length)]
     }
     console.warn(`no placement found for part`)

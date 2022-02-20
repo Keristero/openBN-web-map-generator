@@ -7,7 +7,6 @@ function createTilePNG(tile_options, out_path) {
     let out = fs.createWriteStream(out_path)
     let stream = canvas.createPNGStream()
     stream.pipe(out)
-    out.on('finish', () => console.log('The PNG file was created.'))
 }
 
 function drawRandomTileOnCanvas() {
@@ -39,7 +38,6 @@ function drawTileOnCanvas({ width, length, tile_height, line_width, base_color, 
 }
 
 function drawTile(ctx, px, py, xSize, ySize, depth, lineWidth, base_color, side_color, color) {
-    console.log('drawing tile', base_color, side_color, color)
     let x = px + xSize / 2 + lineWidth / 2
     let y = py + lineWidth / 2
     let drawAndFillPath = function (points) {

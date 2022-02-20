@@ -222,7 +222,6 @@ function findBoundsOfMatrix(matrix, ignoreID = 0) {
             r.max.z = gridPos.z
         }
     }
-    console.log(r)
     return r
 }
 

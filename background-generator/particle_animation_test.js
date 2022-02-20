@@ -109,8 +109,6 @@ class ParticleAnimation {
         this.frames = 32 *this.animation_stages
 
         let easeStrat = TweenJs.Easing.Sinusoidal.InOut
-        console.log('frames', this.frames)
-        console.log('stages', this.animation_stages)
 
         let tweens = []
         let tweens_linear = []
@@ -136,7 +134,6 @@ class ParticleAnimation {
         //tweens_linear[0].start()
     }
     update_particles(particles,particles_linear,stage_index) {
-        console.log(stage_index)
         for (let particle_id in particles) {
             let particle = particles[particle_id]
             let particle_linear = particles_linear[particle_id]
@@ -149,7 +146,6 @@ class ParticleAnimation {
         }
     }
     animateFrame(ctx, frame) {
-        console.log('animating frame',frame)
         TweenJs.update(frame)
         //clear previous frame
         ctx.clearRect(0,0,this.width,this.height)

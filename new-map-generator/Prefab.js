@@ -25,7 +25,6 @@ class Prefab {
         let newFeatureData = { x, y, z, properties }
         this.features[featureCollectionName].push(newFeatureData)
         this.totalFeatures++
-        console.log('Added feature', newFeatureData, 'To', featureCollectionName)
     }
 }
 
