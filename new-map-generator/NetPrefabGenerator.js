@@ -76,7 +76,7 @@ function write_parts_to_prefab(prefab, placements) {
     let width = Math.abs(part_max_x-part_start_x)+(wall_padding*2)
     let length = Math.abs(part_max_y-part_start_y)+(wall_padding*2)
     let height = Math.abs(part_max_z-part_start_z)+1
-    prefab.matrix = generate3dMatrix(width,length,height,wall_id)
+    prefab.matrix = generate3dMatrix(width,length,height,0)
 
     //loop over each part and copy it's array contents to the 3d array
     for (let placement of placements) {
@@ -86,6 +86,32 @@ function write_parts_to_prefab(prefab, placements) {
             let y = -part_start_y + placement.part_pos.y + grid_pos.y + wall_padding
             let z = -part_start_z + placement.part_pos.z + grid_pos.z
             prefab.matrix[z][y][x] = grid_pos.tileID
+            //also add walls around it if we can
+            //TODO find a better way to do this, it could be really slow
+            if(prefab.matrix[z][y][x-1] == 0){
+                prefab.matrix[z][y][x-1] = 1
+            }
+            if(prefab.matrix[z][y][x+1] == 0){
+                prefab.matrix[z][y][x+1] = 1
+            }
+            if(prefab.matrix[z][y-1][x] == 0){
+                prefab.matrix[z][y-1][x] = 1
+            }
+            if(prefab.matrix[z][y+1][x] == 0){
+                prefab.matrix[z][y+1][x] = 1
+            }
+            if(prefab.matrix[z][y-1][x-1] == 0){
+                prefab.matrix[z][y-1][x-1] = 1
+            }
+            if(prefab.matrix[z][y+1][x+1] == 0){
+                prefab.matrix[z][y+1][x+1] = 1
+            }
+            if(prefab.matrix[z][y-1][x+1] == 0){
+                prefab.matrix[z][y-1][x+1] = 1
+            }
+            if(prefab.matrix[z][y+1][x-1] == 0){
+                prefab.matrix[z][y+1][x-1] = 1
+            }
         }
     }
 
@@ -182,7 +208,7 @@ function find_placement(partA, placements, placed_features) {
     if(valid_placements.length > 0){
         return valid_placements[Math.floor(Math.random() * valid_placements.length)]
     }
-    console.warn(`no placement found for part`)
+    console.warn(`no placement found for part`,partA,female_connectors)
     return null
 }
 
