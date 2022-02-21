@@ -10,20 +10,23 @@ class RNG {
     Bool() {
         return Math.random() < 0.501
     }
-    Float() {
-        var x = Math.sin(this.seed++) * 10000
-        return x - Math.floor(x)
+    Random(){
+        return Math.random()
+    }
+    Float(min,max) {
+        var range = max - min + 1
+        return (range * this.Random()) + min
     }
     Integer(min, max) {
         var range = max - min + 1
-        return Math.floor(range * this.Float()) + min
+        return Math.floor(range * this.Random()) + min
     }
     UnevenInteger(min, max) {
         var range = max - min + 1
-        return Math.floor((Math.floor(range * this.Float()) + min) / 2) * 2 + 1
+        return Math.floor((Math.floor(range * this.Random()) + min) / 2) * 2 + 1
     }
     RandomPositionOnCircumference(radius) {
-        var angle = this.Float() * Math.PI * 2
+        var angle = this.Random() * Math.PI * 2
         return {
             x: Math.cos(angle) * radius,
             y: Math.sin(angle) * radius,
