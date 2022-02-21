@@ -81,8 +81,8 @@ class TextFeature extends Feature {
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
         this.type = 'NPC'
-        this.y_spawn_offset = -16
-        this.x_spawn_offset = -16
+        this.y_spawn_offset = 16
+        this.x_spawn_offset = 16
         this.width = 16
         this.height = 32
         let newProperties = {
