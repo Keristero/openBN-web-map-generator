@@ -208,13 +208,16 @@ class TiledTMXExporter {
         }
 
         //Create objects
+        let object_creation_promises = []
         for (let z in NetArea.features) {
             for (let y in NetArea.features[z]) {
                 for (let x in NetArea.features[z][y]) {
-                    await this.AddObject(x, y, z, NetArea.features[z][y][x])
+                    let promise = this.AddObject(x, y, z, NetArea.features[z][y][x])
+                    object_creation_promises.push(promise)
                 }
             }
         }
+        await Promise.all(object_creation_promises)
         const doc = create({ version: '1.0' }, this.xmlJSON).end({
             prettyPrint: true,
         })
