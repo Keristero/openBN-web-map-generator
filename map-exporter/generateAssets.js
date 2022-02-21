@@ -24,15 +24,15 @@ function generateFloorTile(base_color, side_color, color, path_generated_tiles) 
     if (!fs.existsSync(write_tsx_path)) {
         //Only create tile if a matching one does not already exist
         createTilePNG(tile_options, tile_output_path + '.png')
-        generateTSX(write_tsx_path, tile_options_hash)
+        generateTSX(write_tsx_path, tile_options_hash, tile_options.tile_height)
     }
     return relative_tsx_path
 }
 
-async function generateTSX(tsx_path, tileHash) {
+async function generateTSX(tsx_path, tileHash, tile_height) {
     let doc = `<?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="65" tileheight="41" tilecount="1" columns="1" objectalignment="bottom">
-    <tileoffset x="0" y="8"/>
+<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="65" tileheight="${33+tile_height}" tilecount="1" columns="1" objectalignment="bottom">
+    <tileoffset x="0" y="${tile_height}"/>
     <image source="./${tileHash}.png" width="65" height="41"/>
 </tileset>
 `
@@ -42,10 +42,10 @@ async function generateTSX(tsx_path, tileHash) {
 async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
     //Generate random base and side colors
     let base_color = RGBAtoString(
-        random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.2 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+        random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
     )
     let side_color = RGBAtoString(
-        random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.2 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+        random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.1 }, { r: 250, g: 250, b: 250, a: 0.2 }, 10, 0.1)
     )
 
     //generate generic tiles
@@ -53,7 +53,7 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
     let tiles = {}
     for (let i = 0; i < 5; i++) {
         let color = RGBAtoString(
-            random.RGBARounded({ r: 50, g: 50, b: 50, a: 0.8 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+            random.RGBARounded({ r: 50, g: 50, b: 50, a: 1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
         )
         tiles[newTileID] = generateFloorTile(base_color, side_color, color, path_generated_tiles)
         newTileID++

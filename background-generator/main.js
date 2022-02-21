@@ -40,7 +40,7 @@ async function generateAnimationFile(PNGname, outputPath, width, height, frames)
     fs.writeFileSync(outputPath, outputString)
 }
 
-async function generateAnimationPNG(converted_favicon_path, output_path, preview = true, previewPath = 'preview.gif') {
+async function generateAnimationPNG(converted_favicon_path, output_path, preview = false, previewPath = 'preview.gif') {
     let favicon = await loadImage(converted_favicon_path)
 
     let width = 64

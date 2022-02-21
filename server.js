@@ -2,6 +2,8 @@ const express = require('express')
 
 const generate = require('./generate')
 const { asyncSleep } = require('./helpers')
+const { unlink } = require('fs/promises')
+const { resolve } = require('path')
 
 const app = express()
 //For parsing json bodies
@@ -10,7 +12,8 @@ app.use(express.json())
 app.use(express.static('home-page'))
 
 const web_server_port = 3000
-const net_square_url = `http://localhost:${web_server_port}`
+const net_square_url = `https://gbatemp.net/`
+const default_area_path = `areas/default.tmx`
 
 //Generate maps on demand
 app.post('/', async function (req, res) {
@@ -39,6 +42,11 @@ app.listen(web_server_port)
 
 async function main() {
     await asyncSleep(2000)
+    try{
+        await unlink(resolve('onb-server/'+default_area_path))
+    }catch(e){
+        console.log('cant unlink ',resolve('onb-server/'+default_area_path))
+    }
     await generate(net_square_url, true)
 }
 

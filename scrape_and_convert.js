@@ -69,9 +69,6 @@ function parse_feature_attributes(feature_collection,node){
         if(node["href"]){
             feature["href"] = node.href
         }
-        if(node["href"]){
-            feature["href"] = node.href
-        }
     }
     if(feature_collection === "text"){
         if(node["text"]){
