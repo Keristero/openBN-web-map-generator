@@ -10,10 +10,10 @@ class RNG {
     Bool() {
         return Math.random() < 0.501
     }
-    Random(){
+    Random() {
         return Math.random()
     }
-    Float(min,max) {
+    Float(min, max) {
         var range = max - min + 1
         return (range * this.Random()) + min
     }
@@ -259,6 +259,7 @@ async function downloadFile(link_to_file, output_path) {
     })
 }
 
+
 function parse_tiled_tid_info(tid) {
     /* Tiled map editor encodes the flipping of tiles in a number using binary
     https://doc.mapeditor.org/en/stable/reference/tmx-map-format/
@@ -277,26 +278,25 @@ function parse_tiled_tid_info(tid) {
     return tiledTileInfo
 }
 
-function replaceAtIndex(str,index,value) {
-    if(index > str.length-1) 
-    {
+function replaceAtIndex(str, index, value) {
+    if (index > str.length - 1) {
         return string
     }
-    else{
-    return str.substring(0,index) + value + str.substring(index+1)
+    else {
+        return str.substring(0, index) + value + str.substring(index + 1)
     }
 }
 
-function get_tiled_tid(tid,xFlipped,yFlipped,diagonallyFlipped){
+function get_tiled_tid(tid, xFlipped, yFlipped, diagonallyFlipped) {
     let binary = tid.toString(2).padStart(32, "0")
-    if(xFlipped){
-        binary = replaceAtIndex(binary,0,"1")
+    if (xFlipped) {
+        binary = replaceAtIndex(binary, 0, "1")
     }
-    if(yFlipped){
-        binary = replaceAtIndex(binary,1,"1")
+    if (yFlipped) {
+        binary = replaceAtIndex(binary, 1, "1")
     }
-    if(diagonallyFlipped){
-        binary = replaceAtIndex(binary,2,"1")
+    if (diagonallyFlipped) {
+        binary = replaceAtIndex(binary, 2, "1")
     }
     return parseInt(binary, 2)
 }
@@ -305,7 +305,18 @@ function fastHash(data) {
     return crypto.createHash('sha1').update(data).digest('hex')
 }
 
+function is_valid_web_url(string) {
+    let url;
+    try {
+        url = new URL(string);
+    } catch (_) {
+        return false;
+    }
+    return url.protocol === "http:" || url.protocol === "https:";
+}
+
 module.exports = {
+    is_valid_web_url,
     generateGrid,
     distance,
     RNG,
@@ -321,5 +332,5 @@ module.exports = {
     asyncSleep,
     downloadFile,
     get_tiled_tid,
-    fastHash
+    fastHash,
 }

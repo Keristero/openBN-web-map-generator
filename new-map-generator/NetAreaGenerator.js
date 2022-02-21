@@ -53,9 +53,9 @@ class NetAreaGenerator {
         easystar.setAcceptableTiles(this.walkableTiles)
         easystar.setTileCost(this.id_air, 4) //Going through empty area
         easystar.setTileCost(this.id_wall, 128) //Going through WALLS
-        easystar.setTileCost(this.id_floor_1, 64) //Going through rooms
-        easystar.setTileCost(this.id_floor_2, 64) //Going through rooms
-        easystar.setTileCost(this.id_floor_3, 64) //Going through rooms
+        easystar.setTileCost(this.id_floor_1, 32) //Going through rooms
+        easystar.setTileCost(this.id_floor_2, 32) //Going through rooms
+        easystar.setTileCost(this.id_floor_3, 32) //Going through rooms
         easystar.setTileCost(this.id_path, 2) //Going along paths
         easystar.setTileCost(this.id_importantPath, 1) //Going along important paths
 
