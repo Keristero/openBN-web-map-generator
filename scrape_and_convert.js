@@ -2,15 +2,16 @@ const path = require('path')
 const fs = require('fs')
 
 const {writeFile} = require('fs/promises')
-const {is_valid_web_url} = require('./helpers')
 const scraper = require('./web-to-document-scraper/scraper.js')
 const {cull_unwanted_nodes} = require('./web-to-document-scraper/helpers')
+const {loadImage } = require('canvas')
 const e = require('express')
 
 const minimum_importance = 1
 const tag_blacklist = ["SCRIPT","STYLE"]
 
 var duplicate_links = {}
+var duplicate_images = {}
 
 //collections and the attributes which are sorted into them
 //the order of this collection is also the priority
@@ -48,7 +49,15 @@ function detect_feature_type(node){
     return 'children'
 }
 
-function parse_feature_attributes(feature_collection,node){
+function get_url_obj_if_valid(string) {
+    try {
+        return new URL(string);
+    } catch (_) {
+        return null;
+    }
+}
+
+async function parse_feature_attributes(feature_collection,node){
     //grab any additional information from the node that we want to keep for the final converted document
     let feature = {}
     //firstly, things that all feature types share
@@ -71,14 +80,48 @@ function parse_feature_attributes(feature_collection,node){
         if(/ar-gradient/.test(feature["src"])){
             feature.should_be_deleted = true
         }
+        try{
+            if(!duplicate_images[feature.src]){
+                feature.data = await loadImage(feature.src)
+                duplicate_images[feature.src] = feature.data
+            }else{
+                feature.data = duplicate_images[feature.src]
+            }
+        }catch(e){
+            feature.should_be_deleted = true
+        }
     }
     if(feature_collection === "links"){
         if(node["href"]){
             feature["href"] = node.href
         }
+        if(node["text"]){
+            feature["text"] = node.text
+        }
+        let url = get_url_obj_if_valid(feature["href"])
+        if(url){
+            //if there is no descripton for the link, default it to the url path if we have one
+            if(!feature["text"] && url.pathname){
+                feature["text"] = url.pathname
+            }
+            if(!feature["text"] && url.hostname){
+                feature["text"] = url.hostname
+            }
+        }
+        //if the description is too long, shorten it
+        let max_length = 40
+        if(feature["text"].length > max_length){
+            feature["text"] = feature["text"].slice(feature["text"].length-max_length,max_length)
+        }
+
+
         //delete conditions
-        if(!is_valid_web_url(feature["href"])){
+        if(!url){
             feature.should_be_deleted = true
+        }else{
+            if(!(url.protocol === "http:" || url.protocol === "https:")){
+                feature.should_be_deleted = true
+            }
         }
         if(duplicate_links[feature["href"]]){
             //delete any links that are duplicates
@@ -148,7 +191,7 @@ async function scrape(url, outputPath) {
                 }
             }
             //now grab all the important information for this feature type from the node
-            let feature = parse_feature_attributes(feature_collection_name,node)
+            let feature = await parse_feature_attributes(feature_collection_name,node)
             node.converted_node = feature
             //add the newly generated feature to the parent of this node
             if(!feature.should_be_deleted){
@@ -157,84 +200,15 @@ async function scrape(url, outputPath) {
             }
         }else{
             //if this node has no parent, it must be the root feature
-            let feature = parse_feature_attributes("root",node)
+            let feature = await parse_feature_attributes("root",node)
             node.converted_node = feature
             converted_document = feature
         }
     }
 
     //save converted document
-    await writeFile(outputPath, JSON.stringify(converted_document, null, 1))
-
-    /* old code
-    //Set up attributes to scrape from page
-    let required = true
-    let attr_requiredTextContent = new AttributeType('textContent', 'text', required)
-    let attr_optionalTextContent = new AttributeType('textContent', 'text')
-    let attr_altText = new AttributeType('alt', 'text')
-    let attr_requiredHref = new AttributeType('href', 'link', required)
-    let attr_href = new AttributeType('href', 'link')
-    let attr_src = new AttributeType('src', 'link')
-    let attr_color = new AttributeType(undefined, 'color', false, 'color')
-    let attr_background_color = new AttributeType(undefined, 'background-color', false, 'background-color')
-    let attr_background_image = new AttributeType(undefined, 'background-image', false, 'background-image')
-
-    //Add a feature for "Children", this will be any container type TAG, we add any of these tags to
-    //the stack to create a deeply nested document
-    let ChildFeature = new FeatureType(true, 'children', [attr_background_color, attr_color])
-    let childTags = [
-        'MAIN',
-        'ASIDE',
-        'ARTICLE',
-        'HEADER',
-        'HTML',
-        'CENTER',
-        'NAV',
-        'BODY',
-        'DIV',
-        'SECTION',
-        'SPAN',
-        'UL',
-        'LI',
-        'TBODY',
-        'TABLE',
-        'TR',
-        'TD',
-        'B',
-        'FONT',
-    ]
-    for (let tag of childTags) {
-        testScraper.addFeatureType(tag, ChildFeature)
-    }
-
-    //Add a feature for "Links", which will also record the src or href link to the page
-    let LinkFeature = new FeatureType(false, 'links', [attr_requiredTextContent, attr_requiredHref, attr_src])
-    testScraper.addFeatureType('A', LinkFeature)
-
-    //Add a feature for "Text", which will include the text content attribute
-    let TextFeature = new FeatureType(false, 'text', [attr_requiredTextContent, attr_color])
-    let textTags = ['H1', 'H2', 'H3', 'H4', 'P']
-    for (let tag of textTags) {
-        testScraper.addFeatureType(tag, TextFeature)
-    }
-
-    //Add paragraphs as a child feature which also has text
-    let ChildFeatureWithText = new FeatureType(true, 'children', [attr_color])
-    testScraper.addFeatureType('P', ChildFeatureWithText)
-
-    //Add a feature for "Images", which will contain the image source and alt text as a description
-    let ImageFeature = new FeatureType(false, 'images', [
-        attr_src,
-        attr_altText,
-        attr_optionalTextContent,
-        attr_background_image,
-    ])
-    testScraper.addFeatureType('IMG', ImageFeature)
-
-    let res = await testScraper.scrape(url, fromFile, trim)
-    await fs.ensureFile(outputPath)
-    await fs.writeFile(outputPath, JSON.stringify(res, null, 2))
-    */
+    writeFile(outputPath, JSON.stringify(converted_document, null, 1))
+    return converted_document
 }
 
 module.exports = scrape

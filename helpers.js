@@ -305,18 +305,7 @@ function fastHash(data) {
     return crypto.createHash('sha1').update(data).digest('hex')
 }
 
-function is_valid_web_url(string) {
-    let url;
-    try {
-        url = new URL(string);
-    } catch (_) {
-        return false;
-    }
-    return url.protocol === "http:" || url.protocol === "https:";
-}
-
 module.exports = {
-    is_valid_web_url,
     generateGrid,
     distance,
     RNG,

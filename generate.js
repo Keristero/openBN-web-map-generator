@@ -79,7 +79,8 @@ async function generate(site_url, isHomePage = false) {
     let netAreaGenerator = new NetAreaGenerator()
 
     console.log(`scraping ${site_url}`)
-    await scrape(site_url, path_scraped_document, false, true)
+    let scraped_website = await scrape(site_url, path_scraped_document, false, true)
+    console.log('scraped site',scraped_website)
 
     if (!isHomePage) {
         console.log(`generating background animation`)
@@ -89,11 +90,10 @@ async function generate(site_url, isHomePage = false) {
     }
 
     console.log(`loading scraped data`)
-    let exampleSiteData = JSON.parse(fs.readFileSync(path_scraped_document))
-    LetChildrenKnowAboutTheirParents(exampleSiteData)
+    LetChildrenKnowAboutTheirParents(scraped_website)
 
     console.log(`generating map...`)
-    await netAreaGenerator.generateNetArea(exampleSiteData, isHomePage)
+    await netAreaGenerator.generateNetArea(scraped_website, isHomePage)
 
     console.log(`generating assets for map and remapping tiles`)
     let generated_tiles = await generateNetAreaAssets(netAreaGenerator, path_generated_tiles)

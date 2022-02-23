@@ -1,21 +1,14 @@
-const { createCanvas, loadImage } = require('canvas')
+const {createCanvas } = require('canvas')
 const axios = require('axios').default
-const { downloadFile,fastHash} = require('../helpers')
-let { writeFile } = require('fs/promises')
+const {fastHash} = require('../helpers')
+let {writeFile,access } = require('fs/promises')
 const fs = require('fs')
 const path = require('path')
 
 const default_image_path = path.resolve('.','map-exporter','default_image.png')
 
-async function generate_image_board_image(image_url) {
-    //let input_image_path = `temp_board_image.png`
-    //await downloadFile(image_url, input_image_path)
-    try{
-        var input_image = await loadImage(image_url)
-    }catch(e){
-        var input_image = await loadImage(default_image_path)
-    }
-
+async function generate_image_board_image(image_data) {
+    console.log(`generate image board image with image data`,image_data)
     let canvas_board = createCanvas(64, 64)
     let ctx_board = canvas_board.getContext('2d')
 
@@ -23,7 +16,7 @@ async function generate_image_board_image(image_url) {
     let ctx_small_image = canvas_small_image.getContext('2d')
 
     //First draw a small version of the input image to the small image canvas
-    ctx_small_image.drawImage(input_image, 0, 0, 32, 32)
+    ctx_small_image.drawImage(image_data, 0, 0, 32, 32)
 
     //now draw the left side, we can just flip for the other side
     let dest_y = 16
@@ -60,14 +53,25 @@ async function generateTSX(tsx_path, image_name) {
     await writeFile(tsx_path, doc)
 }
 
-function generate_image_board(image_url){
+function generate_image_board(url,image_data){
     return new Promise(async(resolve,reject)=>{
         let path_generated_assets = path.join('.', 'onb-server','assets', 'generated')
-        let file_name = fastHash(image_url)
+        let file_name = fastHash(url)
         let relative_tsx_path = `../assets/generated/${file_name}.tsx`
-        let canvas = await generate_image_board_image(image_url)
-        await generateTSX(path.join(path_generated_assets,`${file_name}.tsx`),file_name)
-        let out = fs.createWriteStream(path.join(path_generated_assets,`${file_name}.png`))
+        let generated_tsx_path = path.join(path_generated_assets,`${file_name}.tsx`)
+        let generated_png_path = path.join(path_generated_assets,`${file_name}.png`)
+        try{
+            await access(generated_tsx_path)
+            await access(generated_png_path)
+            console.log(`tsx and png already exists, skipping generation`,relative_tsx_path)
+            resolve(relative_tsx_path)
+            return
+        }catch(e){
+
+        }
+        let canvas = await generate_image_board_image(image_data)
+        await generateTSX(generated_tsx_path,file_name)
+        let out = fs.createWriteStream(generated_png_path)
         let stream = canvas.createPNGStream(`${file_name}.png`)
         stream.pipe(out)
         out.on('finish', () =>{

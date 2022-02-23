@@ -32,7 +32,7 @@ class LinkFeature extends Feature {
     static tsxTileCount = 6
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
-        this.type = 'link'
+        this.type = 'Custom Warp'
         let newProperties = {
             link: feature.href || '',
             text: feature.text || '',
@@ -113,27 +113,24 @@ class ImageFeature extends Feature {
         this.height = 64
         this.y_spawn_offset = -32
         this.x_spawn_offset = -32
+        this.image_data = feature.data //image data from scrape
+        this.src = feature.src
         let newProperties = {
-            src: feature.src || '',
             text: feature.alt || '',
+            src:feature.src
         }
         Object.assign(this.properties, newProperties)
     }
-    async onExport({ exporter, newObject }) {
+    async onExport({ exporter, newObject ,feature}) {
         let tile_count = 1
-        if(!this.properties.src){
-            return
-        }
         try{
-            let tsx_path = await generate_image_board(this.properties.src)
+            let tsx_path = await generate_image_board(feature.src,feature.image_data)
             let new_gid = exporter.AddTileset(tile_count, tsx_path)
-            delete this.properties.src
+            let xflipped = false
             if (this.properties.Direction == 'Down Left') {
-                let xflipped = true
-                newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
-            }else{
-                newObject['@gid'] = new_gid
+                xflipped = true
             }
+            newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
         }catch(e){
             console.log(`error generating image board for ${this.properties.src}`,e)
         }

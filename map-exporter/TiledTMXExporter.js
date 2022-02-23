@@ -37,7 +37,7 @@ class TiledTMXExporter {
             })
         }
         if (feature.onExport) {
-            await feature.onExport({ exporter: this, x, y, z, newObject })
+            await feature.onExport({ exporter: this, x, y, z, newObject, feature})
         }
         collection.push(newObject)
         this.nextObjectID++
@@ -53,7 +53,7 @@ class TiledTMXExporter {
     AddTileset(tileCount, sourcePath, firstgid = this.nextTileGID, forceAdd = false) {
         let tilesetArray = this.xmlJSON.map['#'][1].tileset
         let preexistingTileset = returnObjectFromArrayWithKeyValue(tilesetArray, '@source', sourcePath)
-        if (!preexistingTileset || forceAdd === true) {
+        if (!preexistingTileset !== undefined || forceAdd === true) {
             let newTilesetData = {
                 '@firstgid': `${parseInt(firstgid)}`,
                 '@source': `${sourcePath}`,
@@ -68,7 +68,7 @@ class TiledTMXExporter {
             //console.log(`[TMXExporter] added tileset ${newTilesetData['@firstgid']}:${newTilesetData['@source']}`)
         } else {
             firstgid = preexistingTileset['@firstgid']
-            //console.log('there is already a tileset with a matching source', firstgid)
+            console.log('there is already a tileset with a matching source', firstgid)
         }
         return firstgid
     }
