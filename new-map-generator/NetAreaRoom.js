@@ -25,25 +25,6 @@ class NetAreaRoom {
         this.prefabRequirements = prefabRequirements
         this.totalRequired = totalRequired
 
-        //If all a room has is 2 connections, use it as a flight of stairs
-        this.isStairs = true
-        if (!this.prefabRequirements['connections']) {
-            this.isStairs = false
-        } else {
-            for (let requirementName in this.prefabRequirements) {
-                let req = this.prefabRequirements[requirementName]
-                if (requirementName == 'connections') {
-                    if (req != 2) {
-                        this.isStairs = false
-                    }
-                } else {
-                    if (req > 0) {
-                        this.isStairs = false
-                    }
-                }
-            }
-        }
-
         //Set color of room based on the node's color, or on the parent node's
         this.color = this.node['background-color']
         if (!this.color) {
@@ -56,6 +37,9 @@ class NetAreaRoom {
         this.width = this.prefab.width
         this.length = this.prefab.length
         this.height = this.prefab.height
+        if(this.height > 0){
+            this.isStairs = true
+        }
         this.widthRatio = this.width / this.length
         this.lengthRatio = this.length / this.width
         this.placeFeatures()
@@ -69,7 +53,7 @@ class NetAreaRoom {
         let totalRequired = {
             ground_features: 0,
             wall_features: 0,
-            back_links:0
+            back_links:0,
         }
 
         for (let featureCategory in featureCategories) {
@@ -130,7 +114,7 @@ class NetAreaRoom {
         }
     }
     connectionsOnZ(targetZ) {
-        let connections = this.prefab.features.male_connectors.filter((connection) => connection.z == targetZ)
+        let connections = this.prefab.features.male_connectors.filter((connection) => connection.z === targetZ)
         return connections
     }
     getHighestConnectorZ() {
@@ -138,6 +122,7 @@ class NetAreaRoom {
         for (let connection of this.prefab.features.male_connectors) {
             if (connection.z > highestLayer) {
                 highestLayer = connection.z
+                
             }
         }
         return highestLayer
@@ -169,7 +154,6 @@ class NetAreaRoom {
                 }
                 this.node.features.back_links = [{}]
             }
-            this.isStairs = false
         }
         let requiredConnections = node?.room?.prefabRequirements?.connections || 0
         let requiredground_features = this.totalRequired.ground_features
@@ -178,6 +162,12 @@ class NetAreaRoom {
         let requirements = {
             ground_features: requiredground_features,
             wall_features: requiredwall_features,
+        }
+
+        if(requirements.ground_features == 0 && requirements.wall_features == 0){
+            if(node?.features?.children.length > 0){
+                requirements.stairs = 1
+            }
         }
 
         let prefab = GenerateForRequirements(requirements)

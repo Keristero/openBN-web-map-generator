@@ -2,14 +2,15 @@ const Prefab = require('./Prefab.js')
 const prefab_parts = require('./prefab_parts')
 const { iterateOver3dMatrix, generate3dMatrix, iterateOverGrid } = require('../helpers')
 
-function GenerateForRequirements({ ground_features, wall_features }) {
+function GenerateForRequirements({ ground_features, wall_features, stairs }) {
     let newPrefab = new Prefab()
 
-    ground_features = Math.max(ground_features,1)
+    ground_features = Math.max(ground_features,0)
 
     let placed_features = {
         ground_features: 0,
         wall_features: 0,
+        stairs:0,
         arr_female_connectors: [],
     }
 
@@ -33,6 +34,18 @@ function GenerateForRequirements({ ground_features, wall_features }) {
             }
         })
         let chosen_part = parts_with_wall_features[Math.floor(Math.random() * parts_with_wall_features.length)]
+        let new_placement_position = find_placement(chosen_part, placements, placed_features)
+        place_part(chosen_part, new_placement_position, placed_features, placements)
+    }
+
+    while (placed_features.stairs < stairs){
+        console.log(`placing stairs ${placed_features.stairs} / ${stairs}`)
+        let parts_with_stairs = prefab_parts.filter((part) => {
+            if(part.is_stairs){
+                return true
+            }
+        })
+        let chosen_part = parts_with_stairs[Math.floor(Math.random() * parts_with_stairs.length)]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
     }
@@ -75,7 +88,7 @@ function write_parts_to_prefab(prefab, placements) {
     }
     let width = Math.abs(part_max_x-part_start_x)+(wall_padding*2)
     let length = Math.abs(part_max_y-part_start_y)+(wall_padding*2)
-    let height = Math.abs(part_max_z-part_start_z)+1
+    let height = Math.abs(part_max_z-part_start_z)
     prefab.matrix = generate3dMatrix(width,length,height,0)
 
     //loop over each part and copy it's array contents to the 3d array
@@ -124,7 +137,7 @@ function write_parts_to_prefab(prefab, placements) {
             for (let feature of part[feature_collection_name]) {
                 let x = -part_start_x + placement.part_pos.x + wall_padding + feature.x
                 let y = -part_start_y + placement.part_pos.y + wall_padding + feature.y
-                let z = -part_start_z + placement.part_pos.z
+                let z = -part_start_z + placement.part_pos.z + feature.z
                 if(feature.properties){
                     if(!feature.properties.Direction){
                         feature.properties.Direction = directions[Math.floor(Math.random()*directions.length)]
@@ -155,6 +168,9 @@ function place_part(part, part_pos, placed_features, placements) {
     }
     placed_features.ground_features += part.ground_features.length
     placed_features.wall_features += part.wall_features.length
+    if(part.is_stairs){
+        placed_features.stairs += 1
+    }
 
     //add placement to list of placements
     placements.push(placement)

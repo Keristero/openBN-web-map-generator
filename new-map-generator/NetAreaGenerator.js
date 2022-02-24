@@ -226,11 +226,6 @@ class NetAreaGenerator {
         room.z = pos.z
     }
     async findPathBetweenRooms(roomA, roomB) {
-        /*
-        if(roomA.z != roomB.z){
-            throw(`Cant find a path between Z layers! ${roomA.z} != ${roomB.z}`)
-        }
-        */
         let zLayer = roomA.z
         easystar.setGrid(this.matrix[zLayer])
 
@@ -242,12 +237,19 @@ class NetAreaGenerator {
             if (attempts == 0) {
                 con = this.findClosestConnectors(roomA, roomB)
             } else {
-                con = this.findRandomConnectors(roomA, roomB)
-            }
+                //con = this.findRandomConnectors(roomA, roomB)
+            } 
             let startX = roomA.x + con.a.x
             let startY = roomA.y + con.a.y
+            let startZ = roomA.z + con.a.z
             let endX = roomB.x + con.b.x
             let endY = roomB.y + con.b.y
+            let endZ = roomB.z + con.b.z
+
+            if(startZ !== endZ){
+                throw(`Cant find a path between Z layers! ${roomA.z} != ${roomB.z}`)
+            }
+            
             path = await this.findPath2D(startX, startY, endX, endY)
 
             if (path !== null) {
@@ -302,7 +304,9 @@ class NetAreaGenerator {
             indexA: null,
             indexB: null,
         }
-        let roomBConnections = roomB.connectionsOnZ(roomA.z - roomB.z)
+
+        let connector_z = roomB.getHighestConnectorZ()
+        let roomBConnections = roomB.connectionsOnZ(connector_z)
         if (roomBConnections.length == 0) {
             throw 'no connections on room b'
         }

@@ -32,7 +32,7 @@ class LinkFeature extends Feature {
     static tsxTileCount = 6
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
-        this.type = 'Custom Warp'
+        this.type = 'link'
         let newProperties = {
             link: feature.href || '',
             text: feature.text || '',
@@ -117,7 +117,6 @@ class ImageFeature extends Feature {
         this.src = feature.src
         let newProperties = {
             text: feature.alt || '',
-            src:feature.src
         }
         Object.assign(this.properties, newProperties)
     }
@@ -132,7 +131,7 @@ class ImageFeature extends Feature {
             }
             newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
         }catch(e){
-            console.log(`error generating image board for ${this.properties.src}`,e)
+            console.log(`error generating image board for ${this}`,e)
         }
     }
 }

@@ -8,7 +8,9 @@ const {loadImage } = require('canvas')
 const e = require('express')
 
 const minimum_importance = 1
-const tag_blacklist = ["SCRIPT","STYLE"]
+const minimum_children = 2
+const minimum_text_length = 5
+const tag_blacklist = ["SCRIPT","STYLE","SVG"]
 
 var duplicate_links = {}
 var duplicate_images = {}
@@ -136,7 +138,7 @@ async function parse_feature_attributes(feature_collection,node){
             feature["text"] = node.text
         }
         //delete conditions
-        if(feature["text"].length < 32){
+        if(feature["text"].length < minimum_text_length){
             feature.should_be_deleted = true
         }
         if(/<\/?[a-z][\s\S]*>/i.test(feature["text"])){
@@ -153,7 +155,7 @@ async function parse_feature_attributes(feature_collection,node){
 
 async function scrape(url, outputPath) {
     let document = await scraper(url)
-    document = cull_unwanted_nodes(document,tag_blacklist,minimum_importance)
+    document = cull_unwanted_nodes(document,tag_blacklist,minimum_importance,minimum_children)
     //expected output
     let example = {
         features:{
@@ -195,7 +197,7 @@ async function scrape(url, outputPath) {
             node.converted_node = feature
             //add the newly generated feature to the parent of this node
             if(!feature.should_be_deleted){
-                //only add features to the parent node of they dont suck
+                //only add features to the parent node if they dont suck
                 create_or_add_to_feature(node.parent.converted_node,feature_collection_name,feature)
             }
         }else{
