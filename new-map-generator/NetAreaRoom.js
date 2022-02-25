@@ -155,13 +155,13 @@ class NetAreaRoom {
                 this.node.features.back_links = [{}]
             }
         }
-        let requiredConnections = node?.room?.prefabRequirements?.connections || 0
         let requiredground_features = this.totalRequired.ground_features
         let requiredwall_features = this.totalRequired.wall_features
 
         let requirements = {
             ground_features: requiredground_features,
             wall_features: requiredwall_features,
+            stairs:0
         }
 
         if(requirements.ground_features == 0 && requirements.wall_features == 0){

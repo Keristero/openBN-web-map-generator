@@ -68,7 +68,9 @@ class NetAreaGenerator {
         this.isHomePage = isHomePage
         startingNode.isFirstNode = true
         this.arr_queue = [startingNode]
+        console.log(`processing node queue`)
         await this.processNodeQueue()
+        console.log(`removing walls`)
         this.removeAllWalls()
         let trimmed = trim3dMatrix(this.matrix, this.id_air)
         this.width = trimmed.width
@@ -150,6 +152,7 @@ class NetAreaGenerator {
     }
     async processNodeQueue() {
         while (this.arr_queue.length > 0) {
+            console.log(`queue length ${this.arr_queue.length}`)
             let currentNode = this.arr_queue.shift()
             this.addNodesChildrenToQueue(currentNode)
             await this.generateLayout(currentNode)
@@ -197,6 +200,7 @@ class NetAreaGenerator {
                 this.arr_rooms.push(newRoom)
                 roomUnplaced = false
                 if (newRoom.node.parent) {
+                    console.log(`finding path between rooms`)
                     await this.findPathBetweenRooms(newRoom, newRoom.node.parent.room)
                 }
             } else {

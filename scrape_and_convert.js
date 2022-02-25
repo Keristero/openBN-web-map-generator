@@ -4,7 +4,9 @@ const fs = require('fs')
 const {writeFile} = require('fs/promises')
 const scraper = require('./web-to-document-scraper/scraper.js')
 const {cull_unwanted_nodes} = require('./web-to-document-scraper/helpers')
+const {fastHash} = require('./helpers')
 const {loadImage } = require('canvas')
+const {generate_image_board} = require('./map-exporter/generate-image-board.js')
 const e = require('express')
 
 const minimum_importance = 1
@@ -13,7 +15,6 @@ const minimum_text_length = 5
 const tag_blacklist = ["SCRIPT","STYLE","SVG"]
 
 var duplicate_links = {}
-var duplicate_images = {}
 
 //collections and the attributes which are sorted into them
 //the order of this collection is also the priority
@@ -68,27 +69,24 @@ async function parse_feature_attributes(feature_collection,node){
     }
 
     if(feature_collection === "images"){
+        let src
         if(node["src"]){
-            feature["src"] = node.src
+            src = node.src
         }
         if(node["alt"]){
             feature["alt"] = node.alt
         }
         if(node["background-image"]){
             let background_image_url = node["background-image"].slice(4, -1).replace(/"/g, "");
-            feature["src"] = background_image_url
+            src = background_image_url
         }
         //delete conditions
-        if(/ar-gradient/.test(feature["src"])){
+        if(/ar-gradient/.test(src)){
             feature.should_be_deleted = true
+            return feature
         }
         try{
-            if(!duplicate_images[feature.src]){
-                feature.data = await loadImage(feature.src)
-                duplicate_images[feature.src] = feature.data
-            }else{
-                feature.data = duplicate_images[feature.src]
-            }
+            feature.tsx_path = await generate_image_board(src)
         }catch(e){
             feature.should_be_deleted = true
         }
@@ -125,12 +123,13 @@ async function parse_feature_attributes(feature_collection,node){
                 feature.should_be_deleted = true
             }
         }
-        if(duplicate_links[feature["href"]]){
+        let href_hash = `${fastHash(feature.href)}${feature.href.length}`
+        if(duplicate_links[href_hash]){
             //delete any links that are duplicates
             feature.should_be_deleted = true
         }else{
             //record any links that are not duplicates
-            duplicate_links[feature["href"]] = true
+            duplicate_links[href_hash] = true
         }
     }
     if(feature_collection === "text"){

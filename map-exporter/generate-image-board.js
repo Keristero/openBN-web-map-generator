@@ -1,4 +1,4 @@
-const {createCanvas } = require('canvas')
+const {createCanvas,loadImage } = require('canvas')
 const axios = require('axios').default
 const {fastHash} = require('../helpers')
 let {writeFile,access } = require('fs/promises')
@@ -53,7 +53,7 @@ async function generateTSX(tsx_path, image_name) {
     await writeFile(tsx_path, doc)
 }
 
-function generate_image_board(url,image_data){
+function generate_image_board(url){
     return new Promise(async(resolve,reject)=>{
         let path_generated_assets = path.join('.', 'onb-server','assets', 'generated')
         let file_name = fastHash(url)
@@ -69,6 +69,7 @@ function generate_image_board(url,image_data){
         }catch(e){
 
         }
+        let image_data = await loadImage(url)
         let canvas = await generate_image_board_image(image_data)
         await generateTSX(generated_tsx_path,file_name)
         let out = fs.createWriteStream(generated_png_path)

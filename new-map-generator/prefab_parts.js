@@ -1,5 +1,25 @@
 let parts = [
     {
+        name: '1x1 default',
+        width: 1,
+        length: 1,
+        height: 1,
+        matrix: [
+            [
+                [1]
+            ],
+        ],
+        ground_features: [],
+        wall_features: [],
+        male_connectors: [
+            { x: 1, y: 0, z: 0 },
+            { x: -1, y: 0, z: 0 },
+        ],
+        female_connectors: [
+            { x: 0, y: 0, z: 0 },
+        ],
+    },
+    {
         name: '4x3 stairs up left',
         is_stairs: true,
         width: 4,

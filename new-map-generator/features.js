@@ -1,5 +1,4 @@
 let {get_tiled_tid} = require('../helpers')
-let {generate_image_board} = require('../map-exporter/generate-image-board')
 class Feature {
     static tilesetGID = null
     static tsxPath = null
@@ -113,7 +112,7 @@ class ImageFeature extends Feature {
         this.height = 64
         this.y_spawn_offset = -32
         this.x_spawn_offset = -32
-        this.image_data = feature.data //image data from scrape
+        this.tsx_path = feature.tsx_path //image data from scrape
         this.src = feature.src
         let newProperties = {
             text: feature.alt || '',
@@ -123,15 +122,14 @@ class ImageFeature extends Feature {
     async onExport({ exporter, newObject ,feature}) {
         let tile_count = 1
         try{
-            let tsx_path = await generate_image_board(feature.src,feature.image_data)
-            let new_gid = exporter.AddTileset(tile_count, tsx_path)
+            let new_gid = exporter.AddTileset(tile_count, this.tsx_path)
             let xflipped = false
             if (this.properties.Direction == 'Down Left') {
                 xflipped = true
             }
             newObject['@gid'] = get_tiled_tid(new_gid,xflipped)
         }catch(e){
-            console.log(`error generating image board for ${this}`,e)
+            console.log(`error generating image board for ${this.tsx_path}`,e)
         }
     }
 }

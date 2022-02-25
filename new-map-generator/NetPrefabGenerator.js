@@ -3,6 +3,7 @@ const prefab_parts = require('./prefab_parts')
 const { iterateOver3dMatrix, generate3dMatrix, iterateOverGrid } = require('../helpers')
 
 function GenerateForRequirements({ ground_features, wall_features, stairs }) {
+    console.log(`generating prefab with requirements`,{ ground_features, wall_features, stairs })
     let newPrefab = new Prefab()
 
     ground_features = Math.max(ground_features,0)
@@ -15,37 +16,42 @@ function GenerateForRequirements({ ground_features, wall_features, stairs }) {
     }
 
     let placements = []
-
+    let parts_with_ground_features = prefab_parts.filter((part) => {
+        if (part.ground_features.length > 0) {
+            return true
+        }
+    })
     while (placed_features.ground_features < ground_features) {
-        let parts_with_ground_features = prefab_parts.filter((part) => {
-            if (part.ground_features.length > 0) {
-                return true
-            }
-        })
         let chosen_part = parts_with_ground_features[Math.floor(Math.random() * parts_with_ground_features.length)]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
     }
 
+    let parts_with_wall_features = prefab_parts.filter((part) => {
+        if (part.wall_features.length > 0) {
+            return true
+        }
+    })
     while (placed_features.wall_features < wall_features) {
-        let parts_with_wall_features = prefab_parts.filter((part) => {
-            if (part.wall_features.length > 0) {
-                return true
-            }
-        })
         let chosen_part = parts_with_wall_features[Math.floor(Math.random() * parts_with_wall_features.length)]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
     }
 
+    let parts_with_stairs = prefab_parts.filter((part) => {
+        if(part.is_stairs){
+            return true
+        }
+    })
     while (placed_features.stairs < stairs){
         console.log(`placing stairs ${placed_features.stairs} / ${stairs}`)
-        let parts_with_stairs = prefab_parts.filter((part) => {
-            if(part.is_stairs){
-                return true
-            }
-        })
         let chosen_part = parts_with_stairs[Math.floor(Math.random() * parts_with_stairs.length)]
+        let new_placement_position = find_placement(chosen_part, placements, placed_features)
+        place_part(chosen_part, new_placement_position, placed_features, placements)
+    }
+    if(placements.length == 0){
+        //if nothing was placed, add default prefab so that we dont crash V8 lol
+        let chosen_part = prefab_parts[0]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
     }
@@ -150,7 +156,7 @@ function write_parts_to_prefab(prefab, placements) {
 }
 
 function place_part(part, part_pos, placed_features, placements) {
-    //console.log(`placing part at ${part_pos.x}, ${part_pos.y}, ${part_pos.z}`)
+    console.log(`placing part at ${part_pos.x}, ${part_pos.y}, ${part_pos.z}`)
     let placement = {
         part,
         part_pos,
@@ -177,7 +183,7 @@ function place_part(part, part_pos, placed_features, placements) {
 }
 
 function find_placement(partA, placements, placed_features) {
-    //console.log(`finding placement for`, partA.name)
+    console.log(`finding placement for`, partA.name)
 
     let female_connectors = placed_features.arr_female_connectors
 
