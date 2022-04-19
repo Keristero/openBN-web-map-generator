@@ -10,8 +10,9 @@ const {generate_image_board} = require('./map-exporter/generate-image-board.js')
 const e = require('express')
 
 const minimum_importance = 1
-const minimum_children = 2
-const minimum_text_length = 5
+const minimum_children = 5
+const minimum_text_length = 4
+const maximum_text_length = 500
 const tag_blacklist = ["SCRIPT","STYLE","SVG"]
 
 var duplicate_links = {}
@@ -137,7 +138,7 @@ async function parse_feature_attributes(feature_collection,node){
             feature["text"] = node.text
         }
         //delete conditions
-        if(feature["text"].length < minimum_text_length){
+        if(feature["text"].length < minimum_text_length || feature["text"].length > maximum_text_length){
             feature.should_be_deleted = true
         }
         if(/<\/?[a-z][\s\S]*>/i.test(feature["text"])){

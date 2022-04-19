@@ -1,4 +1,4 @@
-local json = require('scripts/libs/json')
+local json = require('scripts/ezlibs-scripts/json')
 local ezlisteners = require('scripts/ezlibs-scripts/ezlisteners')
 
 local currently_generating = {}
@@ -10,14 +10,14 @@ end
 
 local lib = {}
 
-function lib.handle_object_interaction(player_id, object_id)
+function lib.handle_object_interaction(player_id,object_id, button)
+    print('player interacted',player_id,object_id)
     local area_id = Net.get_player_area(player_id)
     local link_object = Net.get_object_by_id(area_id, object_id)
     --Only check 'link' interactions
-    if link_object.type ~= "link" and link_object.type ~= "back_link" then
-        return
+    if link_object.type == "link" or link_object.type == "back_link" then
+        on_link_interaction(player_id,link_object)
     end
-    on_link_interaction(player_id,link_object)
 end
 
 function map_is_already_loaded(map_id)

@@ -8,7 +8,7 @@ class NetAreaGenerator {
     constructor() {
         this.width = 500
         this.length = 500
-        this.height = 10
+        this.height = 30
         this.matrix = generate3dMatrix(this.width, this.length, this.height)
         this.arr_rooms = []
         this.arr_paths = []
@@ -130,6 +130,34 @@ class NetAreaGenerator {
             }
         }
     }
+    addExclusionZoneAboveRoom(room){
+        //Burn layout
+        const iterator = iterateOver3dMatrix(room.prefab.matrix)
+        for (let gridPos of iterator) {
+            if (gridPos.tileID != 0) {
+                if(gridPos.z == room.prefab.height-1){
+                    const globalX = room.x + gridPos.x
+                    const globalY = room.y + gridPos.y
+                    const globalZ = room.z + gridPos.z
+                    for(let i = 1; i+globalZ < this.height; i++){
+                        const x = globalX+Math.floor(i/2)
+                        const y = globalY+Math.floor(i/2)
+                        if(x > this.width || y > this.length){
+                            break
+                        }
+                        if(this.matrix[i+globalZ][globalY][globalX] == 0){
+                            this.matrix[i+globalZ][globalY][globalX] = 1
+                        }
+                    }
+                }
+                //make coordinates global
+                const globalX = room.x + gridPos.x
+                const globalY = room.y + gridPos.y
+                const globalZ = room.z + gridPos.z
+                this.matrix[globalZ][globalY][globalX] = gridPos.tileID
+            }
+        }
+    }
     addLayers(amount) {
         for (let i = 0; i < amount; i++) {
             let newLayer = generateGrid(this.width, this.length)
@@ -197,6 +225,7 @@ class NetAreaGenerator {
         while (roomUnplaced) {
             if (this.roomPlacementValid(newRoom)) {
                 this.burnRoomToMatrix(newRoom)
+                this.addExclusionZoneAboveRoom(newRoom)
                 this.arr_rooms.push(newRoom)
                 roomUnplaced = false
                 if (newRoom.node.parent) {
@@ -258,7 +287,7 @@ class NetAreaGenerator {
 
             if (path !== null) {
                 //Add the path to the map
-                let pathImportant = path.length > 20
+                let pathImportant = path.length > 30
                 this.addPathToMatrix(path, pathImportant, zLayer)
                 if (this.oneUseConnectors) {
                     if (roomA.prefab.connectors > 1) {

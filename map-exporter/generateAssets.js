@@ -5,12 +5,14 @@ const fs = require('fs')
 let { writeFile } = require('fs/promises')
 
 let random = new RNG()
+let room_tile_depth = 16
+let path_tile_depth = 8
 
-function generateFloorTile(base_color, side_color, color, path_generated_tiles) {
+function generateFloorTile(base_color, side_color, color, path_generated_tiles,depth) {
     let tile_options = {
         width: 64,
         length: 32,
-        tile_height: 8,
+        tile_height: depth,
         line_width: 0,
         base_color,
         side_color,
@@ -30,11 +32,11 @@ function generateFloorTile(base_color, side_color, color, path_generated_tiles) 
     return relative_tsx_path
 }
 
-function generateDownStairTile(base_color, side_color, color, path_generated_tiles,stair_type) {
+function generateDownStairTile(base_color, side_color, color, path_generated_tiles,stair_type,depth) {
     let tile_options = {
         width: 64,
         length: 32,
-        tile_height: 8,
+        tile_height: depth,
         line_width: 1,
         base_color,
         side_color,
@@ -55,11 +57,11 @@ function generateDownStairTile(base_color, side_color, color, path_generated_til
     return relative_tsx_path_1
 }
 
-function generateStairTile(base_color, side_color, color, path_generated_tiles,stair_type) {
+function generateStairTile(base_color, side_color, color, path_generated_tiles,stair_type,depth) {
     let tile_options = {
         width: 64,
         length: 48,
-        tile_height: 8,
+        tile_height: depth,
         line_width: 1,
         base_color,
         side_color,
@@ -88,11 +90,13 @@ function generateStairTile(base_color, side_color, color, path_generated_tiles,s
 
 async function generateTSX(tsx_path, tileHash, tile_options) {
     let doc = `<?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="${tile_options.width}" tileheight="${tile_options.length+tile_options.tile_height}" tilecount="1" columns="1" objectalignment="bottom">`
+<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="${tile_options.width}" tileheight="${tile_options.length+tile_options.tile_height}" tilecount="1" columns="1" objectalignment="bottom">\n`
     if(tile_options.stair_type){
-        doc += `<properties>
-            <property name="Direction" value="${tile_options.stair_type}"/>
-        </properties>`
+        doc += `<tile id="0" type="Stairs">
+            <properties>
+                <property name="Direction" value="${tile_options.stair_type}"/>
+            </properties>
+        </tile>`
     }
     doc +=`<tileoffset x="0" y="${tile_options.tile_height+tile_options.extra_v_offset}"/>
     <image source="./${tileHash}.png" width="64" height="48"/>
@@ -113,11 +117,19 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
     //generate generic tiles
     let newTileID = 2
     let tiles = {}
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 1; i++) {
         let color = RGBAtoString(
             random.RGBARounded({ r: 50, g: 50, b: 50, a: 1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
         )
-        tiles[newTileID] = generateFloorTile(base_color, side_color, color, path_generated_tiles)
+        tiles[newTileID] = generateFloorTile(base_color, side_color, color, path_generated_tiles,room_tile_depth)
+        newTileID++
+    }
+    //generate generic path
+    for (let i = 0; i < 4; i++) {
+        let color = RGBAtoString(
+            random.RGBARounded({ r: 50, g: 50, b: 50, a: 1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+        )
+        tiles[newTileID] = generateFloorTile(base_color, side_color, color, path_generated_tiles,path_tile_depth)
         newTileID++
     }
 
@@ -127,13 +139,13 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
         random.RGBARounded({ r: 50, g: 50, b: 50, a: 1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
     )
     //up direction stairs
-    let stair_tsx_paths = generateStairTile(base_color, side_color, color, path_generated_tiles,"Up Left")
+    let stair_tsx_paths = generateStairTile(base_color, side_color, color, path_generated_tiles,"Up Left",path_tile_depth)
     tiles[newTileID] = stair_tsx_paths[0]
     newTileID++
     tiles[newTileID] = stair_tsx_paths[1]
     newTileID++
     //down direction stairs
-    tiles[newTileID] = generateDownStairTile(base_color, side_color, color, path_generated_tiles,"Down Left")
+    tiles[newTileID] = generateDownStairTile(base_color, side_color, color, path_generated_tiles,"Down Left",path_tile_depth)
     newTileID++
 
     //Add 100 to tile id so we dont overwrite any of the generic tiles
@@ -145,7 +157,7 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
             continue
         }
         //Generate tile
-        tiles[newTileID] = generateFloorTile(base_color, side_color, room.color, path_generated_tiles)
+        tiles[newTileID] = generateFloorTile(base_color, side_color, room.color, path_generated_tiles,room_tile_depth)
         //Replace tiles on map, leave room itself unmodified
         let roomMatrixIterator = iterateOver3dMatrix(room.prefab.matrix)
         let tilesToReplace = [netAreaGenerator.id_floor_1, netAreaGenerator.id_floor_2, netAreaGenerator.id_floor_3]
