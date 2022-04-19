@@ -1,4 +1,4 @@
-const { createTilePNG } = require('./drawTile')
+const { createTilePNG,createStairPNG} = require('./drawTile')
 const { RNG, RGBAtoString, iterateOver3dMatrix,fastHash} = require('../helpers.js')
 const path = require('path')
 const fs = require('fs')
@@ -8,13 +8,14 @@ let random = new RNG()
 
 function generateFloorTile(base_color, side_color, color, path_generated_tiles) {
     let tile_options = {
-        width: 62,
-        length: 30,
+        width: 64,
+        length: 32,
         tile_height: 8,
-        line_width: 3,
+        line_width: 0,
         base_color,
         side_color,
         color,
+        extra_v_offset:0
     }
     let tile_options_string = JSON.stringify(tile_options)
     let tile_options_hash = fastHash(tile_options_string)
@@ -24,16 +25,77 @@ function generateFloorTile(base_color, side_color, color, path_generated_tiles) 
     if (!fs.existsSync(write_tsx_path)) {
         //Only create tile if a matching one does not already exist
         createTilePNG(tile_options, tile_output_path + '.png')
-        generateTSX(write_tsx_path, tile_options_hash, tile_options.tile_height)
+        generateTSX(write_tsx_path, tile_options_hash, tile_options)
     }
     return relative_tsx_path
 }
 
-async function generateTSX(tsx_path, tileHash, tile_height) {
+function generateDownStairTile(base_color, side_color, color, path_generated_tiles,stair_type) {
+    let tile_options = {
+        width: 64,
+        length: 32,
+        tile_height: 8,
+        line_width: 1,
+        base_color,
+        side_color,
+        color,
+        stair_type:stair_type,
+        extra_v_offset:0
+    }
+    let tile_options_string = JSON.stringify(tile_options)
+    let tile_options_hash = fastHash(tile_options_string)
+    let tile_output_path = path.join(path_generated_tiles, tile_options_hash)
+    let write_tsx_path = path.join(path_generated_tiles, tile_options_hash + '.tsx')
+    let relative_tsx_path_1 = `../assets/generated/${tile_options_hash}.tsx`
+    if (!fs.existsSync(write_tsx_path)) {
+        //Only create tile if a matching one does not already exist
+        createStairPNG(tile_options, tile_output_path + '.png')
+        generateTSX(write_tsx_path, tile_options_hash, tile_options)
+    }
+    return relative_tsx_path_1
+}
+
+function generateStairTile(base_color, side_color, color, path_generated_tiles,stair_type) {
+    let tile_options = {
+        width: 64,
+        length: 48,
+        tile_height: 8,
+        line_width: 1,
+        base_color,
+        side_color,
+        color,
+        stair_type:stair_type,
+        extra_v_offset:0
+    }
+    let tile_options_string = JSON.stringify(tile_options)
+    let tile_options_hash = fastHash(tile_options_string)
+    let tile_output_path = path.join(path_generated_tiles, tile_options_hash)
+    let write_tsx_path = path.join(path_generated_tiles, tile_options_hash + '.tsx')
+    let relative_tsx_path_1 = `../assets/generated/${tile_options_hash}.tsx`
+    if (!fs.existsSync(write_tsx_path)) {
+        //Only create tile if a matching one does not already exist
+        createStairPNG(tile_options, tile_output_path + '.png')
+        generateTSX(write_tsx_path, tile_options_hash, tile_options)
+    }
+    tile_options.extra_v_offset += 16
+    tile_options_string = JSON.stringify(tile_options)
+    let tile_options_hash_new = fastHash(tile_options_string)
+    write_tsx_path = path.join(path_generated_tiles, tile_options_hash_new + '.tsx')
+    let relative_tsx_path_2 = `../assets/generated/${tile_options_hash_new}.tsx`
+    generateTSX(write_tsx_path, tile_options_hash, tile_options)
+    return [relative_tsx_path_1,relative_tsx_path_2]
+}
+
+async function generateTSX(tsx_path, tileHash, tile_options) {
     let doc = `<?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="65" tileheight="${33+tile_height}" tilecount="1" columns="1" objectalignment="bottom">
-    <tileoffset x="0" y="${tile_height}"/>
-    <image source="./${tileHash}.png" width="65" height="41"/>
+<tileset version="1.5" tiledversion="1.5.0" name="${tileHash}" tilewidth="${tile_options.width}" tileheight="${tile_options.length+tile_options.tile_height}" tilecount="1" columns="1" objectalignment="bottom">`
+    if(tile_options.stair_type){
+        doc += `<properties>
+            <property name="Direction" value="${tile_options.stair_type}"/>
+        </properties>`
+    }
+    doc +=`<tileoffset x="0" y="${tile_options.tile_height+tile_options.extra_v_offset}"/>
+    <image source="./${tileHash}.png" width="64" height="48"/>
 </tileset>
 `
     await writeFile(tsx_path, doc)
@@ -58,6 +120,21 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles) {
         tiles[newTileID] = generateFloorTile(base_color, side_color, color, path_generated_tiles)
         newTileID++
     }
+
+    //generate generic stairs
+    newTileID = 7
+    let color = RGBAtoString(
+        random.RGBARounded({ r: 50, g: 50, b: 50, a: 1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+    )
+    //up direction stairs
+    let stair_tsx_paths = generateStairTile(base_color, side_color, color, path_generated_tiles,"Up Left")
+    tiles[newTileID] = stair_tsx_paths[0]
+    newTileID++
+    tiles[newTileID] = stair_tsx_paths[1]
+    newTileID++
+    //down direction stairs
+    tiles[newTileID] = generateDownStairTile(base_color, side_color, color, path_generated_tiles,"Down Left")
+    newTileID++
 
     //Add 100 to tile id so we dont overwrite any of the generic tiles
     newTileID = 100
