@@ -47,6 +47,15 @@ class RNG {
         let a = roundToNearest(this.Float(mincolor.a, maxcolor.a), alphaRounding)
         return { r, g, b, a }
     }
+    color_scheme(color_count){
+        let color_scheme = []
+        for(let i = 0; i < color_count; i++){
+            color_scheme.push({color:RGBAtoString(
+                this.RGBARounded({ r: 50, g: 50, b: 50, a: 0.1 }, { r: 250, g: 250, b: 250, a: 1 }, 10, 0.1)
+            ),count:0})
+        }
+        return color_scheme
+    }
 }
 
 function asyncSleep(time_ms) {

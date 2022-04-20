@@ -67,17 +67,20 @@ function generate_image_board(url){
             resolve(relative_tsx_path)
             return
         }catch(e){
-
         }
-        let image_data = await loadImage(url)
-        let canvas = await generate_image_board_image(image_data)
-        await generateTSX(generated_tsx_path,file_name)
-        let out = fs.createWriteStream(generated_png_path)
-        let stream = canvas.createPNGStream(`${file_name}.png`)
-        stream.pipe(out)
-        out.on('finish', () =>{
-            resolve(relative_tsx_path)
-        })
+        try{
+            let image_data = await loadImage(url)
+            let canvas = await generate_image_board_image(image_data)
+            await generateTSX(generated_tsx_path,file_name)
+            let out = fs.createWriteStream(generated_png_path)
+            let stream = canvas.createPNGStream(`${file_name}.png`)
+            stream.pipe(out)
+            out.on('finish', () =>{
+                resolve(relative_tsx_path)
+            })
+        }catch(e){
+            reject(e)
+        }
     })
 }
 

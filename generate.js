@@ -6,8 +6,9 @@ const { NetAreaGenerator } = require('./new-map-generator/NetAreaGenerator.js')
 const TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
 const { generateNetAreaAssets } = require('./map-exporter/generateAssets.js')
 const scrape = require('./scrape_and_convert.js')
-const { replaceBackslashes, RNG } = require('./helpers.js')
-const generateBackgroundForWebsite = require('./background-generator/main.js')
+const { replaceBackslashes, RNG} = require('./helpers.js')
+const {generateBackgroundForWebsite} = require('./background-generator/main.js')
+const {generate_color_scheme_from_image} = require('./map-exporter/color_scheme_generator.js')
 const crypto = require('crypto')
 const url = require('url')
 const songs = [
@@ -82,12 +83,24 @@ async function generate(site_url, isHomePage = false) {
     let scraped_website = await scrape(site_url, path_scraped_document, false, true)
     console.log('scraped site',scraped_website)
 
+    let color_scheme = random.color_scheme(10)
+
     if (!isHomePage) {
         console.log(`generating background animation`)
-        await generateBackgroundForWebsite(site_url, 'background', path_background_output)
-    } else {
+        try{
+            let favicon_path = await generateBackgroundForWebsite(site_url, 'background', path_background_output)
+            let based_color_scheme = await generate_color_scheme_from_image(favicon_path)
+            if(based_color_scheme){
+                color_scheme = based_color_scheme
+            }
+        }catch(e){
+            console.log('Favicon not found...',e)
+            site_properties['Background'] = 'misc'
+        }
+    }else{
         site_properties['Background'] = 'misc'
     }
+    console.log('FINAL COLOR SCHEME',color_scheme)
 
     console.log(`loading scraped data`)
     LetChildrenKnowAboutTheirParents(scraped_website)
@@ -96,7 +109,7 @@ async function generate(site_url, isHomePage = false) {
     await netAreaGenerator.generateNetArea(scraped_website, isHomePage)
 
     console.log(`generating assets for map and remapping tiles`)
-    let generated_tiles = await generateNetAreaAssets(netAreaGenerator, path_generated_tiles)
+    let generated_tiles = await generateNetAreaAssets(netAreaGenerator, path_generated_tiles,color_scheme)
 
     console.log('exporting map TMX...')
     let mapExporter = new TiledTMXExporter()

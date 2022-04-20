@@ -1,9 +1,9 @@
 const Prefab = require('./Prefab.js')
 const prefab_parts = require('./prefab_parts')
-const { iterateOver3dMatrix, generate3dMatrix, iterateOverGrid } = require('../helpers')
+const { iterateOver3dMatrix, generate3dMatrix, iterateOverGrid, distance } = require('../helpers')
 
 function GenerateForRequirements({ ground_features, wall_features, stairs }) {
-    console.log(`generating prefab with requirements`,{ ground_features, wall_features, stairs })
+    //console.log(`generating prefab with requirements`,{ ground_features, wall_features, stairs })
     let newPrefab = new Prefab()
 
     ground_features = Math.max(ground_features,0)
@@ -156,7 +156,7 @@ function write_parts_to_prefab(prefab, placements) {
 }
 
 function place_part(part, part_pos, placed_features, placements) {
-    console.log(`placing part at ${part_pos.x}, ${part_pos.y}, ${part_pos.z}`)
+    //console.log(`placing part at ${part_pos.x}, ${part_pos.y}, ${part_pos.z}`)
     let placement = {
         part,
         part_pos,
@@ -183,7 +183,7 @@ function place_part(part, part_pos, placed_features, placements) {
 }
 
 function find_placement(partA, placements, placed_features) {
-    console.log(`finding placement for`, partA.name)
+    //console.log(`finding placement for`, partA.name)
 
     let female_connectors = placed_features.arr_female_connectors
 
@@ -209,8 +209,50 @@ function find_placement(partA, placements, placed_features) {
         }
     }
     */
+    return pick_part_placement_centered(partA,female_connectors,placements)
 
     //more random approach, add all valid placements to list and pick one randomly
+    //return pick_part_placement_randomly(partA,female_connectors,placements)
+}
+
+function pick_part_placement_centered(partA,female_connectors,placements){
+    //Try place parts close to center of room
+    let valid_placements = []
+    for (let male_connector of partA.male_connectors) {
+        for (let female_connector of female_connectors) {
+            let partA_pos = {
+                x: 0,
+                y: 0,
+                z: 0,
+            }
+            partA_pos.x = female_connector.x - male_connector.x
+            partA_pos.y = female_connector.y - male_connector.y
+            partA_pos.z = female_connector.z - male_connector.z
+            if (!does_part_at_position_overlap_placed_part(partA, partA_pos, placements)) {
+                valid_placements.push(partA_pos)
+            }
+        }
+    }
+    valid_placements = valid_placements.sort((a,b)=>{
+        let x_dist_a = distance(a.x,1)
+        let y_dist_a = distance(a.y,1)
+        let x_dist_b = distance(b.x,1)
+        let y_dist_b = distance(b.y,1)
+        if((x_dist_a + y_dist_a) < (x_dist_b + y_dist_b)){
+            return -1
+        }else{
+            return 1
+        }
+    })
+    if(valid_placements.length > 0){
+        return valid_placements[0]
+    }
+    console.warn(`no placement found for part`,partA,female_connectors)
+    return null
+}
+
+function pick_part_placement_randomly(partA,female_connectors,placements){
+    //Just place parts randomly
     let valid_placements = []
     for (let male_connector of partA.male_connectors) {
         for (let female_connector of female_connectors) {

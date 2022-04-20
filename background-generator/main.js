@@ -4,7 +4,9 @@ const url = require('url')
 const { createCanvas, loadImage } = require('canvas')
 const { RNG, downloadFile } = require('../helpers.js')
 const TweenJs = require('@tweenjs/tween.js')
+let {access } = require('fs/promises')
 const hash = require('object-hash')
+const { createCipheriv } = require('crypto')
 const Random = new RNG(60902583)
 
 async function downloadFavicon(linkToWebsite, output_path) {
@@ -21,9 +23,20 @@ async function generateBackgroundForWebsite(url, outputName, outputPath) {
     let output_animation_filename = `${outputName}.animation`
     let output_animation_path = path.resolve(outputPath, output_animation_filename)
 
-    await downloadFavicon(url, converted_favicon_path)
-    let animation = await generateAnimationPNG(converted_favicon_path, output_path)
-    generateAnimationFile(output_filename, output_animation_path, animation.width, animation.height, animation.frames)
+    try{
+        await access(converted_favicon_path)
+    }catch(e){
+        //favicon does not already exist
+        await downloadFavicon(url, converted_favicon_path)
+    }
+    try{
+        await access(output_path)
+    }catch(e){
+        //background animation does not already exist
+        let animation = await generateAnimationPNG(converted_favicon_path, output_path)
+        generateAnimationFile(output_filename, output_animation_path, animation.width, animation.height, animation.frames)
+    }
+    return converted_favicon_path
 }
 
 async function generateAnimationFile(PNGname, outputPath, width, height, frames) {
@@ -151,7 +164,13 @@ class StaticAnimation {
         this.initialIcons = JSON.parse(JSON.stringify(this.icons))
 
         //Read middle pixel color to generate a background color
-        this.getBackgroundColorFromFavicon()
+        let middle_pixel_color = this.getBackgroundColorFromFavicon()
+        //Reduce color intensity for background
+        let backgroundColorIntensity = 0.3
+        function rcolor(val) {
+            return Math.floor(val * backgroundColorIntensity)
+        }
+        this.backgroundColor = `rgb(${rcolor(middle_pixel_color.r)},${rcolor(middle_pixel_color.g)},${rcolor(middle_pixel_color.b)})`
     }
     getPixelColorInImage(image, x, y) {
         //Read middle pixel color to generate a background color
@@ -164,18 +183,12 @@ class StaticAnimation {
     }
     getBackgroundColorFromFavicon() {
         //Read middle pixel color to generate a background color
-        this.middle_pixel_color = this.getPixelColorInImage(
+        let middle_pixel_color = this.getPixelColorInImage(
             this.favicon,
             this.favicon.width / 2,
             this.favicon.height / 2
         )
-        let backgroundColorIntensity = 0.3
-        function rcolor(val) {
-            return Math.floor(val * backgroundColorIntensity)
-        }
-        this.backgroundColor = `rgb(${rcolor(this.middle_pixel_color.r)},${rcolor(this.middle_pixel_color.g)},${rcolor(
-            this.middle_pixel_color.b
-        )})`
+        return middle_pixel_color
     }
     animateFrame(ctx, frame) {
         TweenJs.update(frame)
@@ -211,7 +224,7 @@ class TweenedAnimation extends StaticAnimation {
         super(canvas, favicon, parameters)
 
         this.tweenTargets = []
-        let animationStages = 2 //Random.Integer(1, 2)
+        let animationStages = Random.Integer(1, 2)
         for (let stage = 0; stage < animationStages; stage++) {
             if (stage == 0) {
                 this.generateTweenStage(this.icons)
@@ -220,7 +233,7 @@ class TweenedAnimation extends StaticAnimation {
             }
         }
         this.generateResetTween(this.tweenTargets[this.tweenTargets.length - 1])
-        this.frames = 32 * animationStages
+        this.frames = 64 * animationStages
 
         let easingTypes = [TweenJs.Easing.Quadratic.InOut, TweenJs.Easing.Linear.None, TweenJs.Easing.Linear.None]
         let easeIndex = Random.Integer(0, easingTypes.length - 1)
@@ -379,4 +392,4 @@ function drawImage(ctx, img, x, y, width, height, deg, flip, flop, center) {
     ctx.restore()
 }
 
-module.exports = generateBackgroundForWebsite
+module.exports = {generateBackgroundForWebsite}

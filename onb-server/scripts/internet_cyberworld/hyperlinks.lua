@@ -31,6 +31,7 @@ function on_link_interaction(player_id,link_object)
     --check if map is already being generated
     if currently_generating[link_object.id] then
         print("[hyperlinks] already generating this area....")
+        Net.message_player(player_id,link_object.custom_properties.text.." is being generated...")
         return
     end
     currently_generating[link_object.id] = true
@@ -49,10 +50,12 @@ function on_link_interaction(player_id,link_object)
 
     --Generate a map
     Async.promisify(coroutine.create(function()
+        Net.message_player(player_id,"going to "..link_object.custom_properties.text)
         local generate_map_promise = generate_linked_map(player_id, link, text)
         local area_info = Async.await(generate_map_promise)
         if area_info.status ~= "ok" then
             print('[hyperlinks] map generation failed')
+            Net.message_player(player_id,link_object.custom_properties.text.." failed to generate")
             currently_generating[link_object.id] = nil
             return
         end

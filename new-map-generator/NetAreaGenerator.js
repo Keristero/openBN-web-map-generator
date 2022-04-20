@@ -180,7 +180,7 @@ class NetAreaGenerator {
     }
     async processNodeQueue() {
         while (this.arr_queue.length > 0) {
-            console.log(`queue length ${this.arr_queue.length}`)
+            //console.log(`queue length ${this.arr_queue.length}`)
             let currentNode = this.arr_queue.shift()
             this.addNodesChildrenToQueue(currentNode)
             await this.generateLayout(currentNode)
@@ -229,7 +229,7 @@ class NetAreaGenerator {
                 this.arr_rooms.push(newRoom)
                 roomUnplaced = false
                 if (newRoom.node.parent) {
-                    console.log(`finding path between rooms`)
+                    //console.log(`finding path between rooms`)
                     await this.findPathBetweenRooms(newRoom, newRoom.node.parent.room)
                 }
             } else {
@@ -242,7 +242,7 @@ class NetAreaGenerator {
         //TODO let rooms be placed on different z layers
         let parentNode = room.node.parent
         let parentRoom = parentNode.room
-        let radius = attempts * 0.5
+        let radius = attempts * 0.1
         let pos = this.RNG.RandomPositionOnCircumference(radius)
         pos.x = Math.floor(parentRoom.x + parentRoom.width / 2 + (pos.x * Math.min(parentRoom.widthRatio, 1)))
         pos.y = Math.floor(parentRoom.y + parentRoom.length / 2 + (pos.y * Math.min(parentRoom.lengthRatio, 1)))
