@@ -209,7 +209,7 @@ async function scrape(url, outputPath) {
     }
 
     //save converted document
-    writeFile(outputPath, JSON.stringify(converted_document, null, 1))
+    await writeFile(outputPath, JSON.stringify(converted_document, null, 1),{ overwrite: true })
     return converted_document
 }
 

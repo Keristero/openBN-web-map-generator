@@ -33,16 +33,13 @@ async function generate(site_url, isHomePage = false) {
         hostname = 'Net_Square'
     }
 
-    //Paths for temporary files
-    let path_output = path.join('.', 'output')
-    let path_temp_output = path.join(path_output, 'temp')
-    let path_scraped_document = path.join(path_temp_output, 'scrape.json')
-
     //Relative paths for server
-    let path_domain_assets = path.join('assets', 'domain', hostname)
+    let path_onb_server = path.join('.', 'onb-server')
+    let path_domain_assets = path.join(path_onb_server,'assets', 'domain', hostname)
+    fs.mkdirSync(path_domain_assets, { recursive: true })
 
     //Paths for final outputs
-    let path_onb_server = path.join('.', 'onb-server')
+    let path_scraped_document = path.join('.',path_domain_assets, 'scrape.json')
     let path_generated_map = path.join(path_onb_server, 'areas', `${hashed_url}.tmx`)
     let path_generated_tiles = path.join(path_onb_server, 'assets', 'generated')
     let path_music = path.join('assets', 'shared', 'music')
@@ -50,7 +47,6 @@ async function generate(site_url, isHomePage = false) {
     let relative_server_music_path = path_music.substring(path_music.indexOf('/') + 1)
     let relative_server_map_path = replaceBackslashes(path_generated_map)
     relative_server_map_path = relative_server_map_path.substring(relative_server_map_path.indexOf('/') + 1)
-    fs.mkdirSync(path_background_output, { recursive: true })
 
     //Check if map already exists
     let map_already_exists = fs.existsSync(path_generated_map)
@@ -79,8 +75,8 @@ async function generate(site_url, isHomePage = false) {
 
     let netAreaGenerator = new NetAreaGenerator()
 
-    console.log(`scraping ${site_url}`)
-    let scraped_website = await scrape(site_url, path_scraped_document, false, true)
+    console.log(`scraping ${site_url} to ${path_scraped_document}`)
+    let scraped_website = await scrape(site_url, path_scraped_document)
     console.log('scraped site',scraped_website)
 
     let color_scheme = random.color_scheme(10)
