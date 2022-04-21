@@ -135,13 +135,6 @@ class ImageFeature extends Feature {
 }
 
 let featureCategories = {
-    unplaced: {
-        connections: {
-            scrapedName: 'children',
-            extraRequirements: 1,
-            className: null,
-        },
-    },
     ground_features: {
         links: {
             scrapedName: 'links',

@@ -4,7 +4,7 @@ const fs = require('fs')
 
 const { NetAreaGenerator } = require('./new-map-generator/NetAreaGenerator.js')
 const TiledTMXExporter = require('./map-exporter/TiledTMXExporter.js')
-const { generateNetAreaAssets } = require('./map-exporter/generateAssets.js')
+const { generateNetAreaAssets } = require('./map-exporter/generate_assets.js')
 const scrape = require('./scrape_and_convert.js')
 const { replaceBackslashes, RNG} = require('./helpers.js')
 const {generateBackgroundForWebsite} = require('./background-generator/main.js')
@@ -26,6 +26,7 @@ async function generate(site_url, isHomePage = false) {
     let hashed_url = crypto.createHash('sha256').update(site_url, 'utf8').digest('hex')
     let web_address = url.parse(site_url)
     let hostname = web_address.hostname
+    let web_path_name = web_address.pathname
     let hashed_hostname = crypto.createHash('sha256').update(hostname, 'utf8').digest('hex')
 
     if (isHomePage) {
@@ -39,11 +40,9 @@ async function generate(site_url, isHomePage = false) {
     fs.mkdirSync(path_domain_assets, { recursive: true })
 
     //Paths for final outputs
-    let path_scraped_document = path.join('.',path_domain_assets, 'scrape.json')
     let path_generated_map = path.join(path_onb_server, 'areas', `${hashed_url}.tmx`)
     let path_generated_tiles = path.join(path_onb_server, 'assets', 'generated')
     let path_music = path.join('assets', 'shared', 'music')
-    let path_background_output = path.join(path_onb_server, path_domain_assets)
     let relative_server_music_path = path_music.substring(path_music.indexOf('/') + 1)
     let relative_server_map_path = replaceBackslashes(path_generated_map)
     relative_server_map_path = relative_server_map_path.substring(relative_server_map_path.indexOf('/') + 1)
@@ -60,7 +59,7 @@ async function generate(site_url, isHomePage = false) {
     }
 
     //Properties which will be included in the map.tmx
-    let server_domain_asset_path = replaceBackslashes(path_domain_assets)
+    let server_domain_asset_path = replaceBackslashes(path_domain_assets).replace('onb-server/','')
     let site_properties = {
         Name: hostname,
         URL: site_url,
@@ -75,8 +74,7 @@ async function generate(site_url, isHomePage = false) {
 
     let netAreaGenerator = new NetAreaGenerator()
 
-    console.log(`scraping ${site_url} to ${path_scraped_document}`)
-    let scraped_website = await scrape(site_url, path_scraped_document)
+    let scraped_website = await scrape(site_url)
     console.log('scraped site',scraped_website)
 
     let color_scheme = random.color_scheme(10)
@@ -84,7 +82,7 @@ async function generate(site_url, isHomePage = false) {
     if (!isHomePage) {
         console.log(`generating background animation`)
         try{
-            let favicon_path = await generateBackgroundForWebsite(site_url, 'background', path_background_output)
+            let favicon_path = await generateBackgroundForWebsite(site_url, 'background', path_domain_assets)
             let based_color_scheme = await generate_color_scheme_from_image(favicon_path)
             if(based_color_scheme){
                 color_scheme = based_color_scheme

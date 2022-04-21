@@ -1,4 +1,4 @@
-const { createTilePNG,createStairPNG} = require('./drawTile')
+const { createTilePNG,createStairPNG} = require('./draw_tile')
 const { RNG, RGBAtoString, iterateOver3dMatrix,fastHash} = require('../helpers.js')
 const path = require('path')
 const fs = require('fs')

@@ -6,7 +6,7 @@ const scraper = require('./web-to-document-scraper/scraper.js')
 const {cull_unwanted_nodes} = require('./web-to-document-scraper/helpers')
 const {fastHash} = require('./helpers')
 const {loadImage } = require('canvas')
-const {generate_image_board} = require('./map-exporter/generate-image-board.js')
+const {generate_image_board} = require('./map-exporter/generate_image_board.js')
 const e = require('express')
 
 const minimum_importance = 1
@@ -209,7 +209,7 @@ async function scrape(url, outputPath) {
     }
 
     //save converted document
-    await writeFile(outputPath, JSON.stringify(converted_document, null, 1),{ overwrite: true })
+    //await writeFile(outputPath, JSON.stringify(converted_document, null, 1),{ overwrite: true })
     return converted_document
 }
 
