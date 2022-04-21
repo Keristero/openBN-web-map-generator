@@ -16,25 +16,6 @@ function createStairPNG(tile_options, out_path) {
     stream.pipe(out)
 }
 
-function drawRandomTileOnCanvas() {
-    let rng = new RNG()
-    let minColor = { r: 0, g: 0, b: 0, a: 0.2 }
-    let maxColor = { r: 255, g: 255, b: 255, a: 1 }
-    let base_color = RGBAtoString(rng.RGBA(minColor, maxColor))
-    let side_color = RGBAtoString(rng.RGBA(minColor, maxColor))
-    let color = RGBAtoString(rng.RGBA(minColor, maxColor))
-    let tile_options = {
-        width: 64,
-        length: 32,
-        tile_height: 8,
-        line_width: 1,
-        base_color,
-        side_color,
-        color,
-    }
-    return drawTileOnCanvas(tile_options)
-}
-
 function drawTileOnCanvas({ width, length, tile_height, line_width, base_color, side_color, color }) {
     let canvasWidth = width
     let canvasHeight = length + tile_height

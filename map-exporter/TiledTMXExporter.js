@@ -53,7 +53,7 @@ class TiledTMXExporter {
     AddTileset(tileCount, sourcePath, firstgid = this.nextTileGID, forceAdd = false) {
         let tilesetArray = this.xmlJSON.map['#'][1].tileset
         let preexistingTileset = returnObjectFromArrayWithKeyValue(tilesetArray, '@source', sourcePath)
-        if (!preexistingTileset !== undefined || forceAdd === true) {
+        if (!preexistingTileset || forceAdd === true) {
             let newTilesetData = {
                 '@firstgid': `${parseInt(firstgid)}`,
                 '@source': `${sourcePath}`,
@@ -70,7 +70,7 @@ class TiledTMXExporter {
             firstgid = preexistingTileset['@firstgid']
             console.log('there is already a tileset with a matching source', firstgid)
         }
-        return firstgid
+        return Number(firstgid)
     }
     AddObjectLayer(layerIndex) {
         let layerArray = this.xmlJSON.map['#']
@@ -124,7 +124,7 @@ class TiledTMXExporter {
         this.assets = []
 
         //Default properties
-        let properties = {
+        this.props = {
             Background: `custom`,
             'Background Animation': `/server/assets/background.animation`,
             'Background Texture': `/server/assets/background.png`,
@@ -135,7 +135,7 @@ class TiledTMXExporter {
             'Generation Date': `${Date.now()}`,
         }
         //Copy and overwrite defaults
-        Object.assign(properties, p_properties)
+        Object.assign(this.props, p_properties)
 
         this.xmlJSON = {
             map: {
@@ -191,8 +191,8 @@ class TiledTMXExporter {
         }
 
         //Create properties
-        for (let propertyName in properties) {
-            let propertyValue = properties[propertyName]
+        for (let propertyName in this.props) {
+            let propertyValue = this.props[propertyName]
             this.AddProperty(propertyName, propertyValue)
         }
 

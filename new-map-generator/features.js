@@ -1,4 +1,5 @@
 let {get_tiled_tid} = require('../helpers')
+const path = require('path')
 class Feature {
     static tilesetGID = null
     static tsxPath = null
@@ -32,11 +33,19 @@ class LinkFeature extends Feature {
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
         this.type = 'link'
+        this.width = 64
+        this.height = 34
         let newProperties = {
             link: feature.href || '',
             text: feature.text || '',
         }
         Object.assign(this.properties, newProperties)
+    }
+    async onExport({ exporter, newObject ,feature}) {
+        let hostname = exporter.props.Name
+        let domain_unique_tsx_path = `../assets/domain/${hostname}/link.tsx`
+        let new_gid = exporter.AddTileset(1, domain_unique_tsx_path)
+        newObject['@gid'] = get_tiled_tid(new_gid)
     }
 }
 class HomeWarpFeature extends Feature {

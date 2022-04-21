@@ -103,7 +103,7 @@ async function generate(site_url, isHomePage = false) {
     await netAreaGenerator.generateNetArea(scraped_website, isHomePage)
 
     console.log(`generating assets for map and remapping tiles`)
-    let generated_tiles = await generateNetAreaAssets(netAreaGenerator, path_generated_tiles,color_scheme)
+    let generated_tiles = await generateNetAreaAssets(netAreaGenerator, path_generated_tiles,hostname,color_scheme)
 
     console.log('exporting map TMX...')
     let mapExporter = new TiledTMXExporter()
