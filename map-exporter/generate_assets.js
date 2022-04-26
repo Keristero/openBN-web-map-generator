@@ -24,6 +24,7 @@ function generate_warp_tile(base_color, side_color, color, hostname,depth) {
     let tile_output_path = path.join('.','onb-server','assets','domain',hostname, name+ '.png')
     let write_tsx_path = path.join('.','onb-server','assets','domain',hostname, name + '.tsx')
     let relative_tsx_path = `../assets/domain/${hostname}/link.tsx`
+    tile_options.is_warp = true
     //if (!fs.existsSync(write_tsx_path)) {
         //Only create tile if a matching one does not already exist
         create_warp_base_png(tile_options, tile_output_path)
@@ -121,6 +122,15 @@ async function generateTSX(tsx_path, tile_name, tile_options,align="bottom") {
                 <property name="Direction" value="${tile_options.stair_type}"/>
             </properties>
         </tile>`
+    }
+    if(tile_options.is_warp){
+        doc+=`<tile id="0">
+        <objectgroup draworder="index" id="2">
+         <object id="1" x="32" y="8.5">
+          <polygon points="0,0 -16,8.5 0,17 16,8.5"/>
+         </object>
+        </objectgroup>
+       </tile>`
     }
     doc +=`<tileoffset x="0" y="${tile_options.tile_height+tile_options.extra_v_offset}"/>
     <image source="./${tile_name}.png" width="64" height="48"/>

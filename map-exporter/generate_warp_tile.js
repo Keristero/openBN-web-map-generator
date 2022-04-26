@@ -91,7 +91,8 @@ function draw_warp_tile(ctx, px, py, xSize, ySize, lineWidth, base_color, side_c
 //Warp Active
 
 function create_warp_active_png(tile_options, out_path) {
-    let canvas = draw_warp_tile_on_canvas(tile_options)
+    console.log(`creating warp active png`,tile_options)
+    let canvas = draw_warp_active_on_canvas(tile_options)
     let out = fs.createWriteStream(out_path)
     let stream = canvas.createPNGStream()
     stream.pipe(out)
@@ -144,7 +145,7 @@ async function draw_warp_active(ctx, px, py, xSize, ySize, glow_color,favicon_im
     ctx.drawImage(favicon_img,pad_back.x-pad_back.y-(pad_depth*1),-pad_back.y-(pad_depth*1),16+4,16+4)
 
     ctx.globalCompositeOperation = 'source-over'
-    ctx.globalAlpha = 0.05;
+    ctx.globalAlpha = 0.1;
     draw_glow(ctx,10,hw,0,hh+4)
     ctx.globalAlpha = 1;
 
@@ -200,4 +201,4 @@ function drawReflection(ctx,layers,x,y,ySize,xSize,hh) {
     }
 }
 
-module.exports = {create_warp_base_png}
+module.exports = {create_warp_base_png,create_warp_active_png}

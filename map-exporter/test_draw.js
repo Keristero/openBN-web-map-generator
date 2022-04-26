@@ -1,10 +1,9 @@
 const { loadImage } = require('canvas')
-const {create_warp_base_png} = require('./generate_warp_tile.js')
+const {create_warp_base_png,create_warp_active_png} = require('./generate_warp_tile.js')
 
-let test_favicon_path = '../onb-server/assets/domain/www.capcomusa.com/favicon.png'
+let test_favicon_path = '../onb-server/assets/domain/twitter.com/favicon.png'
 
 async function main(){
-    let favicon = 'test'//await loadImage(test_favicon_path)
     let tile_options = {
         width: 64,
         length: 32,
@@ -14,9 +13,19 @@ async function main(){
         side_color:'rgba(100,100,100,0.9)',
         color:'rgba(200,50,50)',
         stair_type:"Down Left",
-        favicon:favicon
     }
     create_warp_base_png(tile_options,"./test.png")
 }
 
-main()
+async function draw_warp_active(){
+    let favicon = await loadImage(test_favicon_path)
+    let tile_options = {
+        width: 64,
+        length: 32,
+        glow_color:'rgba(255,255,255,1)',
+        favicon:favicon
+    }
+    create_warp_active_png(tile_options,"./test.png")
+}
+
+draw_warp_active()

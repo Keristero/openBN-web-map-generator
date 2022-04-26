@@ -9,7 +9,9 @@ const scrape = require('./scrape_and_convert.js')
 const { replaceBackslashes, RNG} = require('./helpers.js')
 const {generateBackgroundForWebsite} = require('./background-generator/main.js')
 const {generate_color_scheme_from_image} = require('./map-exporter/color_scheme_generator.js')
+const {create_warp_active_png} = require('./map-exporter/generate_warp_tile.js')
 const crypto = require('crypto')
+const { loadImage } = require('canvas')
 const url = require('url')
 const songs = [
     'boundless-network.ogg',
@@ -42,6 +44,7 @@ async function generate(site_url, isHomePage = false) {
     //Paths for final outputs
     let path_generated_map = path.join(path_onb_server, 'areas', `${hashed_url}.tmx`)
     let path_generated_tiles = path.join(path_onb_server, 'assets', 'generated')
+    let path_active_warp_image = path.join(path_domain_assets,'warp_active.png')
     let path_music = path.join('assets', 'shared', 'music')
     let relative_server_music_path = path_music.substring(path_music.indexOf('/') + 1)
     let relative_server_map_path = replaceBackslashes(path_generated_map)
@@ -87,6 +90,14 @@ async function generate(site_url, isHomePage = false) {
             if(based_color_scheme){
                 color_scheme = based_color_scheme
             }
+            let favicon = await loadImage(favicon_path)
+            let tile_options = {
+                width: 64,
+                length: 32,
+                glow_color:'rgba(255,255,255,1)',
+                favicon:favicon
+            }
+            create_warp_active_png(tile_options,path_active_warp_image)
         }catch(e){
             console.log('Favicon not found...',e)
             site_properties['Background'] = 'misc'
