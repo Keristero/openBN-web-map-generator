@@ -143,8 +143,8 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles,host
     //Generate random base and side colors
     let base_color = color_scheme[0].color
     let side_color = color_scheme[1].color
-    let path_depth = random.Integer(1,3)*8
-    let room_tile_depth = random.Integer(1,8)*8
+    let path_depth = random.Integer(1,2)*8
+    let room_tile_depth = random.Integer(1,4)*8
 
     //generate generic tiles
     let newTileID = 2

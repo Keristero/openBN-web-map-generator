@@ -90,8 +90,13 @@ function draw_warp_tile(ctx, px, py, xSize, ySize, lineWidth, base_color, side_c
 
 //Warp Active
 
-function create_warp_active_png(tile_options, out_path) {
-    console.log(`creating warp active png`,tile_options)
+function create_warp_active_png(favicon,glow_color, out_path) {
+    let tile_options = {
+        width: 64,
+        length: 32,
+        glow_color:glow_color,
+        favicon:favicon
+    }
     let canvas = draw_warp_active_on_canvas(tile_options)
     let out = fs.createWriteStream(out_path)
     let stream = canvas.createPNGStream()
@@ -140,10 +145,10 @@ async function draw_warp_active(ctx, px, py, xSize, ySize, glow_color,favicon_im
     let padPoints = [pad_back, pad_right, pad_front, pad_left, pad_back]
     drawAndFillPath(padPoints)
 
-    //now draw the left side, we can just flip for the other side
     ctx_to_isometric_transform(ctx)
-    ctx.drawImage(favicon_img,pad_back.x-pad_back.y-(pad_depth*1),-pad_back.y-(pad_depth*1),16+4,16+4)
-
+    if(favicon_img){
+        ctx.drawImage(favicon_img,pad_back.x-pad_back.y-(pad_depth*1),-pad_back.y-(pad_depth*1),16+4,16+4)
+    }
     ctx.globalCompositeOperation = 'source-over'
     ctx.globalAlpha = 0.1;
     draw_glow(ctx,10,hw,0,hh+4)

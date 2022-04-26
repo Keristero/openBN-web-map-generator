@@ -221,7 +221,7 @@ class TiledTMXExporter {
         const doc = create({ version: '1.0' }, this.xmlJSON).end({
             prettyPrint: true,
         })
-        writeFile(path, doc)
+        await writeFile(path, doc)
         return this.assets
     }
 }

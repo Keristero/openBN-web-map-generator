@@ -32,7 +32,7 @@ class LinkFeature extends Feature {
     static tsxTileCount = 6
     constructor(x, y, z, feature, properties) {
         super(x, y, z, properties)
-        this.type = 'link'
+        this.type = 'Custom Warp'
         this.width = 64
         this.height = 34
         let newProperties = {
@@ -67,7 +67,11 @@ class BackLinkFeature extends HomeWarpFeature {
     static tsxTileCount = 6
     constructor(x, y, z, feature, properties) {
         super(x, y, z, feature, properties)
-        this.type = 'back_link'
+        this.type = 'Custom Warp'
+        let newProperties = {
+            is_back_link: 1
+        }
+        Object.assign(this.properties, newProperties)
     }
 }
 

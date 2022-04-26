@@ -1,62 +1,116 @@
 local json = require('scripts/ezlibs-scripts/json')
 local ezlisteners = require('scripts/ezlibs-scripts/ezlisteners')
 
-local currently_generating = {}
 local player_last_warp_info = {}
+local area_warps_active = {}
+local link_to_tmx = {}
 local existing_areas = Net.list_areas()
 for index, value in ipairs(existing_areas) do
     print("existing area", index, value)
 end
 
+local websites_being_generated = {}
+local website_generation_queue = {}
+local max_generated_at_time = 10
+
 local lib = {}
 
-function lib.handle_object_interaction(player_id, object_id, button)
-    print('player interacted', player_id, object_id)
+function lib.handle_custom_warp(player_id, object_id)
     local area_id = Net.get_player_area(player_id)
     local link_object = Net.get_object_by_id(area_id, object_id)
-    --Only check 'link' interactions
-    if link_object.type == "link" or link_object.type == "back_link" then
-        on_link_interaction(player_id, link_object)
-    end
-end
-
-function map_is_already_loaded(map_id)
-    Net.has_asset(server_path)
-end
-
-function on_link_interaction(player_id, link_object)
-    --TODO insert check here to see if the map is already loaded
-    local current_area_id = Net.get_player_area(player_id)
-
-    --check if map is already being generated
-    if currently_generating[link_object.id] then
-        print("[hyperlinks] already generating this area....")
-        Net.message_player(player_id, link_object.custom_properties.text .. " is being generated...")
+    local url = link_object.custom_properties['link']
+    local is_back_link = link_object.custom_properties['is_back_link']
+    if is_back_link then
+        local last_warp_info = player_last_warp_info[area_id][player_id]
+        transfer_player_from_warp_to_warp(player_id, area_id, last_warp_info.area_id, link_object.id, last_warp_info.warp_id, true)
         return
     end
-    currently_generating[link_object.id] = true
+    if url then
+        --if the warp is inactive, warp the player back to where they were
+        if not area_warps_active[area_id] or not area_warps_active[area_id][link_object.id] then
+            print("[hyperlinks] warp not active yet")
+            Net.message_player(player_id, "The next area is offline")
+            local direction = link_object.custom_properties['Direction']f
+            Net.transfer_player(player_id, area_id, true, link_object.x, link_object.y, link_object.z, direction)
+            return
+        end
 
+        --get link details
+        local target_area_id = area_warps_active[area_id][link_object.id]
+
+        --transfer player
+        local target_area_properties = Net.get_area_custom_properties(target_area_id)
+        transfer_player_from_warp_to_warp(player_id, area_id, target_area_id, link_object.id, target_area_properties.entry_warp_id, false)
+    end
+end
+
+function lib.handle_player_transfer(player_id)
+    print('[hyperlinks] handle player transfer',player_id)
+    local area_id = Net.get_player_area(player_id)
+    prepare_all_warps_in_area(area_id)
+end
+
+function lib.handle_player_join(player_id)
+    print('[hyperlinks] handle player join',player_id)
+    local area_id = Net.get_player_area(player_id)
+    prepare_all_warps_in_area(area_id)
+end
+
+
+function prepare_all_warps_in_area(area_id)
+    local objects = Net.list_objects(area_id)
+    for index, object_id in pairs(objects) do
+        local object = Net.get_object_by_id(area_id, object_id)
+        if object.custom_properties.link and object.custom_properties.text then
+            queue_hyperlink_preperation(area_id,object)
+        end
+    end
+end
+
+function tablelength(T)
+    local count = 0
+    for _ in pairs(T) do count = count + 1 end
+    return count
+end
+
+function map_is_already_loaded(asset_path)
+    return Net.has_asset(asset_path)
+end
+
+function queue_hyperlink_preperation(area_id,object)
+    table.insert(website_generation_queue,1,{area_id=area_id,object=object})
+    try_prepare_next_hyperlink_from_queue()
+end
+
+function try_prepare_next_hyperlink_from_queue()
+    local generating_currently = tablelength(websites_being_generated)
+    if generating_currently < max_generated_at_time then
+        print('generating '..generating_currently..' / '..max_generated_at_time..' maps')
+        local next_item = table.remove(website_generation_queue,1)
+        prepare_hyperlink(next_item.area_id,next_item.object)
+    end
+end
+
+ezlisteners.add_listener('new_area_added', function(area_id)
+    --add npcs to areas added while server is running
+    try_prepare_next_hyperlink_from_queue()
+end)
+
+function prepare_hyperlink(area_id,link_object)
     --get link details
     local link = link_object.custom_properties.link
     local text = link_object.custom_properties.text
-
-    --If it is a back link, overwrite destination link to previous url the player was at
-    if link_object.type == "back_link" then
-        local last_warp_info = player_last_warp_info[current_area_id][player_id]
-        currently_generating[link_object.id] = false
-        transfer_player_from_warp_to_warp(player_id, current_area_id, last_warp_info.area_id, link_object.id, last_warp_info.warp_id, true)
+    --Generate a map
+    if websites_being_generated[link] then
+        print('[hyperlinks] '..link..' is already being generated...')
         return
     end
-
-    --Generate a map
+    websites_being_generated[link] = true
     Async.promisify(coroutine.create(function()
-        Net.message_player(player_id, "going to " .. link_object.custom_properties.text)
-        local generate_map_promise = generate_linked_map(player_id, link, text)
+        local generate_map_promise = generate_linked_map(link, text)
         local area_info = Async.await(generate_map_promise)
         if area_info.status ~= "ok" then
             print('[hyperlinks] map generation failed')
-            Net.message_player(player_id, link_object.custom_properties.text .. " failed to generate")
-            currently_generating[link_object.id] = nil
             return
         end
         print('[hyperlinks] received map info ' .. area_info.area_path)
@@ -75,17 +129,18 @@ function on_link_interaction(player_id, link_object)
 
             local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
 
+
             print("[hyperlinks] loading assets...")
             local tilesheet_promises = {}
+
             local end_characters = string.len("background.png")
-            warp_active_texture_server_path = string.sub(n_area_properties["Background Texture"], 0, string.len(n_area_properties["Background Texture"]) - end_characters)
+            local warp_active_texture_server_path = string.sub(n_area_properties["Background Texture"], 0, string.len(n_area_properties["Background Texture"]) - end_characters)
             warp_active_texture_server_path = warp_active_texture_server_path .."warp_active.png"
             local background_texture_relative_path = n_area_properties["Background Texture"]:gsub("/server/", "./")
             local background_animation_relative_path = n_area_properties["Background Animation"]:gsub("/server/", "./")
 
             local warp_active_texture_relative_path = warp_active_texture_server_path:gsub("/server/", "./")
 
-            print("warp active path = " .. warp_active_texture_server_path)
             tilesheet_promises[#tilesheet_promises + 1] = load_asset_promise(background_texture_relative_path)
             tilesheet_promises[#tilesheet_promises + 1] = load_asset_promise(background_animation_relative_path)
             tilesheet_promises[#tilesheet_promises + 1] = load_asset_promise(warp_active_texture_relative_path)
@@ -94,15 +149,24 @@ function on_link_interaction(player_id, link_object)
             end
             Async.await_all(tilesheet_promises)
             print("[hyperlinks] loaded all assets!")
-            currently_generating[link_object.id] = nil
             ezlisteners.broadcast_event('new_area_added', area_info.area_id)
-            spawn_warp_active_overlay_bot(current_area_id, link_object, link, warp_active_texture_server_path)
         else
-            currently_generating[link_object.id] = nil
-            print('[hyperlinks] area already existed, transfering right away ' .. area_info.area_path)
+            print('[hyperlinks] area already existed' .. area_info.area_path)
         end
-        local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
-        transfer_player_from_warp_to_warp(player_id, current_area_id, area_info.area_id, link_object.id, n_area_properties.entry_warp_id, false)
+        if not area_warps_active[area_id] then
+            area_warps_active[area_id] = {}
+        end
+        websites_being_generated[link] = nil
+        --if the warp is not already active, spawn a bot and activate it
+        if not area_warps_active[area_id][link_object.id] then
+            --link to area mapping, 
+            local n_area_properties = Net.get_area_custom_properties(area_info.area_id)
+            local end_characters = string.len("background.png")
+            local warp_active_texture_server_path = string.sub(n_area_properties["Background Texture"], 0, string.len(n_area_properties["Background Texture"]) - end_characters)
+            warp_active_texture_server_path = warp_active_texture_server_path .."warp_active.png"
+            area_warps_active[area_id][link_object.id] = area_info.area_id
+            spawn_warp_active_overlay_bot(area_id, link_object, link, warp_active_texture_server_path)
+        end
     end))
 end
 
@@ -110,11 +174,6 @@ function spawn_warp_active_overlay_bot(area_id, link_object, link_url, warp_over
     local bot_name = link_url
     local static_anim_path = '/server/assets/shared/objects/link_overlay_bot.animation'
     local bot_info = { name=bot_name, area_id=area_id, warp_in=false, texture_path=warp_overlay_texture_path, animation_path=static_anim_path, x=link_object.x, y=link_object.y, z=link_object.z}
-    print(bot_info.name)
-    print(bot_info.area_id)
-    print(bot_info.warp_in)
-    print(bot_info.texture_path)
-    print(bot_info.animation_path)
     Net.create_bot(bot_info) -- bot_id
 end
 
@@ -147,12 +206,11 @@ function transfer_player_from_warp_to_warp(player_id, from_area_id, to_area_id, 
     Net.transfer_player(player_id, to_area_id, true, destination_warp.x, destination_warp.y, destination_warp.z, destination_warp.custom_properties.Direction)
 end
 
-function generate_linked_map(player_id, link, text)
+function generate_linked_map(link, text)
     local url = "http://localhost:3000"
     local headers = {}
     headers["Content-Type"] = "application/json"
     local body = {
-        player_id = player_id,
         link = link,
         text = text
     }
@@ -165,14 +223,13 @@ function generate_linked_map(player_id, link, text)
 
     -- Create coroutine which awaits request response
     local co = coroutine.create(function()
-        print('requesting')
         local response = Async.await(request_promise)
-        print('got response')
-        print(response.body)
         local data = json.decode(response.body)
         return data
     end)
     return Async.promisify(co)
 end
+
+print('[hyperlinks] loaded')
 
 return lib

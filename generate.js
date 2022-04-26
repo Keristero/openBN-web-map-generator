@@ -81,6 +81,7 @@ async function generate(site_url, isHomePage = false) {
     console.log('scraped site',scraped_website)
 
     let color_scheme = random.color_scheme(10)
+    let favicon
 
     if (!isHomePage) {
         console.log(`generating background animation`)
@@ -90,14 +91,7 @@ async function generate(site_url, isHomePage = false) {
             if(based_color_scheme){
                 color_scheme = based_color_scheme
             }
-            let favicon = await loadImage(favicon_path)
-            let tile_options = {
-                width: 64,
-                length: 32,
-                glow_color:'rgba(255,255,255,1)',
-                favicon:favicon
-            }
-            create_warp_active_png(tile_options,path_active_warp_image)
+            favicon = await loadImage(favicon_path)
         }catch(e){
             console.log('Favicon not found...',e)
             site_properties['Background'] = 'misc'
@@ -106,6 +100,10 @@ async function generate(site_url, isHomePage = false) {
         site_properties['Background'] = 'misc'
     }
     console.log('FINAL COLOR SCHEME',color_scheme)
+
+    //create the active warp tile sprite that will link to this website
+    let glow_color = 'white'
+    create_warp_active_png(favicon,glow_color, path_active_warp_image)
 
     console.log(`loading scraped data`)
     LetChildrenKnowAboutTheirParents(scraped_website)

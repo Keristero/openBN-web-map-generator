@@ -10,7 +10,7 @@ const {generate_image_board} = require('./map-exporter/generate_image_board.js')
 const e = require('express')
 
 const minimum_importance = 1
-const minimum_children = 5
+const minimum_children = 4
 const minimum_text_length = 30
 const maximum_text_length = 500
 const tag_blacklist = ["SCRIPT","STYLE","SVG"]
