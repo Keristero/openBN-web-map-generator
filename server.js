@@ -4,6 +4,7 @@ const generate = require('./generate')
 const { asyncSleep } = require('./helpers')
 const { unlink } = require('fs/promises')
 const { resolve } = require('path')
+const process = require('process')
 
 const app = express()
 //For parsing json bodies
@@ -11,7 +12,7 @@ app.use(express.json())
 //Serve home page
 app.use(express.static('home-page'))
 
-const web_server_port = 3000
+const web_server_port = parseInt(process.argv[2]) || 3000
 const net_square_url = `http://localhost:${web_server_port}`//`http://localhost:${web_server_port}`
 const default_area_path = `areas/default.tmx`
 
@@ -40,7 +41,7 @@ app.post('/', async function (req, res) {
 
 app.listen(web_server_port)
 
-async function main() {
+async function test() {
     await asyncSleep(2000)
     try{
         await unlink(resolve('onb-server/'+default_area_path))
@@ -50,4 +51,4 @@ async function main() {
     await generate(net_square_url, true)
 }
 
-main()
+test()

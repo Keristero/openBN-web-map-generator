@@ -30,7 +30,7 @@ function lib.handle_custom_warp(player_id, object_id)
         if not area_warps_active[area_id] or not area_warps_active[area_id][link_object.id] then
             print("[hyperlinks] warp not active yet")
             Net.message_player(player_id, "The next area is offline")
-            local direction = link_object.custom_properties['Direction']f
+            local direction = link_object.custom_properties['Direction']
             Net.transfer_player(player_id, area_id, true, link_object.x, link_object.y, link_object.z, direction)
             return
         end
@@ -84,10 +84,13 @@ end
 
 function try_prepare_next_hyperlink_from_queue()
     local generating_currently = tablelength(websites_being_generated)
+    local queue_length = tablelength(website_generation_queue)
+    print('generating '..generating_currently..' / '..max_generated_at_time..' maps, '..queue_length..' in queue')
     if generating_currently < max_generated_at_time then
-        print('generating '..generating_currently..' / '..max_generated_at_time..' maps')
         local next_item = table.remove(website_generation_queue,1)
-        prepare_hyperlink(next_item.area_id,next_item.object)
+        if next_item then
+            prepare_hyperlink(next_item.area_id,next_item.object)
+        end
     end
 end
 
@@ -110,7 +113,7 @@ function prepare_hyperlink(area_id,link_object)
         local generate_map_promise = generate_linked_map(link, text)
         local area_info = Async.await(generate_map_promise)
         if area_info.status ~= "ok" then
-            print('[hyperlinks] map generation failed')
+            print('[hyperlinks] map generation failed'..link)
             return
         end
         print('[hyperlinks] received map info ' .. area_info.area_path)
@@ -173,7 +176,8 @@ end
 function spawn_warp_active_overlay_bot(area_id, link_object, link_url, warp_overlay_texture_path)
     local bot_name = link_url
     local static_anim_path = '/server/assets/shared/objects/link_overlay_bot.animation'
-    local bot_info = { name=bot_name, area_id=area_id, warp_in=false, texture_path=warp_overlay_texture_path, animation_path=static_anim_path, x=link_object.x, y=link_object.y, z=link_object.z}
+    local offset_to_fix_sorting = 1/32
+    local bot_info = { name=bot_name, area_id=area_id, warp_in=false, texture_path=warp_overlay_texture_path, animation_path=static_anim_path, x=link_object.x+offset_to_fix_sorting, y=link_object.y+offset_to_fix_sorting, z=link_object.z}
     Net.create_bot(bot_info) -- bot_id
 end
 
@@ -214,6 +218,7 @@ function generate_linked_map(link, text)
         link = link,
         text = text
     }
+    print('generating '..link)
 
     local request_promise = Async.request(url, {
         method = "post",

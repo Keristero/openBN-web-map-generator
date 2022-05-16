@@ -1,0 +1,58 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <script>
+            let canvas = document.getElementById('canvas')
+            let ctx = canvas.getContext('2d')
+            let grid_width = 5
+            let grid_length = 5
+            let grid_height = 1
+            let current_layer = 0
+            
+            let grid = generate3dMatrix(grid_width,grid_length,grid_height,0)
+            draw_matrix(grid)
+            function generate3dMatrix(width, length, height, defaultValue = 0) {
+                let matrix = []
+                for (var z = 0; z < height; z++) {
+                    matrix.push([])
+                    for (var y = 0; y < length; y++) {
+                        matrix[z].push([])
+                        for (var x = 0; x < width; x++) {
+                            matrix[z][y].push(defaultValue)
+                        }
+                    }
+                }
+                return matrix
+            }
+            function draw_matrix(grid){
+                let cell_size = 32
+                let iterator2d = iterateOverGrid(grid[current_layer])
+                ctx.strokeStyle = 'black'
+                ctx.fillStyle = "white"
+                for(let {x,y} of iterator2d){
+                    ctx.fillRect(x*cell_size,y*cell_size,cell_size,cell_size)
+                    ctx.strokeRect(x*cell_size,y*cell_size,cell_size,cell_size)
+                    let out_coord = convert_to_output_coordinate({x,y})
+                    ctx.strokeText(`${out_coord.x},${out_coord.y}`,x*cell_size,y*cell_size)
+                }
+            }
+            function convert_to_output_coordinate({x,y}){
+                return {x:x-1,y:y-1}
+            }
+            function* iterateOverGrid(grid, startX = 0, startY = 0, lastX, lastY) {
+                let index = 0
+                let endY = lastY || grid.length
+                for (let y = startY; y < endY; y++) {
+                    let endX = lastX || grid[y].length
+                    for (let x = startX; x < endX; x++) {
+                        let tileID = grid[y][x]
+                        yield { tileID, x, y, index }
+                        index++
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>

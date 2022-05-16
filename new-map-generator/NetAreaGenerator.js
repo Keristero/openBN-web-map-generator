@@ -239,13 +239,12 @@ class NetAreaGenerator {
         }
     }
     calculateNewRoomLocation(room, attempts) {
-        //TODO let rooms be placed on different z layers
         let parentNode = room.node.parent
         let parentRoom = parentNode.room
-        let radius = attempts * 0.1
+        let radius = 2+(attempts * 0.5)
         let pos = this.RNG.RandomPositionOnCircumference(radius)
-        pos.x = Math.floor(parentRoom.x + parentRoom.width / 2 + (pos.x * Math.min(parentRoom.widthRatio, 1)))
-        pos.y = Math.floor(parentRoom.y + parentRoom.length / 2 + (pos.y * Math.min(parentRoom.lengthRatio, 1)))
+        pos.x = Math.floor(parentRoom.x + pos.x)
+        pos.y = Math.floor(parentRoom.y + pos.y)
         pos.z = parentRoom.z
         if (parentRoom.isStairs) {
             pos.z = parentRoom.z + parentRoom.getHighestConnectorZ()
