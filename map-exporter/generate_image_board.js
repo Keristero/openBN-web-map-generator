@@ -8,7 +8,7 @@ const path = require('path')
 const default_image_path = path.resolve('.','map-exporter','default_image.png')
 
 async function generate_image_board_image(image_data) {
-    console.log(`generate image board image with image data`,image_data)
+    //console.log(`generate image board image with image data`,image_data)
     let canvas_board = createCanvas(64, 64)
     let ctx_board = canvas_board.getContext('2d')
 
@@ -63,7 +63,7 @@ function generate_image_board(url){
         try{
             await access(generated_tsx_path)
             await access(generated_png_path)
-            console.log(`tsx and png already exists, skipping generation`,relative_tsx_path)
+            //console.log(`tsx and png already exists, skipping generation`,relative_tsx_path)
             resolve(relative_tsx_path)
             return
         }catch(e){

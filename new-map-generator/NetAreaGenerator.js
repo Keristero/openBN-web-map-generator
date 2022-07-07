@@ -70,7 +70,7 @@ class NetAreaGenerator {
         this.arr_queue = [startingNode]
         console.log(`processing node queue`)
         await this.processNodeQueue()
-        console.log(`removing walls`)
+        //console.log(`removing walls`)
         this.removeAllWalls()
         let trimmed = trim3dMatrix(this.matrix, this.id_air)
         this.width = trimmed.width

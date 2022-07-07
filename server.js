@@ -40,9 +40,10 @@ app.post('/', async function (req, res) {
 })
 
 app.listen(web_server_port)
+console.log(`generation server listening on ${web_server_port}`)
 
 async function test() {
-    await asyncSleep(2000)
+    await asyncSleep(1000)
     try{
         await unlink(resolve('onb-server/'+default_area_path))
     }catch(e){

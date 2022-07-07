@@ -25,6 +25,7 @@ const songs = [
 
 async function generate(site_url, isHomePage = false) {
     //URL of website to scrape
+    console.log('generating',site_url,'...')
     let hashed_url = crypto.createHash('sha256').update(site_url, 'utf8').digest('hex')
     let web_address = url.parse(site_url)
     let hostname = web_address.hostname
@@ -99,7 +100,7 @@ async function generate(site_url, isHomePage = false) {
     }else{
         site_properties['Background'] = 'misc'
     }
-    console.log('FINAL COLOR SCHEME',color_scheme)
+    //console.log('FINAL COLOR SCHEME',color_scheme)
 
     //create the active warp tile sprite that will link to this website
     let glow_color = 'white'

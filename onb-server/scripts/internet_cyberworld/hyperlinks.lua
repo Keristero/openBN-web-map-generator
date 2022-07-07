@@ -211,28 +211,23 @@ function transfer_player_from_warp_to_warp(player_id, from_area_id, to_area_id, 
 end
 
 function generate_linked_map(link, text)
-    local url = "http://localhost:3000"
-    local headers = {}
-    headers["Content-Type"] = "application/json"
-    local body = {
-        link = link,
-        text = text
-    }
-    print('generating '..link)
-
-    local request_promise = Async.request(url, {
-        method = "post",
-        headers = headers,
-        body = json.encode(body)
-    })
-
-    -- Create coroutine which awaits request response
-    local co = coroutine.create(function()
-        local response = Async.await(request_promise)
+    return async(function()
+        print('generating '..link)
+        local url = "http://localhost:3000"
+        local headers = {}
+        headers["Content-Type"] = "application/json"
+        local body = {
+            link = link,
+            text = text
+        }
+        local response = await(Async.request(url, {
+            method = "POST",
+            headers = headers,
+            body = json.encode(body)
+        }))
         local data = json.decode(response.body)
         return data
     end)
-    return Async.promisify(co)
 end
 
 print('[hyperlinks] loaded')

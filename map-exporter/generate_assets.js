@@ -211,7 +211,7 @@ async function generateNetAreaAssets(netAreaGenerator, path_generated_tiles,host
         }
     }
 
-    console.log('generated tiles', tiles)
+    //console.log('generated tiles', tiles)
 }
 
 module.exports = { generateNetAreaAssets }

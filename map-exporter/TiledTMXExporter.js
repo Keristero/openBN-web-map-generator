@@ -68,7 +68,7 @@ class TiledTMXExporter {
             //console.log(`[TMXExporter] added tileset ${newTilesetData['@firstgid']}:${newTilesetData['@source']}`)
         } else {
             firstgid = preexistingTileset['@firstgid']
-            console.log('there is already a tileset with a matching source', firstgid)
+            //console.log('there is already a tileset with a matching source', firstgid)
         }
         return Number(firstgid)
     }
