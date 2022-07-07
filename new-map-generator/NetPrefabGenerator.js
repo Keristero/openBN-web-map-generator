@@ -44,7 +44,7 @@ function GenerateForRequirements({ ground_features, wall_features, stairs }) {
         }
     })
     while (placed_features.stairs < stairs){
-        console.log(`placing stairs ${placed_features.stairs} / ${stairs}`)
+        //console.log(`placing stairs ${placed_features.stairs} / ${stairs}`)
         let chosen_part = parts_with_stairs[Math.floor(Math.random() * parts_with_stairs.length)]
         let new_placement_position = find_placement(chosen_part, placements, placed_features)
         place_part(chosen_part, new_placement_position, placed_features, placements)
