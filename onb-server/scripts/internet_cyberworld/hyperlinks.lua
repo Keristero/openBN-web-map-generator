@@ -1,5 +1,4 @@
 local json = require('scripts/ezlibs-scripts/json')
-local ezlisteners = require('scripts/ezlibs-scripts/ezlisteners')
 
 local player_last_warp_info = {}
 local area_warps_active = {}
@@ -94,7 +93,7 @@ function try_prepare_next_hyperlink_from_queue()
     end
 end
 
-ezlisteners.add_listener('new_area_added', function(area_id)
+Net:on("new_area_added", function(event)
     --add npcs to areas added while server is running
     try_prepare_next_hyperlink_from_queue()
 end)
@@ -152,7 +151,7 @@ function prepare_hyperlink(area_id,link_object)
             end
             Async.await_all(tilesheet_promises)
             print("[hyperlinks] loaded all assets!")
-            ezlisteners.broadcast_event('new_area_added', area_info.area_id)
+            Net:emit('new_area_added',area_info.area_id)
         else
             print('[hyperlinks] area already existed' .. area_info.area_path)
         end

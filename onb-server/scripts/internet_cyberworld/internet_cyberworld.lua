@@ -1,10 +1,9 @@
 --Logic specific to internet_cyberworld
-local ezlisteners = require('scripts/ezlibs-scripts/ezlisteners')
 local eznpcs = require('scripts/ezlibs-scripts/eznpcs/eznpcs')
 
 local lib = {}
 
-ezlisteners.add_listener('new_area_added', function(area_id)
+Net:on("new_area_added", function(area_id)
     --add npcs to areas added while server is running
     eznpcs.add_npcs_to_area(area_id)
 end)

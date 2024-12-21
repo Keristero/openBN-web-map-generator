@@ -10,6 +10,7 @@ const {generate_image_board} = require('./map-exporter/generate_image_board.js')
 const e = require('express')
 
 const minimum_importance = 1
+const maximum_total_importance = 150
 const minimum_children = 4
 const minimum_text_length = 30
 const maximum_text_length = 500
@@ -155,7 +156,13 @@ async function parse_feature_attributes(feature_collection,node){
 
 async function scrape(url, outputPath) {
     let document = await scraper(url)
-    document = cull_unwanted_nodes(document,tag_blacklist,minimum_importance,minimum_children)
+    let result = cull_unwanted_nodes(document,tag_blacklist,minimum_importance,minimum_children,maximum_total_importance)
+    while(result.nodes_removed > 100){
+        console.log(`nodes removed = ${result.nodes_removed}`)
+        result = cull_unwanted_nodes(result.document,tag_blacklist,minimum_importance,minimum_children,maximum_total_importance)
+    }
+    document = result.document
+
     //expected output
     let example = {
         features:{
