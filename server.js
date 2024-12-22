@@ -16,6 +16,15 @@ const web_server_port = parseInt(process.argv[2]) || 3000
 const net_square_url = `http://localhost:${web_server_port}`//`http://localhost:${web_server_port}`
 const default_area_path = `areas/default.tmx`
 
+function timeoutPromise(promise, milliseconds) {
+    return Promise.race([
+        promise,
+        new Promise((_, reject) => {
+            setTimeout(() => reject(new Error(`Operation timed out after ${milliseconds}ms`)), milliseconds);
+        })
+    ]);
+}
+
 //Generate maps on demand
 app.post('/', async function (req, res) {
     console.log(req.body)
@@ -26,7 +35,8 @@ app.post('/', async function (req, res) {
             response = { status: 'ok', area_id: 'default', area_path: 'areas/default.tmx', fresh: false, assets: [] }
         } else {
             try {
-                let { area_id, area_path, assets, fresh } = await generate(req?.body?.link)
+                let generate_promise = generate(req?.body?.link)
+                let { area_id, area_path, assets, fresh } = await timeoutPromise(generate_promise,60000)
                 response = { status: 'ok', area_id, area_path, fresh, assets }
             } catch (e) {
                 console.error(e)
@@ -44,10 +54,10 @@ console.log(`generation server listening on ${web_server_port}`)
 
 async function test() {
     await asyncSleep(1000)
-    try{
-        await unlink(resolve('onb-server/'+default_area_path))
-    }catch(e){
-        console.log('cant unlink ',resolve('onb-server/'+default_area_path))
+    try {
+        await unlink(resolve('onb-server/' + default_area_path))
+    } catch (e) {
+        console.log('cant unlink ', resolve('onb-server/' + default_area_path))
     }
     await generate(net_square_url, true)
 }

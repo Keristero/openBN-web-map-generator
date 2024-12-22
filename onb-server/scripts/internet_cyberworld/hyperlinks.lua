@@ -93,11 +93,6 @@ function try_prepare_next_hyperlink_from_queue()
     end
 end
 
-Net:on("new_area_added", function(event)
-    --add npcs to areas added while server is running
-    try_prepare_next_hyperlink_from_queue()
-end)
-
 function prepare_hyperlink(area_id,link_object)
     --get link details
     local link = link_object.custom_properties.link
@@ -113,7 +108,8 @@ function prepare_hyperlink(area_id,link_object)
         local area_info = Async.await(generate_map_promise)
         if area_info.status ~= "ok" then
             print('[hyperlinks] map generation failed'..link)
-            return
+            websites_being_generated[link] = nil
+            return try_prepare_next_hyperlink_from_queue()
         end
         print('[hyperlinks] received map info ' .. area_info.area_path)
 
@@ -153,12 +149,11 @@ function prepare_hyperlink(area_id,link_object)
             print("[hyperlinks] loaded all assets!")
             Net:emit('new_area_added',area_info.area_id)
         else
-            print('[hyperlinks] area already existed' .. area_info.area_path)
+            print('[hyperlinks] area already existed ' .. area_info.area_path)
         end
         if not area_warps_active[area_id] then
             area_warps_active[area_id] = {}
         end
-        websites_being_generated[link] = nil
         --if the warp is not already active, spawn a bot and activate it
         if not area_warps_active[area_id][link_object.id] then
             --link to area mapping, 
@@ -169,6 +164,8 @@ function prepare_hyperlink(area_id,link_object)
             area_warps_active[area_id][link_object.id] = area_info.area_id
             spawn_warp_active_overlay_bot(area_id, link_object, link, warp_active_texture_server_path)
         end
+        websites_being_generated[link] = nil
+        return try_prepare_next_hyperlink_from_queue()
     end))
 end
 

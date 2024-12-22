@@ -1,0 +1,18 @@
+{
+    "listservers":{
+        "main":"https://www.keristero.xyz/server_list/"
+    },
+    "advertisements":[
+        {
+            "unique_server_id":"www_server",
+            "name":"WWW Server",
+            "description":"Experimental world wide web exploration server, maps are generated from real website html",
+            "tags":["demo"],
+            "address":"keristero.xyz:8767",
+            "data":"",
+            "icon":"www.png",
+            "color":"rgb(50,200,50)",
+            "advertise_map":false
+        }
+    ]
+}
